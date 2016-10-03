@@ -20,7 +20,6 @@ type: sub-section
 5. Application of maxSPRT to Finnish register data
 
 
-
 <!-- Stages and goals of safety surveillance -->
 
 
@@ -40,7 +39,7 @@ An adverse event is defined as an untoward medical occurrence in a patient admin
 - Therefore there is an incentive to monitor the safety of a drug post-licensure  
 - This monitoring is called safety surveillance
 
- <div align="center"> <img src = "monitoring.jpeg" height=160> </div>
+ <div align="center"> <img src = "pics/monitoring.jpeg" height=160> </div>
 
 
 Safety surveillance
@@ -82,7 +81,7 @@ A natural goal of safety surveillance is to minimize false positive and false ne
 - Since observations are unwanted events, another natural goal is to minimize the expected sample size
 - Usually more samples lead to fever errors (higher power)...
 
-  <div align="center"> <img src = "power_N.jpeg" height = 200> </div>
+  <div align="center"> <img src = "pics/power_N.jpeg" height = 200> </div>
   
 
 How to achieve the goals?
@@ -391,7 +390,7 @@ Exploring the properties of maxSPRT
 ===================================================
 incremental: false
 
-You can experiment with the performance of maxSPRT with the [maxSPRT Shiny-app](http://shiny.app.thl.fi/maxSPRT/), available in the THL intranet
+You can experiment with the performance of maxSPRT with the [maxSPRT Shiny-app](http://shiny.app.thl.fi/maxSPRT/), available in the THL intranet.
 
 - Binomial and Poisson models
 - Computations for power and expected time to signal for user defined target populations
@@ -399,7 +398,7 @@ You can experiment with the performance of maxSPRT with the [maxSPRT Shiny-app](
 
 <a href="http://shiny.app.thl.fi/maxSPRT/" target = "_blank"><div align="center">
 
-<img src= "shiny.png" height = 250px>
+<img src= "pics/shiny.png" height = 250px>
 
 </div></a>
 
