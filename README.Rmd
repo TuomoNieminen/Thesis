@@ -1,0 +1,7 @@
+## Safety signal refinement
+
+This reposition will contain the writing and other work related to the statistics masters thesis of Tuomo Nieminen. The thesis is for the University of Helsinki and the National Health and Wellfare Institute of Finland (THL).
+
+### Presentation
+
+For a presentation of the subject of the thesis, see [here](https://tuomonieminen.github.io/Thesis/)
