@@ -3,10 +3,12 @@
 
 <!-- Intro -->
 
-Safety surveillance and signal refinement
+Vaccine safety surveillance and signal refinement
 ===================================================
 transition: rotate
 incremental: true
+
+Tuomo A. Nieminen
 
 
 Table of contents
