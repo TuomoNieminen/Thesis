@@ -1,6 +1,8 @@
-## Safety signal refinement
+## Vaccine safety surveillance
 
 This reposition will contain the writing and other work related to the statistics masters thesis of Tuomo Nieminen. The thesis is for the University of Helsinki and the National Health and Wellfare Institute of Finland (THL).
+
+For more information see the presentation.
 
 ### Presentation
 
