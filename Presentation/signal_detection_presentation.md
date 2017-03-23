@@ -3,270 +3,274 @@
 
 <!-- Intro -->
 
-Vaccine safety surveillance and signal refinement
+Vaccine safety surveillance
 ===================================================
 transition: rotate
 incremental: true
+autosize: true
 
-Tuomo A. Nieminen
-
+Tuomo Nieminen 2017
 
 Table of contents
 ===================================================
 type: sub-section
 
-1. Stages and goals of safety surveillance
+1. Introduction to safety surveillance
 2. Study designs
-3. Sequential hypothesis tests
-4. Safety surveillance methods (maxSPRT)
-5. Application of maxSPRT to Finnish register data
+3. Decision rules
+4. Methods (B-maxSPRT)
+5. Application of B-maxSPRT to Finnish register data
+
 
 
 <!-- Stages and goals of safety surveillance -->
 
 
-1: Stages and goals of safety surveillance
+Introduction to safety surveillance
 ===================================================
 type: sub-section
 
-Generating, refining and confirming information
+Identifying, refining and confirming information
 
 
 Drug safety
 ===================================================
 
-An adverse event is defined as an untoward medical occurrence in a patient administered a pharmaceutical product.
+An adverse event is an untoward medical occurrence in a patient administered a pharmaceutical product.
 
 - Rare adverse events related to drugs are often impossible to detect in pre-licensure studies
 - Therefore there is an incentive to monitor the safety of a drug post-licensure  
-- This monitoring is called safety surveillance
+- This monitoring is called safety surveillance  
 
- <div align="center"> <img src = "pics/monitoring.jpeg" height=160> </div>
+ <div align="center"> <img src = "monitoring.jpeg" height=160> </div>
 
 
-Safety surveillance
+Stages of safety surveillance
 ===================================================
 
-Safety surveillance involves generating, refining and confirming information of possible causal relationships between exposure and event pairs.
+The information related to a possible causal relationship between a drug and an adverse event is called a safety signal (signal).  
 
-- Such information are called safety signals
-- Here, the exposure of interest is a **vaccine** product and the events are some unwanted medical conditions (adverse events)
-- Surveillance is preferably done in real time and with methods which minimize errors and the sample size
-
-
-Three stages of surveillance
-===================================================
-
-Post-licensure safety aims can be classified into three stages:
+Post-licensure safety aims related to drugs can be classified into three stages (Nelson 2015):
 
 1. **Signal identification**: Involves detecting unexpected adverse events and considers a large number of events
 2. **Signal refinement**: Attempts to address a few specified hypothesis about suspected product-event pairs based on biological plausibility
 3. **Signal confirmation**:  Involves a more in depth follow-up of a generated signal
 
-We will concentrate on **signal refinement**.
 
-Focus on the refinement stage
+The type of surveillance
 ===================================================
+A safety surveillance method is a combination of data collection, study design and decision rules for generating signals.  
 
-A signal is information of a **possible** causal relationship between the exposure and the event.
-
-- We will focus on safety surveillance in the signal refinement stage from a **methodological point of view** and assume that a biologically plausible exposure - event pair is already given
-- The goal is to design a study and test for a statistical association between the exposure and the event. A signal is generated if an association is found.
-- A safety surveillance method is a combination of data collection, study design and statistical hypothesis test(s)
-
+- In this presentation, the medical product of interest is a vaccine product  
+- I will consider situations where accumulating (register) data can be used and near real-time surveillance is possible
+- I will focus on the signal refinement stage and assume that a biologically plausible exposure-event pair is already identified
+- I will present possible epidemiological study designs and a powerful statistical hypothesis testing method to derive decision rules for signal generation
 
 Goals related to safety surveillance
 ===================================================
 
-A natural goal of safety surveillance is to minimize false positive and false negative signals
-- In statistical terms, minimizing false negatives is equivalent to maximizing power
-- Since observations are unwanted events, another natural goal is to minimize the expected sample size
-- Usually more samples lead to fever errors (higher power)...
+Natural goals related to safety surveillance are to:
 
-  <div align="center"> <img src = "pics/power_N.jpeg" height = 200> </div>
+- control the expected rate of false positive and false negative signals
+- generate a signal as soon as possible, if an association between the vaccine and the adverse event exists.
+
+Usually more samples (longer surveillance) leads to fever errors (higher power)...
+
+<div align="center"> <img src="power_N.jpeg" height=200></div>
   
 
 How to achieve the goals?
 ===================================================
-The goal is to minimize the errors and the sample size, but usually less samples lead to more errors. Things to concider:
 
-- The study design should avoid biases in the sample to minimize errors
-- The statistical test should make it possible to stop early if there is enough evidence of an association, while simultaniously keeping the error rates low
+**Study design**  
+Utilizing a case-only (self-controlled) study designs can help to avoid biases and improve control over the error rates.
 
-A solution is to use real-time monitoring and **sequential testing** where a hypothesis test is performed as often as possible. **Self-controlled study designs** can help to avoid biases.
+**Decision rules**  
+Sequential hypothesis testing can achieve the goal of minimizing the expected sample size for given error rates.  
+
+**Methods**  
+The maxSPRT is a sequential hypothesis testing method designed for vaccine safety surveillance. B-maxSPRT is based on a self-controlled study design. 
 
 
 
 <!-- Study designs -->
 
 
-2: Study designs
+Study designs
 ===================================================
 type: sub-section
 
-  Avoid a biased sample
+Avoid a biased sample
 
 
 Options
 ===================================================
 
-The following study designs could in theory be concidered for safety surveillance:
+The following study designs could be considered for safety surveillance:
 
-- **Cohort**: Groups of exposed and non-exposed individuals are followed forward in time. Incidences of events are compared between the groups.
-- **Case-control**: Individuals with events are matched to individuals without events using variables such as age and gender. Proportions of exposure are compared.
-- **Self controlled**: For each exposed individual, a risk interval and a non-risk interval is defined. Incidences during the intervals are compared
+1. **Cohort design**: Groups of exposed and non-exposed individuals are followed forward in time. Incidences of events are compared between the groups.
+2. **Case-control design**: Individuals with events are matched to individuals without events. Proportions of exposure are compared between the matches.
+3. **Case-only designs**: Individuals with events are self-matched using risk and nonrisk intervals to define cases and controls. 
 
-
-Self-controlled designs: an example
-===================================================
-
-- In self-controlled designs, the assignment to the case or control group depends on the time of the event
-- Events during a risk period are classified as cases and events during a non-risk period as controls
-- The case-crossover design (CCR) is a simple example of a self-controlled design
-
-
-***
-
-![plot of chunk unnamed-chunk-1](signal_detection_presentation-figure/unnamed-chunk-1-1.png)
-
+The major weakness of the cohort and case-control designs is that confounders can affect the probability of exposure and result in bias.  
 
 The study design matters
 ===================================================
 
-Recent safety surveillance studies have generated multiple **false** positive signals (signals that could not be confirmed), due to:
+Recent vaccine safety surveillance efforts have generated multiple false positive signals (signals that could not be confirmed), due to:
 
-1. **changes in coding**
+1. **changes in diagnosis coding**
 2. **inappropriate control groups**
 3. **uncertainty or changes in baseline incidence**
 4. **Type I errors**.
   
-Reason 4 relates to the statistical method used. Reasons 1-3 relate to the study design and they can be avoided with a self-controlled design.
+Reason 4 relates to the statistical method used. Reasons 1-3 relate to the study design and they can in theory be avoided with a case-only design.
 
-
-Self controlled designs: properties
+Case-only designs: an example
 ===================================================
 
-The major weakness of the other designs is that confounders can affect the probability of exposure and result in bias.
+The Self-controlled case series (SCCS) is an example of a case-only design.  
 
-- The risk of the above is minimal in a self-controlled design because each case essentially acts as their own control
-- However, possible time varying confounders must be explicitly included in the model and the **selection of proper time intervals is crucial**
-- The self-controlled designs retain relatively high power despite using little data (usually only cases)
+- In SCCS, individuals with both vaccinations ad events during an observation period are considered. 
+- The goal is to compare event incidences during defined risk and control periods. 
+
+<img src="signal_detection_presentation-figure/unnamed-chunk-1-1.png" title="A simple example of a SCCS design where the period immediately following exposure is defined as the risk period with length $t_r$ and the remaining time of the observation period is the control period with length $t_c$." alt="A simple example of a SCCS design where the period immediately following exposure is defined as the risk period with length $t_r$ and the remaining time of the observation period is the control period with length $t_c$." style="display: block; margin: auto;" />
 
 
-The case-crossover design (1)
+Case-only designs
 ===================================================
 
-Assume that events are independent and for each individual $i = 1, .., N$ events $k_{i,j}$ arrive at a constant rate $\lambda_{i,j}$ within the time interval $j  \in$ { *ctrl*, *case* }. Then
+The risk of bias is minimal in a case-only design because each case acts as their own control (self-controlled design).
 
-- $k_{i,j}$ ~ $Poi(\lambda_{i, j})$
-- $\frac{\lambda_{i, ctrl}}{\lambda_{i, case}} = RR_i$ is the rate ratio
+- However, possible time varying confounders must be explicitly accounted for  
+- The selection of proper risk and control intervals is crucial  
+- The case-only designs retain relatively high power despite using little data (usually only cases)
+- The two most popular case-only designs are the case-crossover design (CCO) and the self-controlled case series design (SCCS)
 
-We will assume that the rate ratio is the **same for all** individuals,  $RR_i = RR$.
 
-
-The case-crossover design (2)
+Simple SCCS (1)
 ===================================================
-By conditioning on the total number of observations *n*, the distribution of the total number of cases $k$ no longer has any dependency on the baseline incedences.
 
-$$ k | n \text{ ~ } Bin(n, p = \frac{RR}{z + RR})$$
+In SCCS, events for each individual $i$ are assumed to arrive as a Poisson process during risk ($r$) and control ($c$) periods.
 
-$$\text{where } z=\frac{length(ctrl)}{length(case)}$$
+$$K_c \sim Poisson(\lambda_{i} \cdot t_c) \quad K_r \sim Poisson(RR_i \cdot \lambda_{i} \cdot t_r)$$
 
-- This is typical for the self-controlled designs: The **individual incidences cancel out** from the statistical model. For this reason the design is said to implicitly control for all non time-varying confounders.
+- $RR_i$ denotes the rate ratio: the multiplicative change in rate during the risk period compared to the control period
+- $t$ denotes the lengths of the periods, with $t_c / t_r = z$.  
+- $\lambda_i$ is the baseline incidence rate for the individual  
+- Events that occur during the risk period are labeled as "cases" and events during the control period as "controls"
 
 
-
-The case-crossover design (3)
+Simple SCCS (2)
 ===================================================
-incremental: false
 
-<img src="signal_detection_presentation-figure/unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" height="400" />
-<small>*The outcome of an event classified as a case or a control is a Bernoulli trial. The probability of the outcome depends on the lengths of the risk and non-risk intervals.*</small>
+Assuming a homogeneous rate ratio $RR = RR_i$, the total number of cases conditioned on the total number of events follows a binomial distribution. 
+
+$$K_r = \sum_{i=1}^{n} K_{i, r} \quad N = \sum_{i=1}^n N_{i}$$
+
+$$P(K_r = k_r \mid N = n) \sim Bin(n, \frac{RR}{z + RR})$$
+
+The rate ratio parameter $RR$ is the only unkown parameter. This is typical for the self-controlled designs: The **individual incidences cancel out** from the statistical model. 
 
 
 Study design conclusions
 ===================================================
 
-Ultimately all epidemiological study designs do the same thing: compare some group of individuals to another group of individuals
+Ultimately all epidemiological study designs share the same goal: compare some group of individuals to another group of individuals
 
-- In self-controlled designs the assignment to the case or control group depends only on the time of the event
-- Hence in self-controlled designs it is impossible to have non time-related selection bias in the case or control groups
-- Therefore using a self-controlled design **can help to minimize errors** in safety surveillance
+- In cohort and case-control designs the case and control groups might not be comparable due to confounding
+- In self-controlled designs the assignment to the case or control group depends only on the time of the event (or exposure)
+- Self-controlled designs implicitly control for all time-invariant confounders.
+- Therefore using a self-controlled design can help to control error rates in safety surveillance
 
 
 
 <!-- Sequential hypothesis testing -->
 
 
-3: Sequential hypothesis testing
+Decision rules
 ===================================================
 type: sub-section
 
-  Minimize the sample size  
+  Minimize the expected sample size  
 
+Restating the goals of surveillance
+===================================================
+
+Electronic health care records provide an opportunity to monitor possible problems related to vaccinations in near real time.  
+
+- When an association between some exposure and event pair exists, the goal of a safety surveillance method is to generate a safety signal as soon as possible. 
+- In more statistical terms, the problem is to **minimize the expected sample size until signal generation**, for some fixed rates of false positive and false negative signals.  
+- This goal can be achieved by using **sequential hypothesis testing** to derive decision rules.
+
+
+Hypothesis testing
+===================================================
+
+Statistical inference is based on a probability model $P(X \mid \theta)$ for the observations $X$, under some parameters $\theta$.
+
+- A hypothesis is a proposition which assigns restrictions for the parameter $\theta$
+
+$$H_0 : \theta \in \Theta_0 \quad H_1 : \theta \in \Theta_1.$$
+
+- A test statistic such as the likelihood ratio can be used to derive a decision rule to choose one hypothesis over the other
+
+$$LR = \frac{P(X \mid H_1 )}{P(X \mid H_0 )}.$$
 
 
 General terms and definitions
 ===================================================
 incremental: false
 
-- $H_0$ is the null hypothesis
-- $H_1$ is the alternative hypothesis
-- $\alpha = P$(reject $H_0$ | $H_0)$ is the type I error (false positive)
-- $\beta =  P$(accept $H_0$ | $H_1 )$ is the type II error (false negative)
-- $Power = 1 - \beta$
-- $RR$ is the rate ratio (defined in section 2)
-- Simple hypothesis: $H_1: RR = 1$
-- Composite hypothesis: $H_1: RR > 1$
+Some terminology related to hypothesis testing
 
-
-How to minimize the sample size?
-===================================================
-
-In the setting of vaccine safety surveillance, every observation is some unwanted event. 
-
-- Therefore there is incentive to minimize the expected sample size when an association exists
-- This is can be achieved by utilizing the data as often as possible
-- A procedure called the sequential probability ratio test (**SPRT**) minimizes the expected sample size when testing two simple hypothesis
-- SPRT is a **sequential hypothesis test**
+Term    | Description
+------- | --------------------------------------------------------------------------------------------------------------
+$H_0$ | The null hypothesis ( $H_0 : \theta \in \Theta_0$ )
+$H_1$ | The alternative hypothesis ( $H_1 : \theta \in \Theta_1$ )
+Simple hypothesis | A hypothesis which adresses a single point in the parameter space. (e.g. $H_0 : \theta = 1$)
+Composite hypothesis | A hypothesis which adresses more than a single point in the parameter space. (e.g. $H_1: \theta > 1$)
+$\alpha$ | The type I error probability (false positive rate): $P(\text{reject } H_0 \mid H_0)$.
+$\beta$ |  The type II error probability (false negative rate): $P(\text{accept } H_0 \mid H_1)$. 
+$Power$ | $1 - \beta$
 
 
 A sequential hypothesis test
 ===================================================
 
-Generally, a sequential test of a statistical hypothesis is a test procedure which gives a rule of making one of three possible decisions at a single trial of the experiment:
+A procedure called the sequential probability ratio test (**SPRT**) minimizes the expected sample size when testing two simple hypothesis.  
+
+- SPRT is a **sequential hypothesis test**.
+
+A sequential hypothesis test gives a rule of making one of three possible decisions at a single trial of the experiment:
 
   1. **Accept** $H_0$
   2. **Reject** $H_0$
   3. **Continue** the experiment by making an additional observation.
 
-Sequential hypothesis testing was developed by Abraham Wald during the II World War.
+
   
-Sequential probability ratio test (1)
+SPRT (1)
 ===================================================
 
-The sequential probability ratio test (SPRT) is the **most powerfull** sequential test for testing two simple hypothesis. 
+SPRT is the **most powerfull** sequential test for testing two simple hypothesis. 
 
 - SPRT reduces the expected sample size by ~50% compared to a regular hypothesis test with similar error rates
 - SPRT uses the likelihood ratio $LR$ as the test statistic
 
-$$LR = \frac{L(RR | H_1)}{L(RR | H_0)}$$ 
+$$LR_n = \frac{P(x_n \mid H_1)}{ P(x_n \mid H_0)}$$
 
-- The likelihood function $L()$ is a function of the interesting parameter (RR) and it contains the statistical model for the observations
+The test statistic is calculated whenever a new observation arrives  
 
 
-Sequential probability ratio test (2)
+SPRT (2)
 ===================================================
 
-- The test statistic (LR) is calculated whenever a new observation arrives. 
-- The test statistic is then compared to critical values to make a desicion
-- High values are critical to the null hypothesis.
-- If the test statistic exceeds a boundary, the test terminates with a decision
+At each new observation, the SPRT test statistic is compared to two critical values to make a desicion of accepting or rejecting $H_0$.  
 
+- When the test statistic exceeds a boundary, the test terminates with a decision.
 
-***
-
-![plot of chunk unnamed-chunk-3](signal_detection_presentation-figure/unnamed-chunk-3-1.png)
+<img src="signal_detection_presentation-figure/unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" />
 
 
 
@@ -275,7 +279,7 @@ Setting the hypothesis for safety surveillance
 
 When the objective is to find evidence of an association between an exposure and an event, the null proposition is a state of no association.
 
-- The most natural alternative hypothesis however is composite: some positive association. This can be stated with the rate ratio $RR$ as follows:
+- The most natural alternative hypothesis however is composite: some positive association. This can be stated with the rate ratio $RR$ parameter as follows:
 - $H_0: RR = 1$
 - $H_1: RR > 1$
 
@@ -285,49 +289,25 @@ In this case an extension of SPRT called the **maxSPRT** can be used to perform 
 maxSPRT
 ===================================================
 
-maxSPRT is a sequential hypothesis test which uses the maximized likelihood ratio as a test statistic. 
+maxSPRT is a sequential hypothesis test which uses the maximized likelihood ratio as a test statistic.
 
-  $$LR = max \frac{L(RR > 1)}{L(RR = 1)}$$
+$$LR_n = \underset{RR > 1}{max} \frac{P( x_n \mid RR)}{P( x_n \mid RR = 1)}$$
 
-- maxSPRT uses **one critical value $c$**: if at any point $LR \geq c$, then $H_0$ is rejected
+- maxSPRT uses **one critical value $c$**: if at any point $LR_n \geq c$, then $H_0$ is rejected
 - maxSPRT uses an **upper boundary N** on the sample size: if $n > N$, then $H_0$ is accepted.
 
 
-The desicion rule of maxSPRT
+maxSPRT as an algorithm
 ===================================================
 
-More formally the maxSPRT test proceeds as follows:
-
-1. First define a critical value $c$ and an upper boundary for the sample size $N$
-2. After observation $i = 1, .., N - 1$ do
-  - if $LR_i \geq c$ stop, reject $H_0$
+1. Choose a desired type I error rate $\alpha$ an upper boundary for the sample size $N$.
+2. Compute the critical value of the test $c$.
+2. After observation $n = 1, .., N - 1$ do
+  - if $LR_n \geq c$ stop, reject $H_0$ 
   - otherwise continue
 3. After observation $N$ do
   - if $LR_N \geq c$ stop, reject $H_0$
-  -  otherwise accept $H_0$
-
-    
-The critical values of maxSPRT
-===================================================
-
-SPRT type tests solve the problem of multiple testing by concidering the joint distribution of the test statistic.
-
-- The critical value $c$ is computed such that the total probability of generating a false positive signal is some defined $\alpha$:
-
-$$P(LR_i \geq c \text{ for some } i = 1, .., N) = \alpha$$
-
-- Computing the critical values of the test is tricky and requires further research for most statistical models
-- For the **binomial** and Poisson models a solution exists. A Markov chain approach can be applied in the binomial case.
-
-
-Data accumulation matters
-===================================================
-The SPRT type statistical tests assume that the null hypothesis is tested at **every** new observation.
-
-- If this assumption is not met, the critical values of the test should be affected
-- If data becomes available in groups, **group sequential methods** should be used instead
-  - If the size of the groups is known, the solution for computing the critical values of the test is similar to the SPRT type tests
-  - If the size of the groups is random, approaches such as alpha spending should be used instead
+  - otherwise reject $H_1$ (accept $H_0$)  
 
 
 Sequential testing: conclusions
@@ -336,85 +316,94 @@ Sequential testing: conclusions
 SPRT type sequential testing is only suitable if **new data is available often enough** because it assumes that the test can terminate at every new observation.
 
 - The performance of sequential tests is optimized when all available data is utilized as frequently as possible
-- Sequential testing can **reduce** the expected sample size by ~50% compared to regular hypothesis tests with similar error rates
+- Sequential testing can reduce the expected sample size by ~50% compared to regular hypothesis tests with similar error rates
 - The chosen upper limit $N$ in maxSPRT affects the power and the critical value of the test (higher $N$ -> higher power and higher $c$)
 
 
 <!-- Safety surveillance methods -->
 
 
-4: Safety surveillance methods
+Methods (B-maxSPRT)
 ===================================================
 type: sub-section
 
-Combining a study design and statistical hypothesis testing
+Combining a study design and decision rules
 
 
-
-Continuous safety surveillance
+Self-controlled maxSPRT
 ===================================================
 
-A safety surveillance method can be viewed as a combination of
+By combining a self-controlled design such as the SCCS and a maxSPRT sequential hypothesis test, we get a safety surveillance method called the Binomial maxSPRT (**B-maxSPRT**). 
 
-- **data collection**
-- **study design**
-- **statistical hypothesis test(s)**.
+The likelihood ratio test statistic is
 
-We will assume that data is actively collected and accumulates as a **stream**, making it possible to use sequential testing. The goal is to **refine** an identified signal.
+$$
+LR_n
+= \underset{RR>1}{max} \frac{ (\frac{RR}{z + RR})^k \cdot (\frac{z}{z + RR})^{n - k} }{ (\frac{1}{z + 1})^k \cdot (\frac{z}{z + 1})^{n - k}  }.
+$$
 
+Maximizing the likelihood ratio is done by finding the maximum likelihood estimate for the parameter $RR$ 
 
-Binomial maxSPRT (1)
+$$\hat{RR} = max\{1, \frac{z \cdot k}{n - k} \}.$$
+
+Log-likelihood ratio
 ===================================================
 
-By combining a self-controlled design and a maxSPRT sequential hypothesis test, we get a safety surveillance method called the Binomial maxSPRT (**B-maxSPRT**).
+For computational reasons, it is conventient to operate with the log likelihood ratio which can equivalently be used as a test statistic.
 
-- The likelihood function is
+$$
+LLR_n = log(LR_n) = log \left( \frac{ (\frac{\hat{RR}}{z + \hat{RR}})^k \cdot (\frac{z}{z + \hat{RR}})^{n - k} }{ (\frac{1}{z + 1})^k \cdot (\frac{z}{z + 1})^{n - k} } \right).
+$$
 
-$$L(RR |n, k, z) = \frac{n!}{k ! (n - k)!}  \cdot (\frac{RR}{z + RR})^k \cdot (\frac{z}{z + RR})^{n - k}$$
-  
-- The likelihood ratio test statistic is
-
-$$LR = max \frac{L(RR > 1 | n, k, z) }{L(RR = 1| n, k,  z) }  = \underset{RR>1}{max} \frac{ (\frac{RR}{z + RR})^k \cdot (\frac{z}{z + RR})^{n - k} }{ (\frac{1}{z + 1})^k \cdot (\frac{z}{z + 1})^{n - k}  }$$
-
-
-Binomial maxSPRT (2)
-===================================================
-For computational reasons, it is conventient to operate with the log likelihood ratio instead. 
-
-- Maximizing the log likelihood ratio can be done by finding the maximum likelihood estimate for the parameter $RR$
-- Since we are not interested in cases where $RR < 1$, we should use $\hat{RR} = max\{1, \frac{z \cdot k}{n - k} \}$, and so
-
-$$LLR = log(LR) = log \left( \frac{ (\frac{\hat{RR}}{z + \hat{RR}})^k \cdot (\frac{z}{z + \hat{RR}})^{n - k} }{ (\frac{1}{z + 1})^k \cdot (\frac{z}{z + 1})^{n - k} } \right)$$
-
-
-
-Exploring the properties of maxSPRT
-===================================================
-incremental: false
-
-You can experiment with the performance of maxSPRT with the [maxSPRT Shiny-app](http://shiny.app.thl.fi/maxSPRT/), available in the THL intranet.
-
-- Binomial and Poisson models
-- Computations for power and expected time to signal for user defined target populations
-- Implementations for simulated data
-
-<a href="http://shiny.app.thl.fi/maxSPRT/" target = "_blank"><div align="center">
-
-<img src= "pics/shiny.png" height = 250px>
-
-</div></a>
-
-
-Safety surveillance methods: conclusions
+The same maximum likelihood estimator $\hat{RR} = max\{1, \frac{z \cdot k}{n - k} \}$ applies.
+    
+Critical values of sequential tests
 ===================================================
 
-A safety surveillance method is a combination of data collection, study design and hypothesis testing.
+SPRT type tests solve the problem of multiple testing by considering the joint distribution of the test statistic.
 
-- By combining a simple self-controlled design with maxSPRT sequential testing, we get the B-maxSPRT surveillance method for stream type data
-- Critical values for the test statistic can be computed using a Markov chain approach implemented in the Sequential R-package
-- The Sequential package can also be used for power calculations
+$$P(LR_n \geq c \text{ for some } n = 1, .., N) = \alpha$$
+
+- The critical value $c$ is computed such that the total probability of generating a false positive signal is some defined $\alpha$:
+- Computing the critical values of the test requires further research for most statistical models
+- For the binomial and Poisson models a solution exists.  
+
+The critical values of B-maxSPRT
+===================================================
+ 
+A Markov chain approach can be applied to find the critical values in the binomial case of maxSPRT.  
+
+- The sequential test procedure can be thought of as transfers from state $s_{n}$ to state $s_{n+1}$, starting from the state $s_0 = (0,0)$ with probability 1.  
+- The state space $S$ is the combinations of all possible values for number of events $n$ and cases $k$  
+
+$$S = (n, k) , \quad \text{where} \quad n = 0,.., N \quad \text{and} \quad k = 0,..,n.$$
 
 
+
+
+A Binomial Markov chain
+===================================================
+
+The probability of entering state $s_{n+1}$ depends only on the current state $s_n$ (is it absorbing?) and the probability of success (event classified as case) $p$.  
+
+$$P(S_{n+1} \mid S_n, .., S_1) = P(S_{n+1} \mid S_n)$$
+
+- In maxSPRT, the set of absorbing states in the experiment are the states $Q$ for which the value of the test statistic exceeds the critical value $c$ 
+
+$$Q = \{s \in S \mid LR(s) \geq c \}$$
+
+
+
+B-maxSPRT critical
+===================================================
+
+The critical value $c$ of the B-maxSPRT test can be then be found iteratively with the following algorithm:
+
+1. Compute all possible test statistic values $L = \{LR(s) \mid s \in S\}$ and sort $L$ from lowest to highest. 
+2. Choose $c = min\{L\}$ to be the critical value. The absorbing states are  $Q = \{s \in S \mid LR(s) \geq c \}$.
+3. Compute $P(Q \mid H_0) = \pi$
+- if $\pi \leq \alpha$, stop, choose $c$ to be the critical value
+- otherwise remove $c$ from $L$ and go to 2.  
 
 <!-- Application of B-maxSPRT -->
 
@@ -435,6 +424,7 @@ In this application, B-MaxSPRT was retrospectively applied to Finnish register d
 - **Exposure**: PCV, Rota or MPR vaccination
 - **Events**: fever seizure related hospitalizations
 - It is established that MPR vaccination causes acute fever seizures. This relationship has also been shown using the Finnish register data.
+- There is no evidence of PCV or Rota having similar effects
 
 B-maxSPRT was **expected to generate** a signal related to MPR, but not PCV or Rota.
 
@@ -443,7 +433,7 @@ Data
 ===================================================
 The vaccinations of interest are the first doses of MPR, PCV and Rota vaccinations for children under 2 years of age born during 2010 - 2014. 
 
-- For the MPR group, the 2014 cohort was excluded because the expected age at vaccination is higher and no sufficient data was yet available.
+- For the MPR group, the 2014 cohort was exluded because the expected age at vaccination is higher and no sufficient data was yet available.
 - The possible adverse events of interest are hospitalizations with <a href='https://terho.thl.fi/wiki01/display/rokobiom/Case-series+analyysi'>icd-10 diagnosis codes related to fever seizures.</a>
 
 ICD-10 codes
@@ -464,7 +454,7 @@ For both vaccinations and hospitalizations, age intervals that cover first dose 
 - Rota: 30 - 140 days
 - PCV: 60 - 200 days
 
-The case interval is **1-14** days after vaccination and control interval **15-42** days after vaccination. This includes an assumption that the possible effect of the vaccination is transient.
+The risk interval was chosen to be **1-14** days after vaccination and control interval **15-42** days after vaccination. This includes an assumption that the possible effect of the vaccination is transient.
 
 
 Surveillance conditions (1)
@@ -494,15 +484,15 @@ The power is calculed using an assumed rate ratio of 1.5.
 
 Surveillance results, MPR
 ===================================================
-<img src="signal_detection_presentation-figure/unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="600px" height="600px" />
+<img src="signal_detection_presentation-figure/unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
 
 Surveillance results, Rota
 ===================================================
-<img src="signal_detection_presentation-figure/unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="600px" height="600px" />
+<img src="signal_detection_presentation-figure/unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
 
 Surveillance results, PCV
 ===================================================
-<img src="signal_detection_presentation-figure/unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="600px" height="600px" />
+<img src="signal_detection_presentation-figure/unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
 
 
 Surveillance results summary
@@ -524,17 +514,17 @@ Notably the signal generated for PCV came with relatively low $n$ concidering th
 
 More surveillance results, MPR
 ===================================================
-<img src="signal_detection_presentation-figure/unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="600px" height="600px" />
+<img src="signal_detection_presentation-figure/unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
 
 More surveillance results, PCV
 ===================================================
-<img src="signal_detection_presentation-figure/unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="600px" height="600px" />
+<img src="signal_detection_presentation-figure/unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
 
 Surveillance conclusions
 ===================================================
 The surveillance method generated an expected signal related to MPR, but also an unexpected signal related to PCV
 - However, further surveillance showed that when using all the available data, the estimate of the rate ratio for the PCV group was close to 1 (1.22)
-- Therefore the signal related to PCV is likely to be a type I error, which were expected to occur 5% of the time for each exposure event pair.
+- Therefore the signal related to PCV could be a type I error, which were expected to occur 5% of the time for each exposure event pair.
 
 
 
@@ -554,58 +544,3 @@ incremental: false
 - McClure (2008): Comparison of Epidemiologic Methods for Active Surveillance of Vaccine Safety
 - Nelson (2015): Methods for Observational Post-licensure Medical Product Safety Surveillance
 - Wald (1945): Sequential Tests of Statistical Hypothesis
-
-
-<!-- EXTRA MATERIAL -->
-
-
-<!-- Strengths and weaknesses: the cohort design -->
-<!-- =================================================== -->
-<!-- | -->
-
-<!-- **Strengths** -->
-<!-- - Utilizes the most available data -->
-<!-- - Can provide an estimate of the baseline incidence -->
-<!-- - Controls for time-varying confounders such as age and seasonality -->
-
-<!-- *** -->
-<!-- | -->
-
-<!-- **Weaknesses** -->
-<!-- - Confounders can affect the probability of exposure and result in in bias -->
-<!-- - If the exposure rate is high, the unexposed group will be small -->
-
-
-<!-- Strengths and weaknesses: the case-control design -->
-<!-- =================================================== -->
-<!-- | -->
-
-<!-- **Strengths** -->
-<!-- - Needs little data specially with rare events -->
-<!-- - Controls for time-varying confounders such as age and seasonality -->
-
-<!-- *** -->
-<!-- | -->
-
-<!-- **Weaknesses** -->
-<!-- - Confounders can affect the probability of exposure and result in bias -->
-<!-- - ( Finding suitable matches might be difficult ) -->
-
-
-<!-- Strengths and weaknesses: the self controlled design -->
-<!-- =================================================== -->
-<!-- | -->
-
-<!-- **Strengths** -->
-<!-- - Implicitly controls for all non time-varying confounders -->
-<!-- - Can use data only on events so needs little data -->
-<!-- - Does not need a baseline estimate -->
-
-<!-- *** -->
-<!-- | -->
-
-<!-- **Weaknesses** -->
-<!-- - The choice of the risk and control periods plays a crucial role -->
-<!-- - ( Time-dependent confounders such as age and seasonality must be explicitly included in the model ) -->
-
-
