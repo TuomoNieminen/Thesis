@@ -1310,7 +1310,7 @@ LLR_n = log(LR_n) = log \left( \frac{ (\frac{\hat{RR}}{z + \hat{RR}})^k \cdot (\
 <p>A Markov chain approach can be applied to find the critical values in the binomial case of maxSPRT.  </p>
 
 <ul>
-<li class="fragment">The sequential test procedure can be thought of as transfers from state \( s_{n} \) to state \( s_{n+1} \), starting from the state \( s_0 = (0,0) \) with probability 1.<br/></li>
+<li class="fragment">The sequential test procedure can be thought of as transitions from state \( s_{n} \) to state \( s_{n+1} \), starting from the state \( s_0 = (0,0) \) with probability 1.<br/></li>
 <li class="fragment">The state space \( S \) is the combinations of all possible values for number of events \( n \) and cases \( k \)<br/></li>
 </ul>
 
@@ -1322,7 +1322,7 @@ LLR_n = log(LR_n) = log \left( \frac{ (\frac{\hat{RR}}{z + \hat{RR}})^k \cdot (\
 <section data-transition="default" data-transition-speed="default">
 <h3>A Binomial Markov chain</h3>
 <div class="slideContent" >
-<p>The probability of entering state \( s_{n+1} \) depends only on the current state \( s_n \) (is it absorbing?) and the probability of success (event classified as case) \( p \).  </p>
+<p>The probability of entering state \( s_{n+1} \) depends only on the current state \( s_n \) (is it absorbing?) and the probability of &ldquo;success&rdquo; (event classified as case).  </p>
 
 <p class="fragment">\[ P(S_{n+1} \mid S_n, .., S_1) = P(S_{n+1} \mid S_n) \]</p>
 
@@ -1330,7 +1330,7 @@ LLR_n = log(LR_n) = log \left( \frac{ (\frac{\hat{RR}}{z + \hat{RR}})^k \cdot (\
 <li class="fragment">In maxSPRT, the set of absorbing states in the experiment are the states \( Q \) for which the value of the test statistic exceeds the critical value \( c \) </li>
 </ul>
 
-<p class="fragment">\[ Q = \{s \in S \mid LR(s) \geq c \} \]</p>
+<p class="fragment">\[ Q = \{s \in S \mid LLR_n(s) \geq c \} \]</p>
 
 </div>
 
@@ -1338,11 +1338,11 @@ LLR_n = log(LR_n) = log \left( \frac{ (\frac{\hat{RR}}{z + \hat{RR}})^k \cdot (\
 <section data-transition="default" data-transition-speed="default">
 <h3>B-maxSPRT critical</h3>
 <div class="slideContent" >
-<p>The critical value \( c \) of the B-maxSPRT test can be then be found iteratively with the following algorithm:</p>
+<p>The critical value \( c \) of the B-maxSPRT test can be found iteratively with the following algorithm:</p>
 
 <ol>
-<li class="fragment">Compute all possible test statistic values \( L = \{LR(s) \mid s \in S\} \) and sort \( L \) from lowest to highest. </li>
-<li class="fragment">Choose \( c = min\{L\} \) to be the critical value. The absorbing states are  \( Q = \{s \in S \mid LR(s) \geq c \} \).</li>
+<li class="fragment">Compute all possible test statistic values \( L = \{LLR_n(s) \mid s \in S\} \) and sort \( L \) from lowest to highest. </li>
+<li class="fragment">Choose \( c = min\{L\} \) to be the critical value. The absorbing states are  \( Q = \{s \in S \mid LLR_n(s) \geq c \} \).</li>
 <li class="fragment">Compute \( P(Q \mid H_0) = \pi \)</li>
 <li class="fragment">if \( \pi \leq \alpha \), stop, choose \( c \) to be the critical value</li>
 <li class="fragment">otherwise remove \( c \) from \( L \) and go to 2.<br/></li>

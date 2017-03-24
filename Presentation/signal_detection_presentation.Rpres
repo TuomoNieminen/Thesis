@@ -410,7 +410,7 @@ The critical values of B-maxSPRT
  
 A Markov chain approach can be applied to find the critical values in the binomial case of maxSPRT.  
 
-- The sequential test procedure can be thought of as transfers from state $s_{n}$ to state $s_{n+1}$, starting from the state $s_0 = (0,0)$ with probability 1.  
+- The sequential test procedure can be thought of as transitions from state $s_{n}$ to state $s_{n+1}$, starting from the state $s_0 = (0,0)$ with probability 1.  
 - The state space $S$ is the combinations of all possible values for number of events $n$ and cases $k$  
 
 $$S = (n, k) , \quad \text{where} \quad n = 0,.., N \quad \text{and} \quad k = 0,..,n.$$
@@ -421,23 +421,23 @@ $$S = (n, k) , \quad \text{where} \quad n = 0,.., N \quad \text{and} \quad k = 0
 A Binomial Markov chain
 ===================================================
 
-The probability of entering state $s_{n+1}$ depends only on the current state $s_n$ (is it absorbing?) and the probability of success (event classified as case) $p$.  
+The probability of entering state $s_{n+1}$ depends only on the current state $s_n$ (is it absorbing?) and the probability of "success" (event classified as case).  
 
 $$P(S_{n+1} \mid S_n, .., S_1) = P(S_{n+1} \mid S_n)$$
 
 - In maxSPRT, the set of absorbing states in the experiment are the states $Q$ for which the value of the test statistic exceeds the critical value $c$ 
 
-$$Q = \{s \in S \mid LR(s) \geq c \}$$
+$$Q = \{s \in S \mid LLR_n(s) \geq c \}$$
 
 
 
 B-maxSPRT critical
 ===================================================
 
-The critical value $c$ of the B-maxSPRT test can be then be found iteratively with the following algorithm:
+The critical value $c$ of the B-maxSPRT test can be found iteratively with the following algorithm:
 
-1. Compute all possible test statistic values $L = \{LR(s) \mid s \in S\}$ and sort $L$ from lowest to highest. 
-2. Choose $c = min\{L\}$ to be the critical value. The absorbing states are  $Q = \{s \in S \mid LR(s) \geq c \}$.
+1. Compute all possible test statistic values $L = \{LLR_n(s) \mid s \in S\}$ and sort $L$ from lowest to highest. 
+2. Choose $c = min\{L\}$ to be the critical value. The absorbing states are  $Q = \{s \in S \mid LLR_n(s) \geq c \}$.
 3. Compute $P(Q \mid H_0) = \pi$
 - if $\pi \leq \alpha$, stop, choose $c$ to be the critical value
 - otherwise remove $c$ from $L$ and go to 2.  
@@ -510,7 +510,7 @@ Below are the parameters which define the stopping conditions of the maxSPRT met
 
 ```{r}
 conditions <- data$conditions
-kable(conditions)
+knitr::kable(conditions)
 ```
 
 The power is calculed using an assumed rate ratio of 1.5.  
@@ -548,7 +548,7 @@ A signal was generated for MPR and PCV and not generated for Rota.
 <br>
 ```{r}
 summary <- data$summary
-kable(summary)
+knitr::kable(summary)
 ```
 <br>
 
