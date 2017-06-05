@@ -1,0 +1,27 @@
+\begin{centering}
+
+\vspace{3 cm}
+
+\Huge
+
+{\bf Vaccine safety surveillance with self-controlled study designs}
+
+\vspace{3 cm}
+
+\Large Tuomo A. Nieminen
+
+\vspace{3 cm}
+
+\normalsize 
+Pro Gradu Thesis \\
+University of Helsinki \\
+Faculty of Social sciences, statistics \\
+June 2017 \\
+
+\vspace{3 cm}
+
+\normalsize  For the National Institute for Health and Welfare, Finland (THL) \\
+
+
+\end{centering}
+

@@ -1,0 +1,24 @@
+# Appendix
+
+## Maximum likelihood estimator of the rate ratio parameter in BmaxSPRT
+
+<br>
+
+Let
+
+$$
+\begin{aligned}
+l(RR) &= log(P(y_n \mid n, RR)) 
+&= y_n \cdot (log(RR)- log (z + RR)) + (n-y_n) \cdot (log(z) - log(z + RR))
+\end{aligned}
+$$
+
+The function reaches it's maximum point at the point where the derivative is zero
+
+$$
+\begin{aligned}
+l'(RR) = \frac{ \delta l(RR) }{\delta RR} = \frac{y_n}{RR} - \frac{y_n}{z + RR} - \frac{n-k}{z + RR} &= 0 \\[10pt]
+\Leftrightarrow \frac{y_n}{RR} - \frac{n}{z + RR} &= 0 \\[10pt]
+\Leftrightarrow RR &= \frac{y_n \cdot z}{(n - y_n)}
+\end{aligned}
+$$

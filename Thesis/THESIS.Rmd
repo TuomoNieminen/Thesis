@@ -1,0 +1,122 @@
+---
+title: ''
+author: "Tuomo Nieminen"
+date: "July 21, 2016"
+output:
+  pdf_document:
+    fig_caption: yes
+    number_sections: yes
+  html_document:
+    toc: yes
+    toc_depth: 2
+  word_document:
+    toc: yes
+    toc_depth: '2'
+header-includes:
+- \usepackage{placeins}
+- \usepackage{setspace}
+- \usepackage{chngcntr}
+- \usepackage{tcolorbox}
+- \onehalfspacing
+- \counterwithin{figure}{section}
+- \counterwithin{table}{section}
+- \setstretch{1.4}
+bibliography: ref.bib
+---
+
+Gradu TODO
+
+
+<!-- Tarkista taulukko 3.1 (vuotaa yli). -->
+
+<!-- s.23 viittteet "Abraham" pois, "(A Wald and..." -> (Wald and..." -->
+
+<!-- s.31 matriisin P selostus: miksi italic? Tavallisella fontilla vain: -->
+<!-- "The matrix P in (28) is a transition matrix..." -->
+
+<!-- s.35: näissä voit kirjoittaa lyhyemminkin: -->
+<!-- "Jennison and Turnbull introduce a wide variety of group sequential -->
+<!-- methods in their book (Jennison and Turnbull 1999)." -->
+<!-- -> esim. (vastaavia oli myös edellä) -->
+<!-- "Jennison and Turnbull (1999) introduce a wide variety of group -->
+<!-- sequential methods." -->
+
+<!-- tarkista table 4.1 (width) -->
+
+<!-- Discussion: perhaps some conclusion here, too - tai erikseen ennen tätä? -->
+
+<!-- Lähteissä SORENSEN et al turhan isoilla kirjaimilla... -->
+
+<!-- Graduun tarvitaan myös tiivistelmä (valmis lomake, löytynee jostain), -->
+<!-- muistaakseni niin suomeksi kuin enkuksi. -->
+
+
+```{r include=FALSE}
+knitr::opts_chunk$set(fig.path = 'figures/',
+                      echo = FALSE, warning = FALSE, message = FALSE)
+
+library(knitr)
+# tab.cap definition
+tn = local({
+  function(x) {
+    paste('\n\n', ': ', x, sep = '')
+    # The : before Table tells pandoc to wrap your caption in <caption></caption>
+  }
+})
+knit_hooks$set(tab.cap = function(before, options, envir) {
+  if(!before)
+    tn(options$tab.cap)
+})
+default_output_hook = knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+  if (is.null(options$tab.cap) == F)  
+    x
+  else
+    default_output_hook(x,options)
+})
+
+
+```
+
+<!-- equation numbering -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { 
+      equationNumbers: {
+ 
+            autoNumber: "AMS",
+            formatNumber: function (n) {return '9.'+n}
+      } 
+  }
+});
+</script>
+
+
+```{r child = "titlepage.Rmd"}
+```
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+```{r child = "Introduction.Rmd"}
+```
+
+```{r child = "Study_Designs.Rmd"}
+```
+
+```{r child = "Sequential_Analysis.Rmd"}
+```
+
+```{r child = "Application.Rmd"}
+```
+
+```{r child = "Discussion.Rmd"}
+```
+
+
+\newpage
+
+# References  

@@ -1,0 +1,6 @@
+# Discussion
+
+*UNDER CONSTRUCTION* 
+- strengths and weaknesses of self-controlled designs 
+- dealing with confounders (general SCCS)
+- data-mining methods in signal indentification
