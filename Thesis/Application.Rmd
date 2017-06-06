@@ -7,28 +7,26 @@ In this proof-of-concept application, BmaxSPRT vaccine safety surveillance was r
 - For PCV there exists a suspected relationship to febrile seizures
 - For Rota there is no evidence of a relationship to febrile seizures
 
-MMR, PCV and Rota are all included in the vaccination program in Finland and are free for all children. The main interest of this application was to see if and when the BmaxSPRT method would generate a signal for the MMR-febrile seizure pair and also to see what the results would be for the other pairs. 
+MMR, PCV and Rota are all included in the vaccination program in Finland and are free for all children. The main interest of this application was to see if and when the BmaxSPRT method would generate a signal for the MMR-febrile seizure pair, and also to see what the results would be for the other pairs. 
 
 
 ## Febrile seizures and vaccinations
 
 Fevers can cause a child to experience spasms or jerky movements called seizures. Seizures caused by a fever are called febrile seizures. Febrile seizures usually last for less than one or two minutes and they do not cause any permanent harm or have any lasting effects. 
 
-It is established that there is an increased risk of acute fever seizures during the 5-12 days following the first dose vaccination with MMR for childred of ages 6 months - 2 years. This relationship has also been previously shown by both international studies and using Finnish register data. Also, a study by the Centers for Disease Control and Prevention (CDC) has indicated that PCV vaccination together with a flu shot is associated with an increased risk of febrile seizures during the 24 hours following exposure.  
-
-A PCV vaccination alone might also cause a small increased risk of seizures. There is no evidence of Rota vaccination having similar effects. [@CDC2017]
+It is established that there is an increased risk of acute fever seizures during the 5-12 days following the first dose vaccination with MMR for childred of ages 6 months - 2 years. This relationship has also been previously shown by both international studies and using Finnish register data. Also, a study by the Centers for Disease Control and Prevention (CDC) has indicated that PCV vaccination together with a flu shot is associated with an increased risk of febrile seizures during the 24 hours following exposure. A PCV vaccination alone might also cause a small increased risk of seizures. There is no evidence of Rota vaccination having similar effects. [@CDC2017]
 
 ## Study population and data sources
 
-Finnish children under 2 years of age, born during 2010 - 2014 were considered eligible for the study. The analysis was performed with the assumption that new data might become available each day, starting from 2010-01-01. Vaccination data of all the three vaccines (Rota, PCV, MMR) was collected from the National Vaccination Register maintained by THL. Health care data regarding the febrile seizures was collected from the HILMO register.
+Finnish children under 2 years of age, born during 2010 - 2014 were considered eligible for this study. The analysis was performed with the assumption that new data might become available each day, starting from 2010-01-01. Vaccination data of all the three vaccines (Rota, PCV, MMR) was collected from the National Vaccination Register maintained by THL. Health care data regarding the febrile seizures was collected from the HILMO register.
 
 ### Vaccinations  
 
 The vaccinations of interest are the first doses of MPR, PCV and Rota. The three vaccines were analysed separately. A child belongs to a vaccine group if he/she was vaccinated with that vaccine during the observation period. A child can belong to multiple vaccine groups. Only unique vaccination records in the vaccination register were considered. A non-unique vaccination record was defined as a record with the same personal identification code and the same date as another record.  
 
-One challenge of analysing the effects of vaccines in an observational study is that multiple vaccinations can be given during the same day. The recommended schedule for each of the vaccinations is given in table (\ref{tab:vaccine-groups}). For example, the second dose of Rota is recommended to be taken dring the same age as the first dose of PCV. In an effort to make the vaccines more identifiable, only first doses of each of the vaccines were considered in the experiment. For each of the vaccine groups, age distributions at the time of the first vaccinations were analysed and the observation periods for each group were defined so that they cover most first vaccinations (>95%).  
+One challenge with analysing the effects of vaccines in an observational study is that multiple vaccinations can be given during the same day. The recommended schedule for each of the vaccinations is given in table (\ref{tab:vaccine-groups}). For example, the second dose of Rota is recommended to be taken dring the same age as the first dose of PCV. In an effort to make the vaccines more identifiable, only first doses of each of the vaccines were considered in the experiment. For each of the vaccine groups, age distributions at the time of the first vaccinations were analysed and the observation periods for each vaccine group were defined so that they cover most first vaccinations (>95%).  
 
-The observation periods as ages in days are also displayed in table (\ref{tab:vaccine-groups}) along with information regarding vaccination coverage and the underlying study population size. For the MPR group, the 2014 birth cohort was not considered in the study, as due to the higher expected first vaccination age, no sufficient data for the 2014 cohort was yet available. 
+The observation periods for each vaccine group as ages in days are also displayed in table (\ref{tab:vaccine-groups}), along with information regarding vaccination coverage and the underlying study population size. For the MPR group, the 2014 birth cohort was not considered in the study, as due to the higher expected first dose vaccination age, no sufficient data for the 2014 cohort was yet available at the time of the study.  
 
 ```{r}
 group <- c("MPR", "Rota", "PCV")
@@ -51,7 +49,7 @@ Febrile seizures were identified with the following ICD-10 diagnosis codes:
 
 Hospitalization associated with any one of these diagnosis codes was classified as a febrile seizure diagnosis. The date of the seizure was taken to be the date of hospitalization. A seizure within 7 days from the previous one for the same child was considered to represent the same event and thus the latter event was not included in the analysis.
 
-For each of the vaccine age groups, the event incidences during the non-risk periods were estimated to aid with determining the maximum number of observations for each vaccine group, needed as a parameter for the BmaxSPRT experiment. The non-risk incidences were estimated by dividing the number of hospitalizations during the non-risk parts of the observation period by the non-risk person years (scaled by 1000). The size of the vaccinated population was estimated using available birth data and vaccination coverages (see table \ref{tab:vaccine-groups})
+For each of the vaccine age groups, the event incidences during the non-risk periods were estimated to aid with determining the maximum number of observations for each vaccine group, which is needed as a parameter for the BmaxSPRT experiment. The non-risk incidences were estimated by dividing the number of hospitalizations during the non-risk parts of the observation period by the non-risk person years (scaled by 1000). The size of the vaccinated population was estimated using available birth data and vaccination coverages (see table \ref{tab:vaccine-groups}).
 
 
 ```{r}
@@ -65,24 +63,24 @@ knitr::kable(df, caption = "\\label{tab:incidence}Event incidence estimates for 
 
 ## Method
 
-The method used is the binomial variant of maxSPRT, BmaxSPRT. I will very briefly describe the method, for details please refer to earlier sections. The experiment was carried out as if new observations were available daily. It should be noted that even though the observation calendar period starts from 2010-01-01, in reality the first observation is expected to arrive much later, since a person born during 2010 will first have to be vaccinated, then be hospitalized and then pass through both the risk and control intervals in order to contribute to the study.
+The method used is the binomial variant of maxSPRT, BmaxSPRT. In what follows I will briefly describe the design- and decision elements of the method. For details please refer to earlier sections. The experiment was carried out as if new observations were available daily. It should be noted that even though the observation calendar period starts from 2010-01-01, in reality the first observation is expected to arrive much later, since a person born during 2010 will first have to be vaccinated, then be hospitalized, and then pass through both the risk and control periods in order to contribute to the study.
 
 ### Study design
 
-From an epidemiological design standpoint, the study design in BmaxSPRT is a case-only design, such as the simple SCCS design introduced in section (2.2.3). In the simple SCCS, the observation period for each child is divided into risk and control periods following exposure. A febrile seizure during the risk period is classified as a case and a febrile seizure during the control period is classified as a control. In a simple SCCS, the children who are not vaccinated have no contribution to the likelihood and so only children who were both exposed and were hospitalized during the observation period (the defined ages) can be considered.  
+From an epidemiological design standpoint, the study design in BmaxSPRT is a case-only design, such as the simple SCCS design introduced in section (2.2.3). In the simple SCCS, the observation period for each child is divided into risk and control periods following exposure. A febrile seizure during the risk period is classified as a case and a febrile seizure during the control period is classified as a control. The children who are not vaccinated have no contribution to the likelihood and so only children who were both vaccinated and were hospitalized during the observation period contribute to the study 
 
-In this application, the risk interval was chosen to be 0 - 13 days following vaccination and the control interval 14 - 41 days following vaccination, for each of the vaccines. This risk interval simulatenously covers the suspected risk intervals for both PCV (24 hours following exposure) and MMR (5 - 12 days following exposure). It should be noter that the interval might be too long for PCV, which could affect the power of the test for the PCV group. However, this type of specific knowledge might not be available in a real application of BmaxSPRT and it therefore seems most approriate to use the same interval for all three vaccines.
-
-Inference is based on a conditional likelihood which can be thought of as independent binomial trials, were the probability of an event classified as a "case" is a function of the rate ratio parameter $RR$. Higher values of $RR$ correspond to a higher probability of an event occuring during the risk period (and thus classified as "case"). 
+In this application, the risk interval was chosen to be 0 - 13 days following vaccination and the control interval 14 - 41 days following vaccination, for each of the vaccines. This risk interval simultaneously covers the suspected risk intervals for both PCV (24 hours following exposure) and MMR (5 - 12 days following exposure). It should be noted that the interval might be too long for PCV, which could affect the power of the BmaxSPRT experiment for the PCV group. However, this type of specific knowledge might not be available in a real application of BmaxSPRT and it therefore seems approriate to use the same risk and control intervals for all three vaccines. See section 4.5 for a simulation study of how the choice of the risk interval affects the power of the experiment.
 
 ### Hypotheses and decision rule
 
-For each vaccine group $v$, the hypotheses are 
+For each vaccine group, the hypotheses are 
 
 - $H_0: RR = 1$
-- $H_1: RR > 1$
+- $H_1: RR > 1.$
 
-The test statistic is the maximized log-likelihood ratio for the binomial likelihood as in (\ref{eq:LLR-BmaxSPRT}). The experiment proceeds as described in algorithm (\ref{alg:maxSPRT}). For each vaccine group a maximum number of observations is first defined and then for each day of surveillance, the value of the test statistic is computed and compared to a critical value to make a decision. If there are no new observations, the value of the test statistic will remain the same.  
+Inference in the experiment is based on a conditional likelihood (\ref{eq:SCCS-binomial}) which can be thought of as independent binomial trials, were the probability of an event classified as a "case" is a function of the rate ratio parameter $RR$. Higher values of $RR$ correspond to a higher probability of an event occuring during the risk period (and thus classified as "case"). 
+
+The test statistic is the maximized log-likelihood ratio (\ref{eq:LLR-BmaxSPRT}). The experiment proceeds as described in algorithm (\ref{alg:maxSPRT}). For each vaccine group a maximum number of observations is first defined and then for each day of surveillance, the value of the test statistic is computed and compared to a critical value to make a decision. If there are no new observations, the value of the test statistic will remain the same.  
 
 If at any point during surveillance the test statistic exceeds the critical value, the experiment is stopped for the vaccine group and the $H_0$ is rejected. If the maximum number of observations is reached without rejecting $H_0$, the experiment is stopped and $H_0$ is accepted.
 

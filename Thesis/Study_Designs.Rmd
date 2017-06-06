@@ -103,7 +103,7 @@ I will now present the self-controlled case series design (SCCS) developed by Fa
 
 If there is a significant change in the incidence during the risk period, the rate ratio will significantly differ from 1, with values greater than 1 indicating a positive association between the exposure and the event. The risk period could for example be a period of two weeks immediately following vaccination. A control period can also be explicitly defined, or alternatively all other time during the observation period can be considered as the control period. See figure \ref{fig:simpleSCCS} for an illustration of the former.  
 
-```{r echo = FALSE, fig.width = 11, fig.height = 4, fig.align = "center", out.width= "350px", fig.cap = "\\label{fig:simpleSCCS}A simple example of a SCCS design where the period immediately following exposure is defined as the risk period with length $t_1$ and a time period following the risk period is defined as the control period with length $t_0$."}
+```{r echo = FALSE, fig.width = 10, fig.height = 4, fig.align = "center", out.width= "350px", fig.cap = "\\label{fig:simpleSCCS}A simple example of a SCCS design where the period immediately following exposure is defined as the risk period with length $t_1$ and a time period following the risk period is defined as the control period with length $t_0$."}
 
 library(pBrackets)
 par(mar = c(3, 4, 4, 4), oma = c(2,0,0,2))
@@ -134,8 +134,6 @@ In what follows is a mathematical description of SCCS largely inspired by the de
 ### Poisson process  
 
 An underlying assumption in the SCCS method is that adverse events arrive as a Poisson process. A poisson process describes the probabilities for the numbers of events during some time interval(s). An important assumption related to the Poisson process is that the random variables corresponding to these numbers of events are independent. This implies that an occurance of an adverse event should not influence the probabilities of future adverse events. This assumption is likely to be violated in practise, but if the event is rare (relative to the length of the observation period), then this violation is unlikely to have practical consequence.  
-
-\newtheorem{definition}{Definition}
 
 \begin{definition}[Poisson process]
 \label{poissonprocess}
@@ -202,7 +200,7 @@ which is a multinomial likelihood where the individual baseline incidences have 
 
 Next I will present the simple SCCS and the general SCCS which are both based on the assumptions of a piecewise-constant Poisson process and a conditional likelihood. The simple SCCS is particularily useful for the safety surveillance method BmaxSPRT, to be introduced later. The general SCCS is relevant for future research in developing safety surveillance methods.  
 
-### Simple SCCS  
+### Simple SCCS  \label{chapter:simpleSCCS}
 
 Consider a SCCS with a simple incidence function where there are two periods of interest: a risk period and a reference control period. Denote these periods by the indicator $k \in \{0, 1\}$ where $1$ indicates a risk period and $0$ indicates a reference control period. The parameter of interest is $\psi_k$ which quantifies the multiplicative effect that the risk period has on the incidence.  
 
@@ -272,7 +270,7 @@ Following the description of Maclure, one way to describe the CCO design is as f
 
 The periods where the exposure status is of interest are sometimes called risk and control periods in CCO literature, but I will call these periods the *related period* and the *non-related period*, respectively, in order to avoid confusion with the risk and control periods of the SCCS design, where the risk period is a time period during which the rate of events (not exposures) is of interest. The idea of the CCO method is to compare the rates of exposure between the related and the non-related periods. This description of CCO is illustrated in figure \ref{fig:simpleCCO}  
 
-```{r, echo = FALSE, fig.width = 11, fig.height = 4, fig.align = "center", out.width= "350px", fig.cap = "\\label{fig:simpleCCO}A graphical illustration of the CCO design. Exposures occuring immediately before the event day are considered as related to the event and exposures occuring immediately before the control day are considered as not related to the event."}
+```{r, echo = FALSE, fig.width = 10, fig.height = 4, fig.align = "center", out.width= "350px", fig.cap = "\\label{fig:simpleCCO}A graphical illustration of the CCO design. Exposures occuring immediately before the event day are considered as related to the event and exposures occuring immediately before the control day are considered as not related to the event."}
 
 library(pBrackets)
 par(mar = c(3, 4, 4, 4), oma = c(2,0,0,2))
@@ -318,8 +316,8 @@ To solve the probability that an individual who experienced an event was vaccina
 
 ```{r cco_probmodel, message = F, fig.cap = "\\label{cco_probmodel}The probability model in the study base for the case-crossover design, where only individuals with events (AE) are considered. An individual is first either vaccinated (V+) with probability P(V) or not vaccinated (V-). If she was vaccinated, the AE she experienced happened during a risk period with probability P(AE_1) or a control period with probability P(AE_0). If she was not vaccinated the AE happened with probability P(AE_0)"}
 
-plot.probtree <- function(nodes, edges, labels, attributes = list(node=list(label="foo", fillcolor="lightgreen", fontsize="12"),
-                                                                 edge=list(color="red", fontsize = "10"),graph=list(rankdir="LR"))) {
+plot.probtree <- function(nodes, edges, labels, attributes = list(node=list(label="foo", fillcolor="grey85", fontsize="11"),
+                                                                 edge=list(color="black", fontsize = "9"), graph=list(size = "6.00,5.00",rankdir="LR"))) {
   require("Rgraphviz")
   rEG <- new("graphNEL", nodes=nodes, edgemode="directed")
   for(edge in split(edges, rep(1:(length(edges)/2), each = 2))) {
@@ -373,3 +371,5 @@ When discussing CCO, Farrington writes that *"the underlying probability of vacc
 Case-only designs are attractive for vaccine safety surveillance mainly because they implicitly control for time-invariant confounders. However, it remains important to control for time-varying confounders such as age and seasonality [@Farrington2004]. 
 
 Of the two most popular case only designs, the SCCS compares somewhat favourably to CCO. The SCCS allows for direct inference concerning the population parameter of interest, which is the rate ratio of adverse events between specified risk and control time periods. Farrington has also pointed out that in the case of paediatric vaccines there is at least a conceptual problem with the CCO design, where the idea is to treat vaccination times as random variables. It is more natural to view the event times as the random variables of interest as in SCCS, since vaccinations often occur according to a strict schedule. 
+
+The simple SCCS introduced in \ref{chapter:simpleSCCS} offers a statistical model where the rate ratio $RR$ is the only unknown parameter and fixed individual covariates have no effect on the inference. The following chapter continues discussion of safety surveillance from the point of view of the decision element. The simple SCCS is adopted as the design element.
