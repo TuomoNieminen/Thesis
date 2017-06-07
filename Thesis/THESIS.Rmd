@@ -26,13 +26,6 @@ bibliography: ref.bib
 ---
 
 
-<!-- Tarkista taulukko 3.1 (vuotaa yli). -->
-
-<!-- s.23 viittteet "Abraham" pois, "(A Wald and..." -> (Wald and..." -->
-
-<!-- s.31 matriisin P selostus: miksi italic? Tavallisella fontilla vain: -->
-<!-- "The matrix P in (28) is a transition matrix..." -->
-
 <!-- s.35: näissä voit kirjoittaa lyhyemminkin: -->
 <!-- "Jennison and Turnbull introduce a wide variety of group sequential -->
 <!-- methods in their book (Jennison and Turnbull 1999)." -->
@@ -46,7 +39,6 @@ bibliography: ref.bib
 
 <!-- Lähteissä SORENSEN et al turhan isoilla kirjaimilla... -->
 
-<!-- Graduun tarvitaan myös tiivistelmä (valmis lomake, löytynee jostain), -->
 <!-- muistaakseni niin suomeksi kuin enkuksi. -->
 
 
@@ -92,8 +84,13 @@ MathJax.Hub.Config({
 
 \newtheorem*{definition}{Definition}
 
-
+\pagenumbering{gobble} 
 ```{r child = "titlepage.Rmd"}
+```
+
+\newpage
+
+```{r child = "Abstract.Rmd"}
 ```
 
 \newpage
@@ -102,6 +99,7 @@ MathJax.Hub.Config({
 
 \newpage
 
+\pagenumbering{arabic} 
 ```{r child = "Introduction.Rmd"}
 ```
 
