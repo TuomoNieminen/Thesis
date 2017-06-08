@@ -6,6 +6,7 @@ output:
   pdf_document:
     fig_caption: yes
     number_sections: yes
+    citation_package: natbib
   html_document:
     toc: yes
     toc_depth: 2
@@ -25,21 +26,9 @@ header-includes:
 bibliography: ref.bib
 ---
 
-
-<!-- s.35: näissä voit kirjoittaa lyhyemminkin: -->
-<!-- "Jennison and Turnbull introduce a wide variety of group sequential -->
-<!-- methods in their book (Jennison and Turnbull 1999)." -->
-<!-- -> esim. (vastaavia oli myös edellä) -->
-<!-- "Jennison and Turnbull (1999) introduce a wide variety of group -->
-<!-- sequential methods." -->
-
-<!-- tarkista table 4.1 (width) -->
-
 <!-- Discussion: perhaps some conclusion here, too - tai erikseen ennen tätä? -->
 
-<!-- Lähteissä SORENSEN et al turhan isoilla kirjaimilla... -->
-
-<!-- muistaakseni niin suomeksi kuin enkuksi. -->
+<!-- muistaakseni abstract niin suomeksi kuin enkuksi. -->
 
 
 ```{r include=FALSE}
@@ -83,6 +72,7 @@ MathJax.Hub.Config({
 </script>
 
 \newtheorem*{definition}{Definition}
+
 
 \pagenumbering{gobble} 
 ```{r child = "titlepage.Rmd"}

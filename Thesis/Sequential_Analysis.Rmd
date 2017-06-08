@@ -47,7 +47,7 @@ LR
 = \frac{P(\mathbf{y} \mid \boldsymbol\theta_1)}{P(\mathbf{y} \mid \boldsymbol\theta_0)},
 \end{equation}
 
-Now, if the hypotheses are as in (\ref{eq:hypotheses}), and the parameter of interest is $RR$, the power (see table \ref{tab:hypothesis-terminology}) of a hypothesis test is usually a function of $RR$, meaning that higher values of $RR$ make it more likely for the test to reject the null hypothesis. In the context of vaccine safety surveillance this means that one would be more likely to conclude that there is a difference in the rate of events between two groups, the bigger that difference is. This is interesting because it leads to the following observation: when the alternative hypothesis is composite, calculating the power of a test before collecting observations is impossible without fixing the value of $RR$. 
+Now, if the hypotheses are as in (\ref{eq:hypotheses}), and the parameter of interest is $RR$, the power (see table 3.1) of a hypothesis test is usually a function of $RR$, meaning that higher values of $RR$ make it more likely for the test to reject the null hypothesis. In the context of vaccine safety surveillance this means that one would be more likely to conclude that there is a difference in the rate of events between two groups, the bigger that difference is. This is interesting because it leads to the following observation: when the alternative hypothesis is composite, calculating the power of a test before collecting observations is impossible without fixing the value of $RR$. 
 
 Next, I will introduce sequential hypothesis testing and Walds sequential probability ratio test (SPRT), which was designed for testing two simple hypotheses. Wald's suggestion for computing the critical values of the SPRT test requires a known power (or Type II error, $\beta$). 
 
@@ -78,19 +78,19 @@ From a statistical inference point of view, a situtation where observations accu
 
 A naive approach to sequential analysis would be to perform a regular hypothesis test on the accumulated data set each time new observations become available. As discussed earlier, hypothesis testing is based on the general idea that if observations are very unlikely under a statistical model defined by $H_0$, then some assumptions of that model can be questioned. However, if an experiment is repeated multiple times, then even very unlikely outcomes of the experiment are likely to be observed during at least one of the trials. Repeated analysis of accumulating data creates a problem, since repetition introduces multiple chances to reject the $H_0$. The naive approach needs adjustment: in a situation of accumulating data, methods designed specifically for sequential analysis are needed.  
 
-Sequential analysis was developed by Abraham Wald during the second world war and it adresses the problem of hypothesis testing in a situation where observations arrive sequentially. Wald defined a sequential test of a statistical hypothesis as a test procedure which gives a rule of making one of three possible decisions at a single trial of the experiment:
+Sequential analysis was developed by @Wald1945 during the second world war and it adresses the problem of hypothesis testing in a situation where observations arrive sequentially. Wald defined a sequential test of a statistical hypothesis as a test procedure which gives a rule of making one of three possible decisions at a single trial of the experiment:
 
 1. accept the null hypothesis
 2. reject the null hypothesis
 3. continue the experiment by making an additional observation.
 
-Wald developed the sequential probability ratio test (SPRT), which is the most powerful sequential hypothesis test between two simple hypotheses in the sense that for given error rates, SPRT minimizes the expected sample size until a decision can be made [@Wald1945].  
+@Wald1945 developed the sequential probability ratio test (SPRT), which is the most powerful sequential hypothesis test between two simple hypotheses in the sense that for given error rates, SPRT minimizes the expected sample size until a decision can be made.  
 
-SPRT has since been extended to adress composite hypotheses with so called sequential generalized probability ratio tests. In 2011, Kulldorff introduced a version of such a test, called the maxSPRT, designed for vaccine safety surveillance [@Kulldorff2011]. In the following sections I will first briefly introduce SPRT and then describe the maxSPRT and it's self-controlled binomial variant BmaxSPRT in detail.
+SPRT has since been extended to adress composite hypotheses with so called sequential generalized probability ratio tests. @Kulldorff2011 introduced a version of such a test, called the maxSPRT, designed for vaccine safety surveillance. In the following sections I will first briefly introduce SPRT and then describe the maxSPRT and it's self-controlled binomial variant BmaxSPRT in detail.
 
 ### Sequential probability ratio test: SPRT \label{section:SPRT}
 
-Wald's sequential probability ratio test (SPRT) is a sequential hypothesis test designed for testing two simple hypotheses. SPRT is based on the likelihood ratio:
+Wald's [-@Wald1945] sequential probability ratio test (SPRT) is a sequential hypothesis test designed for testing two simple hypotheses. SPRT is based on the likelihood ratio:
 
 \begin{equation}
 \label{eq:LR-SPRT}
@@ -100,7 +100,7 @@ LR_n
 ,
 \end{equation}
 
-where $\mathbf{y}_n$ are the current observations for $n = 1, 2,  ...$ The SPRT procedure is described in Algorithm \ref{section:SPRT}. Even though there is no defined upper limit to the number of observations, Wald proved that the SPRT experiment will eventually terminate with probability 1 [@Wald1945, p.128]. He also later showed that SPRT is the optimal sequential test for testing a simple null hypothesis against a simple alternative, in the sense that it has the lowest expected sample size among tests of equal power [@Wald1948]. 
+where $\mathbf{y}_n$ are the current observations for $n = 1, 2,  ...$ The SPRT procedure is described in Algorithm \ref{section:SPRT}. Even though there is no defined upper limit to the number of observations, @Wald1945 [p. 128] proved that the SPRT experiment will eventually terminate with probability 1. He also later showed that SPRT is the optimal sequential test for testing a simple null hypothesis against a simple alternative, in the sense that it has the lowest expected sample size among tests of equal power [@Wald1948]. 
 
 \begin{tcolorbox}[colback=white,title=Algorithm \ref{section:SPRT}: SPRT] 
 Input: Desired Type I and Type II error rates $\alpha$ and $\beta$, test statistic function $LR_n$ as in (\ref{eq:LR-SPRT}) \\
@@ -115,14 +115,12 @@ Input: Desired Type I and Type II error rates $\alpha$ and $\beta$, test statist
 
 The SPRT test has two critical regions: $Q_0 = \{LR_n \mid LR_n \geq A, B < LR_{n-1} < A\}$ for rejecting $H_0$ and $Q_1 = \{LR_n \mid LR_n \leq B, B < LR_{n-1} < A\}$ for rejecting $H_1$, defined by the two critical values $A$ and $B$. These regions define the stopping criterias for the test for all observations $n = 1, 2, ...$. The SPRT procedure and the critical regions are illustrated in \ref{fig:SPRT}.  
 
-Note that the probability of rejecting the null hypothesis when it is true (type I error) is given by $P(Q_0 \mid H_0) = \alpha$ and the probability of rejecting the alternative hypothesis when it is true (type II error) is given by $P(Q_1 \mid H_1) = \beta$. The critical values $A$ and $B$ should be chosen to match desired (low) error rates.
+In order to determine the values $A$ and $B$, @Wald1945 [pp. 127-133] considered the entire sample space consisting of all possible realisations in the sequential test. He showed that the critical values $A$ and $B$ can be approximated by functions of the desired $\alpha$ and $\beta$ regardless of the statistical model by setting $A = (1- \beta)/ \alpha$ and $B = (1 - \alpha) / \beta$. He also remarked that this procedure will guarantee that the actual type I and II errors will not exceed $\alpha$ and $\beta$ and will only differ from them slightly.  
 
-In order to determine the values $A$ and $B$, Wald considered the entire sample space consisting of all possible realisations in the sequential test. He showed that the critical values $A$ and $B$ can be approximated by functions of the desired $\alpha$ and $\beta$ regardless of the statistical model by setting $A = (1- \beta)/ \alpha$ and $B = (1 - \alpha) / \beta$. He also remarked that this procedure will guarantee that the actual type I and II errors will not exceed $\alpha$ and $\beta$ and will only differ from them slightly [@Wald1945, 127-133].  
-
-The above is a beautiful and simple result, but the solution requires a fixed $\alpha$ and $\beta$. The latter, as discussed before, in turn would require fixing the parameter of interest ($RR$), which can be considered a weakness. In what follows I will illustrate this weakness in more detail.
+The above is a beautiful and simple result, but the solution requires a fixed $\alpha$ and $\beta$. The latter, as discussed before, in turn would require fixing the parameter of interest ($RR$), which can be considered a weakness. In what follows I will introduce Wald's suggested solution for dealing with a composite alternative hypothesis and then illustrate the weakness related to the solution.
 
 
-```{r, fig.align ="center", fig.height = 5, fig.width = 11, fig.cap = "\\label{fig:SPRT}A graphical illustration of the critical boundaries of the sequential probability ratio test (SPRT). If the nominator of the likelihood ratio test statistic is the likelihood according to the alternative hypothesis, then high values of the test statistic mean that the alternative model fits the data better and are thus critical to the null hypothesis. The upper limit A defines the critical region to the null hypothesis. Similarily, the lower limit B defines the critical region for the alternative hypothesis."}
+```{r, fig.align ="center", fig.height = 5, fig.width = 11, fig.cap = "\\label{fig:SPRT}A graphical illustration of the critical boundaries of the sequential probability ratio test (SPRT) where the test statistic is the likelihood ratio (LR). If the nominator of LR is the likelihood according to the alternative hypothesis, then high values of LR mean that the alternative model fits the data better and are thus critical to the null hypothesis. The upper limit A defines the critical region to the null hypothesis. Similarily, the lower limit B defines the critical region for the alternative hypothesis."}
 op <- par(pin = c(4,2.5), cex = 1.5, mar = c(4,4,4,2))
 set.seed(666)
 n <- 100
@@ -136,26 +134,24 @@ legend("topright", legend = c("upper limit (A)", "test statistic",  "lower limit
 par(op)
 ```
 
-### A weakness of SPRT  
+### SPRT and a composite alternative hypothesis
 
-Since vaccine safety surveillance is interested in a composite alternative hypothesis, the fact that SPRT requires a point alternative hypothesis is a weakness. Wald however proposed a solution to this situation. Following Kulldorff's remarks, I will now demostrate how Wald's suggestion to deal with composite hypothesis can lead to problems.
+SPRT was designed for testing two simple hypotheses. Wald did however propose a solution to a situation of a composite alternative hypothesis. He remarked that in common statistical models the power of the SPRT test is an increasing function of the parameter of interest $\theta$. He therefore suggested dealing with a composite alternative hypothesis by simply defining a value $\theta_1$ such that the difference $\theta_1 - \theta_0$ would be of significant interest in the application and then setting a point alternative hypothesis $H_1 : \theta = \theta_1$. Then one could simply utilize SPRT as described in algorithm \ref{section:SPRT} and test a simple null hypothesis against a simple alternative. [@Wald1945 p. 158]  
 
-In his 1945 paper introducing the sequential testing method, Wald remarked that in common statistical models the power is an increasing function of the parameter of interest $\theta$. Therefore he suggested dealing with a composite alternative hypothesis by simply defining a value $\theta_1$ such that the difference $\theta_1 - \theta_0$ would be of significant interest in the application and then setting a point alternative hypothesis $H_1 : \theta = \theta_1$. Then one could simply utilize SPRT as described earlier and test a simple null hypothesis against a simple alternative. [@Wald1945, p.158]
-
-When the parameter of interest is the rate ratio, one example of the strategy above would be to view rate ratios $1 \leq RR < 1.2$ as of no interest and therefore for set $H_1: RR = 1.2$. In his 2011 paper, Kulldorff remarked that an unfortunate relation between the choice of $H_1: RR = RR_1$ and the actual (i.e. true) $RR_a$ can either 
+When the parameter of interest is the rate ratio, one example of the strategy above would be to view rate ratios $1 \leq RR < 1.2$ as of no interest and therefore for example set $H_1: RR = 1.2$. @Kulldorff2011 remarked that an unfortunate relation between the choice of $H_1: RR = RR_1$ and the actual (i.e. true) $RR_a$ can either 
 
 1. delay the rejection of $H_0$ when the observed rate of events is higher than the specified alternative hypothesis would expect (delayed signal generation)
-2. increase the type II error when the actual rate of events is closer to the rate suggested by $H_0$, than the rate suggested by $H_1$ (decreased power) [@Kulldorff2011].    
+2. increase the type II error when the actual rate of events is closer to the rate suggested by $H_0$, than the rate suggested by $H_1$ (decreased power).  
 
-Scenario (1) can happen when $RR_0 < RR_1 << RR_a$ and scenario (2) when $RR_0 < RR_a << RR_1$.  
+In other words, scenario (1) can happen when $RR_0 < RR_1 << RR_a$ and scenario (2) when $RR_0 < RR_a << RR_1$.  
 
 The intuition leading to (1) is that if $RR_a$ is far from both $RR_0$ and $RR_1$, then both the models defined by $H_0$ and $H_1$ are bad models and therefore $P(\mathbf{y} \mid RR_1)$ and $P(\mathbf{y} \mid RR_0)$ will on average be close to each other. For example, if one specifies $RR_0 = 1$ and $RR_1 = 1.2$ when in reality $RR_a = 6$, then both $H_0$ and $H_1$ specify bad models. In such a case the high number of adverse events expected to be observed would be given low probability by both models. The likelihoods would remain close to each other and the likelihood ratio would remain close to one. It might take a large number of samples to reach a point where $LR \geq A$  and $H_0$ is rejected.  
 
 The above is clearly undesirable especially with serious adverse events, where it is desirable that an unexpectedly high number of adverse events would lead to a quick decision to reject $H_0$.  
 
-To see the intuition behind scenario (2), assume again that we are interested to find if $RR > 1$. Following Walds suggestion one might for example choose $RR_0 = 1$ and $RR_1 = 2$, when $RR_a = 1.4$. In this case the model specified by $H_0$ is closer to the real value of $RR$ and it is thus expected that $P(\mathbf{y} \mid RR_0)  > P(\mathbf{y} \mid RR_1)$, making it more likely that $LR \leq B$ ($H_1$ rejected). Thus the type II error is increased. See figure (\ref{fig:SPRT-weakness}) for a graphical illustration.
+To see the intuition behind scenario (2), assume again that we are interested to find if $RR > 1$. Following Wald's suggestion one might for example choose $RR_0 = 1$ and $RR_1 = 2$, when $RR_a = 1.4$. In this case the model specified by $H_0$ is closer to the real value of $RR$ and it is thus expected that $P(\mathbf{y} \mid RR_0)  > P(\mathbf{y} \mid RR_1)$, making it more likely that $LR \leq B$ ($H_1$ rejected). Thus the type II error is increased. See figure (\ref{fig:SPRT-weakness}) for a graphical illustration.
 
-```{r, fig.width = 8, fig.height = 4, fig.cap = "\\label{fig:SPRT-weakness}A weakness of Wald's SPRT. The blue line describes the number of observations and the green and red lines describe the statistical model for the observations under the null and alternative hypothesis respectively. Left: A choice of alternative hypothesis close to the null hypothesis and far from the actual observations can delay the rejection of H0, because the (high number of) observations are unlikely under both hypotheses. Right: An alternative hypothesis choice that is 'too agressive' compared to the observations can increase the type II error rate, because the data is more likely under the null hypothesis."}
+```{r, fig.width = 8, fig.height = 4, fig.cap = "\\label{fig:SPRT-weakness}A graphical illustration of a weakness of Wald's SPRT. The blue line describes the number of observations and the green and red lines describe the statistical model for the observations under the null and alternative hypothesis, respectively. Left: A choice of point alternative hypothesis close to the null hypothesis and far from the actual observations can delay the rejection of H0, because the (high number of) observations are unlikely under both hypotheses. Right: A choice of point alternative hypothesis that is 'too agressive' compared to the actual observations can increase the type II error rate, because the data is more likely under the null hypothesis."}
 op <- par(no.readonly = T)
 par(mfrow=c(1,2), xpd = F, mar = c(5, 1, 4, 2), las = 1)
 cols = c("green", "red", "blue")
@@ -191,12 +187,14 @@ par(op)
 
 ## Maximized sequential probability ratio test: maxSPRT \label{section:maxSPRT}
 
-A suggested solution by Kulldorff to the weakness of SPRT described above is to modify the test in two ways: 
+A suggested solution by @Kulldorff2011 to the weakness of SPRT described above is to modify the test in two ways: 
 
 1. Maximize the likelihood ratio in the space of the alternative hypothesis $\Theta_1$
 2. Instead of setting a lower bound $B$ to reject $H_1$, define a maximum number of observations $N$ and reject $H_1$ if $n \geq N$.
 
-The modified sequential test is called the maximized sequential probability ratio test (maxSPRT) [@Kulldorff2011]. The maxSPRT is a general sequential hypothesis testing method, which can be used on any statistical model. In his 2011 Paper, Kulldorff introduced two versions of the maxSPRT method: one based on Poisson likelihood and the other on Binomial likelihood. The binomial model arises when the study design is a simple self-controlled design such as the SCCS design introduced earlier.  
+The modified sequential test is called the maximized sequential probability ratio test (maxSPRT). The maxSPRT is a general sequential hypothesis testing method, which can be used on any statistical model.  
+
+@Kulldorff2011 introduce two versions of the maxSPRT method: one based on Poisson likelihood and the other on Binomial likelihood. The binomial model arises when the study design is a simple self-controlled design such as the simple SCCS introduced in section \ref{section:simpleSCCS}.  
 
 When the parameter of interest is $RR$, the maxSPRT test statistic is 
 
@@ -204,6 +202,7 @@ When the parameter of interest is $RR$, the maxSPRT test statistic is
 LR_n = \underset{RR_1}{max} \frac{ L(RR_1; \mathbf y_n) }{ L(RR_0; \mathbf y_n) } = \underset{RR_1}{max} \frac{P( \mathbf y_n \mid RR_1)}{P( \mathbf y_n \mid RR_0)}.
 \end{equation}  
 
+The maxSPRT procedure is described in algorithm \ref{section:maxSPRT}. 
 
 \begin{tcolorbox}[colback=white,title=Algorithm \ref{section:maxSPRT}: MaxSPRT]\label{alg:maxSPRT}
 Input: Desired type I error rate $\alpha'$, upper boundary for the sample size $N$, test statistic function $LR_n$ as in (\ref{eq:LR-maxSPRT})\\
@@ -219,7 +218,7 @@ Input: Desired type I error rate $\alpha'$, upper boundary for the sample size $
 
 ### Binomial maxSPRT: BmaxSPRT
 
-Let us now adopt the maxSPRT method in the setting of a simple SCCS design as described earlier. Assume that for the sequence of observations $(y_n, n), n = 0, 1, ...N$, where $y_n$ denotes the number of "cases" out of $n$ events, the probability distribution for $y_n$ is given by the binomial distribution as described in section (2.2.3). The probability of "success" (i.e. adverse event clasified as a "case"), depends on the unkown rate ratio parameter $RR$ and the known ratio between the lengths of the nonrisk and risk periods, $z$. The conditional likelihood is as in (\ref{eq:SCCS-binomial}).  
+Let us now adopt the maxSPRT method in the setting of the simple SCCS. Assume that for the sequence of observations $(y_n, n), n = 0, 1, ...N$, where $y_n$ denotes the number of "cases" out of $n$ events, the probability distribution for $y_n$ is given by the binomial distribution as described in section \ref{section:simpleSCCS}. The probability of "success" (i.e. adverse event clasified as a "case"), depends on the unkown rate ratio parameter $RR$ and the known ratio between the lengths of the nonrisk and risk periods, $z$. The conditional likelihood is as in (\ref{eq:SCCS-binomial}).  
 
 Let the two hypotheses be as in \ref{eq:hypotheses}. Using the equation (\ref{eq:LR-maxSPRT}), the maxSPRT test statistic is given by
 
@@ -229,9 +228,9 @@ LR_n
 = \underset{RR>1}{max} \frac{ (\frac{RR}{z + RR})^{y_n} (\frac{z}{z + RR})^{n - y_n} }{ (\frac{1}{z + 1})^{y_n} (\frac{z}{z + 1})^{n - y_n}  }.
 \end{equation}
 
-Using this test statistic is what Kulldorff calls the binomial maxSPRT (BmaxSPRT) method. A simple SCCS design combined with the the maxSPRT method is one way to arrive at the BmaxSPRT, which shows that the BmaxSPRT method is self-controlled.
+Using this test statistic is what @Kulldorff2011 call the binomial maxSPRT (BmaxSPRT) method. A simple SCCS design combined with the the maxSPRT method is one way to arrive at the BmaxSPRT, which shows that the BmaxSPRT method is self-controlled.
 
-Computation of (\ref{eq:LR-BmaxSPRT}) requires maximization. For computational reasons, it is usually convenient to operate with the log likelihood ratio instead. Since the logarithm is a strictly increasing function, maximizing the log likelihood ratio is equivalent to maximizing the likelihood ratio. It is easy to see that maximization in terms of $RR$ depends only on the nominator, which is a likelihood.  
+Computation of (\ref{eq:LR-BmaxSPRT}) requires maximization. For computational reasons, it is usually convenient to operate with the log likelihood ratio instead. Since the logarithm is a strictly increasing function, maximizing the log likelihood ratio is equivalent to maximizing the likelihood ratio. It is easy to see that maximization in terms of $RR$ depends only on the nominator, which is a likelihood function.  
 
 Maximizing a likelihood function is a common task in statistics and the value that maximizes the likelihood in terms of the parameter $RR$ is called the maximum likelihood estimate (MLE) for $RR$, denoted by $\hat{RR}$. The (log) likelihood ratio is thus maximized by finding the MLE for $RR$, which is easily seen to be $(y_n \cdot z) / (n - y_n)$. Since we are not interested in situations where $RR < 1$, one should use $\hat{RR} = max\{1, \frac{z \cdot y_n}{n - y_n} \}$. Then the test statistic becomes
 
@@ -249,7 +248,7 @@ $$Q = \{LLR_n \mid LLR_n \geq c, LLR_{n-1} < c\}, \quad \text{for all} \quad n =
 
 where $N$ is the maximum number of observations (adverse events). In order to compute the critical value, one must first choose a desired Type I error rate $\alpha'$ and an upper boundary for the sample size $N$. The goal is to then define $c$ so that when $H_0$ is true, $Q$ is only expected to be reached $\alpha'$ proportion of the time.  
 
-The upper boundary of the sample size makes it possible to compute the critical value of the maxSPRT test to any desired precision. Kulldorff has described how to do this for the Binomial and Poisson likelihoods [@Kulldorff2011. p. 65-67, 72]. In the discrete binomial case the critical value can be computed by using a Markov chain approach.  
+The upper boundary of the sample size makes it possible to compute the critical value of the maxSPRT test to any desired precision. @Kulldorff2011 [pp. 65-67, p. 72] describe how to do this for the Binomial and Poisson likelihoods. In the discrete binomial case the critical value can be computed by using a Markov chain approach.  
 
 Next, I will introduce the concept of a Markov chain in the setting of the BmaxSPRT experiment. I will define the state space, the initial probabilities and the transition probabilities, and show that the BmaxSPRT experiment has the Markov property. I will then proceed to present an algorithm which can be used to compute the critical values of BmaxSPRT.
 
@@ -265,7 +264,7 @@ S = (n, y_n) , \quad \text{where} \quad n = 0, 1, ..., N \quad \text{and} \quad 
 
 The experiment always starts at the state $(0,0)$. Clearly, there are a finite number of states. In fact, there are $M = \sum_{i = 0}^{N} n_i = (N+1) (N+2) /2$ possible states.  
 
-In the BmaxSPRT experiment, a new observation is either a "success" ($Y = 1$) or a "failure" ($Y = 0$). Possible transitions in the state space $S$ are therefore as follows.
+In the BmaxSPRT experiment, a new observation is either a "success" ($Y = 1$) or a "failure" ($Y = 0$), depending on the outcome of a Bernoulli random variable $Y$. Possible transitions in the state space $S$ are therefore as follows.  
 
 \begin{equation}\label{eq:transitions}
 \begin{split}
@@ -296,7 +295,7 @@ The BmaxSPRT experiment starts at the state $(0,0)$ with probability 1. Therefor
 \underset{1 \times M}{\mathbf{v}} = (1, 0, ..., 0).
 \end{equation}
 
-In the BmaxSPRT experiment the random variable which corresponds to a single labeling of an adverse event as a "case" or "control" ("success" or "faiilure") determines the transitions and has a Bernoulli distribution. I will denote this random variable as $Y$. The transition probabilities for the transient states are given by 
+In the BmaxSPRT experiment the random variable $Y$ which corresponds to a single labeling of an adverse event as a "case" or "control" ("success" or "failure") determines the transitions and has a Bernoulli distribution. The transition probabilities for the transient states are given by 
 
 \begin{equation}\label{eq:transition-probabilities1}
 \begin{split}
@@ -368,7 +367,7 @@ For any given critical value $c$, the overall probability of reaching the critic
 P(Q \mid H_0) = \sum_{s \in Q} \mathbf{v}\mathbf{P}_0^{(N)},
 \end{equation}
 
-where $\mathbf{P}_0$ is the transition matrix (\ref{eq:transition-matrix}), where $p = 1 / (1 + z)$ is according to $H_0$.  Using this result, it is then possible to try out possible values of $c$ until the one is found which best matches the desired $\alpha'$. One way to execute this procedure is given in algorithm \ref{section:BmaxSPRT-critical}.  
+where $\mathbf{P}_0$ is the transition matrix (\ref{eq:transition-matrix}), where $p = 1 / (1 + z)$ is according to $H_0$. Using this result, it is then possible to try out possible values of $c$ until the one is found which best matches the desired $\alpha'$. One way to execute this procedure is given in algorithm \ref{section:BmaxSPRT-critical}.  
 
 It should be noted that for a desired $\alpha'$, the algorithm finds the value $c$ which corresponds to a type I error $\alpha$ for which the inequality $\alpha \leq \alpha'$ holds. It is unlikely that $\alpha = \alpha'$ exactly. This is due to the discrete nature of the binomial distribution.  
 
@@ -385,23 +384,21 @@ Input: States $S$, initial probabilities $\mathbf{v}$, transition matrix $\mathb
 
 The power of the BmaxSPRT experiment depends on the true value of the rate ratio. When the true rate ratio is $RR_a$, the probability of an event classified as a "case" is given by $p_a = RR_a / (RR_a + z)$. The true transition matrix of the experiment $\mathbf{P}_a$ is then defined by these probabilities.  
 
-From this observation it is easy to see that the power of the BmaxSPRT experiment can be computed for any chosen fixed value of $RR$, say $RR_1 = 1.5$. One simply needs to define the transition matrix $\mathbf{P}_1$, where the probabilities are given by $p_1 = RR_1 / (RR_1 + z)$. This value only corresponds to the actual power of the experiment in the case where $RR_1 = RR_a$, which is, of course, unlikely. However this procedure can provide a conservative estimate for the power of the experiment for a reasonable (low) choice of fixed $RR_1$.
+From this observation it is easy to see that the power of the BmaxSPRT experiment can be computed for any chosen fixed value of $RR$, say $RR_1 = 1.5$. One simply needs to define the transition matrix $\mathbf{P}_1$, where the probabilities are given by $p_1 = RR_1 / (RR_1 + z)$. This value only corresponds to the actual power of the experiment in the case where $RR_1 = RR_a$, which is of course unlikely. However, this procedure can provide a conservative estimate for the power of the experiment for a reasonable (low) choice of fixed $RR_1$.
 
-Denoting the critical region corresponding to a desired $\alpha'$ as $Q_0$, the power of the BmaxSPRT experiment is given by the overall probability of reaching the critical region.
+Denoting the critical region corresponding to a desired $\alpha'$ as $Q_0$, the power of the BmaxSPRT experiment is given by the overall probability of reaching the critical region, as in equation \ref{eq:BmaxSPRT-power}, where $\mathbf{v}$ are the initial probabilities of the states and $\mathbf{P}_1$ is the transition matrix (\ref{eq:transition-matrix}), where $p = RR_1 / (RR_1 + z)$ for some fixed choice of $RR_1$.  
 
 \begin{equation}\label{eq:BmaxSPRT-power}
 P(Q_0 | H_1) = \sum_{s \in Q_0} \mathbf{v}\mathbf{P}_1^{(N)},
 \end{equation}
 
-where $\mathbf{v}$ are the initial probabilities of the states and $\mathbf{P}_1$ is the transition matrix (\ref{eq:transition-matrix}), where $p = RR_1 / (RR_1 + z)$ for some fixed choice of $RR_1$.  
+## Grouped observations \label{section:group-sequential}
 
-## Grouped observations
-
-The sequential hypothesis testing methods discussed so far in this chapter (SPRT, maxSPRT, BmaxSPRT) assume that the value of the test statistic is evaluated whenever a new observation (medical diagnosis) arrives. This applies to situations where data are available in near real time and observations arrive individually. This type of analysis is called continuous sequential analysis. Continuous sequential analysis is applicaple in situtations where the adverse events of interest are reasonably rare and medical diagnoses are collected reasonably often (for example daily).  
+The sequential hypothesis testing methods discussed so far in this chapter (SPRT, maxSPRT, BmaxSPRT) assume that the value of the test statistic is evaluated whenever a new observation (a medical diagnosis) arrives. This applies to situations where data are available in near real time and observations arrive individually. This type of analysis is called continuous sequential analysis. Continuous sequential analysis is applicaple in situtations where the adverse events of interest are reasonably rare and medical diagnoses are collected reasonably often (for example daily).  
 
 Due to administrative reasons, sometimes medical diagnoses become available for analysis in groups. For example, the National Health and Welfare Institute (Finland) receives data from the HILMO register three times a year (2016). Unless the adverse events of interest are extremely rare, it is expected that in this case sometimes more than a single observation arrives simultaneously. The methods applicable in these situations are called group sequential methods [@Silva2015]. 
 
-Group sequential and continuous sequential analyses can be formally defined as follows [@Silva2015].  
+According to @Silva2015 group sequential and continuous sequential analyses can be formally defined as follows.  
 
 *Let $X_t$ be a non-negative integer valued stochastic process describing the number of adverse events that occur during a $[0, t]$ time window.*
 
@@ -419,40 +416,47 @@ In the coming sections I will discuss why the grouped nature of the data require
 
 ### Adjusting for grouped observations  
 
-In their 2015 article, Silva and Kulldorff discuss the differences between group sequential and continuous sequential analyses. I will present a short overview of that discussion. I will show that the following statements are true.  
+@Silva2015 discuss the differences between group sequential and continuous sequential analyses. I will present a short overview of that discussion. I will show that the following statements are true.  
 
 1. Continuous sequential analysis should not be used if data becomes available in groups
 2. Any post-market safety surveillance system should attempt to obtain data as frequently as possible.
 
-To see the intuition for statement 1, assume a special case of group sequential analysis with a single group of observations. The choices are then to either perform a retrospective continuous sequential analysis or do a single hypothesis test (using the single group of data). Assume that the same test statistic is used in both cases. For the continuous sequential analysis, the critical value of the test statistic must adjust for multiple chances to reject the $H_0$. This means that it must be 'harder' to reject the $H_0$ when $H_1$ is true. Continuous sequential analysis would therefore always have lower power than group sequential analysis, if a group of data are already available. 
+To see the intuition for statement 1, assume a special case of group sequential analysis with only a single group of observations. The two choices are then to either perform a retrospective continuous sequential analysis or do a single hypothesis test (using the single group of data). Assume that the same test statistic is used in both cases. For the continuous sequential analysis, the critical value of the test statistic must adjust for multiple chances to reject the $H_0$. This means that it must be 'harder' to reject the $H_0$ when $H_1$ is true. Continuous sequential analysis would therefore always have lower power than group sequential analysis, if a group of data are already available. 
 
 The reason for statement 2 is that a continuous sequential method is always superior to a group sequential method if observations can be made separately. To see the intuition for this, assume a group sequential design that rejects $H_0$ when the total number of events (after a group of observations) are at least $y_c$. Now assume a continuous sequential design that looks at the observations separately and rejects $H_0$ as soon as there are $y_c$ events. The error rates of the designs are identical because the number of events are non-decreasing. However, the continuous method is superior because it can reject the $H_0$ sooner (with a smaller sample size). Therefore for every group sequential design there is a superior continuous sequential design.  
 
 A conclusion can be made that not adjusting for the availability of the data can result in either loss of power or an increase in the expected sample size. Analyses should always be performed as soon as possible, using all the available data.
 
-### Critical values of group sequential methods
+### Group sequential methods
 
 When data is collected during unfrequent calendar times (such as three times a year) and observations arrive in groups, group sequential analysis should be used. The same statistical model and test statistic that would be utilized in a continuous sequential analysis can be applied for group sequential analysis. However, when analyses are done for groups of data there are less chances to reject the $H_0$ and therefore the critical values of the test should be affected. Unfortunately, if the number of observations per group is unkown, the computation of the critical values becomes difficult.  
 
-The problem of determining the critical values of a group sequential test would simplify if the number of observations per group were assumed to be fixed. Kulldorff & Silva have implemented this solution for computing the critical values of a group sequential BmaxSPRT test in their Sequential R package, available in the Comprehensive R Archive Network (CRAN). This assumption makes the problem very similar to the situation discussed earlier, and a Markov chain approach can again be used to compute the critical values.  
+There are two simplifying assumptions which could be made to make the computation of the critical values of a group sequential hypothesis test easier. 
 
-To see the intution to how the Markov chain approach would adapt to grouped observations, the approach introduced in section \ref{section:computing-BmaxSPRT-critical} can be seen as a special case of a group sequential test with group sizes fixed at 1. However, it is quite obvious that if adverse events are assumed to arrive as a random process in time and are then collected during some rare time intervals, the number of observations per group is by assumption a random variable. Therefore the solution of fixed group sizes does not seem satisfactory if the grouped nature of the data were due to administrative reasons.
+1. Fix the number of observations per group.
+2. Fix the number of groups.
 
-The problem of computing the critical values of a group sequential test would also simplify if the maximum number of groups was fixed. However, if the group sizes are unknown, fixing the number of groups will not fix the number of events at the end of surveillance. The goal of safety surveillance is to keep collecting and analyzing data until there is sufficient information regarding a possible association between the exposure and the event and a decision to stop the experiment can be made. Naturally the amount of information depends on the amount of observations. Therefore it would clearly be better to fix the number of observations than the number of groups.
+The problem of determining the critical values of a group sequential test would simplify if the number of observations per group were assumed to be fixed. @R-Sequential have implemented this solution for computing the critical values of a group sequential BmaxSPRT test in their Sequential R package, available in the Comprehensive R Archive Network (CRAN). This assumption makes the problem very similar to the situation discussed in section \ref{section:computing-BmaxSPRT-critical}. The intution for the similarity is that continuous BmaxSPRT can be seen as a special case of a group sequential hypothesis test with group sizes fixed at 1.  
 
-Since these simplifications seem unsatisfactory, a possible solution is to use and error spending approach, as introduced by Jennison and Turnbul in their book which focuses on group sequential methods in clinical trials [@Jennison1999]. Next, I will introduce the concepts of error spending functions and maximum information trials, which could be useful approaches for future research regarding vaccine safety surveillance with grouped observations.    
+It is quite obvious that if adverse events are assumed to arrive as a random process in time and are then collected during some rare time intervals, the number of observations per group is by assumption a random variable. Therefore assumption 1 does not seem realistic if the grouped nature of the data were due to administrative reasons.
+
+The problem of computing the critical values of a group sequential test would also simplify if the maximum number of groups was fixed. However, if the group sizes (i.e. the number of observations per group) are unknown, fixing the number of groups will not fix the number of observations at the end of surveillance.  
+
+The goal of safety surveillance is to keep collecting and analyzing data until there is sufficient information regarding a possible association between the exposure and the event and a decision to stop the experiment can be made. Naturally the amount of information depends on the amount of observations. Therefore it would clearly be better to fix the number of observations than the number of groups.
+
+Since both simplifying assumptions seem unsatisfactory, a possible solution is to use and error spending approach, as introduced by @Jennison1999 in their book which focuses on group sequential methods in clinical trials. Next, I will introduce the concepts of error spending functions and maximum information trials, which could be useful approaches for future research regarding vaccine safety surveillance with grouped observations.    
 
 ### Error spending functions
 
-Jennison and Turnbull (1999) introduce a wide variety of group sequential methods for clinical trials. One of their suggested solutions to the situation where the group sizes are random is to use an error spending approach (also known as alpha spending). For $K$ groups, the type I error $\alpha$ is partioned into probabilities $\pi_1, ..., \pi_K$ which sum to $\alpha$. For the test statistics $LR_k$, critical values $c_k$ are calculated so that
+One solution to group sequential analysis for random group sizes is to use an error spending approach (also known as alpha spending) [@Jennison1999, ch. 7]. The idea of error spending is that for $K$ groups, the type I error $\alpha$ is partioned into probabilities $\pi_1, ..., \pi_K$ which sum to $\alpha$. For the test statistics $Z_k$, critical values $c_k$ are calculated so that
 
 \begin{equation}
-P(LR_1 < c_1, ..., LR_{k-1} < c_{k-1}, LR_k \geq c_k) = \pi_k
+P(|Z_1| < c_1, ..., |Z_{k-1}| < c_{k-1}, |Z_k| \geq c_k) = \pi_k
 \end{equation}
 
 Intuitively this means that for each group $k$, only a proportion of the desired error probability $\alpha$ is spent. 
 
-A practical problem remaining is: how should each $\pi_k$ be chosen? To solve this problem, Jennison and Turnbull introduce families of error spending functions and compare their properties. An error spending function $f(t)$ is a non-decreasing function which partions the desired type I error rate. $f(t)$ satisfies $f(0) = 0$ and $f(t) = \alpha$ for $t \geq 1$.  Jennison and Turnbul advocate a family of error spending functions defined by
+A practical problem remaining is: how should each $\pi_k$ be chosen? To solve this problem, @Jennison1999 [pp. 148-150] introduce families of error spending functions and compare their properties. An error spending function $f(t)$ is a non-decreasing function which partions the desired type I error rate. $f(t)$ satisfies $f(0) = 0$ and $f(t) = \alpha$ for $t \geq 1$. Jennison and Turnbull suggest a family of error spending functions defined by
 
 \begin{equation} \label{eq:error-spending-func}
 f(t) = min\{\alpha \cdot t^p, \alpha \}
@@ -460,10 +464,9 @@ f(t) = min\{\alpha \cdot t^p, \alpha \}
 
 where the choices of $p \in \{1,3\}$ yield similar results to more classical approaches suggested by Pocock and O'brian & Fleming, which belong to the Wang & Tsiatis family of error spending functions.  
 
-
 ### Maximum information trials \label{section:infotrials}
 
-Jennison and Turnbull discuss decision rules in the case of two-sided alternative hypotheses, where the stopping rule for rejecting $H_0$ is defined by a target maximum information level, denoted by $I_{max}$.  Information level for group $k$ is defined as
+Utilizing the concept of errors spending functions, @Jennison1999 [pp. 146-148] discuss decision rules in the case of two-sided alternative hypotheses, where the stopping rule for rejecting $H_0$ is defined by a target maximum information level, denoted by $I_{max}$. Information level for group $k$ is defined as
 
 \begin{equation} \label{eq:information-level}
 I_k = \{var(\hat\theta^{(k)})^{-1}\}, k = 1, 2, ..
@@ -493,4 +496,6 @@ After group $K$ \\
 - otherwise stop, accept $H_0$
 \end{tcolorbox}
 
-The target information $I_{max}$ is a very similar idea to the maximum sample size in maxSPRT. When discussing the approach, Jennison and Turnbull assume that the test statistic is multivariate normal and the alternative hypothesis is two-sided. In maxSPRT type surveillance, the alternative hypothesis one-sided and the test statistic is not assumed to be multivariate normal. Maximum information trials provide a promising approach for grouped observation in vaccine safety surveillance, but further research is needed to adopt the method in the maxSPRT setting.  
+The target information $I_{max}$ is a seemingly similar idea to the maximum sample size in maxSPRT. In their example utilizing the maximum information trial approach however, @Jennison1999 [pp. 150-153] assume that the test statistic has a normal distribution and the alternative hypothesis is two-sided. In maxSPRT type surveillance, the alternative hypothesis is one-sided and the test statistic is not assumed to be normal.  
+
+Maximum information trials provide a promising approach for grouped observation in vaccine safety surveillance, but further research is needed to adopt the method in the maxSPRT setting.  

@@ -99,8 +99,8 @@ rota_coverage <- 0.93
 pcv_coverage  <- 0.94
 
 # case and control intervals
-case_interval <- c(1, 14)
-ctrl_interval <- c(15, 42)
+case_interval <- c(0, 13)
+ctrl_interval <- c(14, 41)
 
 match_ratio <- range_length(ctrl_interval) / range_length(case_interval)
 obs_days <- range_length(case_interval) + range_length(ctrl_interval)
@@ -173,10 +173,18 @@ pcv_expected  <- round( popsize * pcv_coverage *  obs_days/365.25 * incidence_pc
 library(Sequential)
 
 # critical values
-cv_mpr  <- CV.Binomial(mpr_expected,  alpha = 0.05, M = 1, z = match_ratio)$cv
-cv_rota <- CV.Binomial(rota_expected, alpha = 0.05, M = 1, z = match_ratio)$cv
-cv_pcv  <- CV.Binomial(pcv_expected,  alpha = 0.05, M = 1, z = match_ratio)$cv
+mpr_c <- CV.Binomial(mpr_expected,  alpha = 0.05, M = 1, z = match_ratio)
+cv_mpr  <- mpr_c$cv
+aplha_mpr <- mpr_c$TypeIerror
 
+rota_c <- CV.Binomial(rota_expected, alpha = 0.05, M = 1, z = match_ratio)$cv
+cv_rota <- rota_c$cv
+alpha_rota <- rota_c$TypeIerror
+
+pcv_c  <- CV.Binomial(pcv_expected,  alpha = 0.05, M = 1, z = match_ratio)$cv
+cv_pcv < c_pcv$cv
+alpa_pcv <- c_pcv$TypeIerror
+  
 # Performance (power) assuming a risk ratio of 1.5 
 RR <- 1.5
 power_mpr <- Performance.Binomial(N = mpr_expected, M = 1, cv = cv_mpr, z = match_ratio, RR = RR)$Power

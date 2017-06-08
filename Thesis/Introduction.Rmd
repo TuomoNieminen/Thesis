@@ -7,11 +7,11 @@ output: pdf_document
 
 Pharmaceutical products (drugs) can have unintended side effects. An untoward medical occurrence in a patient administered a drug is called an adverse event. Rare adverse events related to drugs are often impossible to detect in pre-licensure studies and therefore there is an incentive to monitor the safety of a drug post-licensure [@Kulldorff2011]. In this work, monitoring the safety of drugs is called safety surveillance. 
 
-The information related to a possible causal relationship between a drug and an adverse event is called a safety signal (signal). Safety surveillance is interested in finding and generating these signals. According to Nelson, post-licensure safety aims related to drugs can be classified into three stages:
+The information related to a possible causal relationship between a drug and an adverse event is called a safety signal (signal). Safety surveillance is interested in finding and generating these signals. According to @Nelson2015, post-licensure safety aims related to drugs can be classified into three stages:
 
 1. **Signal identification**: Considers a large number of events and involves detecting signals related to unexpected adverse events
 2. **Signal refinement**: Considers biologically plausible drug-event pairs suspected to have a causal relationship. Addresses multiple specified hypotheses related to the pairs.
-3. **Signal confirmation**:  Involves a one-time, more in depth study of a previously generated signal. [@Nelson2015]  
+3. **Signal confirmation**:  Involves a one-time, more in depth study of a previously generated signal. 
 
 Safety surveillance can relate to stages one or two, with the aim of either finding new associations (identification) or validating the evidence of suspected associations (refinement).
 
@@ -25,7 +25,7 @@ In vaccine safety surveillance the researcher or an automated system monitors th
 
 Statistical methods designed specifically for vaccine safety surveillance exist. This thesis will largely focus on the maximized sequential probability ratio test (maxSPRT), which is a statistical hypothesis testing method designed for vaccine safety surveillance [@Kulldorff2011]. Vaccine safety survaillance based on maxSPRT has been utilized between 2005 - 2015 in many countries such as in USA, UK, Taiwan and New Zealand. The main focus has been on studying the effects of influenza vaccines. [@Leite2016]
 
-There are multiple variants of the maxSPRT method such as the Poisson maxSPRT (PmaxSPRT), binomial maxSPRT (BmaxSPRT) and conditional PmaxSPRT, along with further versions designed for handling grouped observations. The most popular variant of maxSPRT has been PmaxSPRT followed by BmaxSPRT. In this work the major focus will be on the BmaxSPRT variant.
+There are multiple variants of the maxSPRT method such as the Poisson maxSPRT (PmaxSPRT), binomial maxSPRT (BmaxSPRT) and conditional PmaxSPRT, along with further versions designed for handling grouped observations. According to @Leite2016, the most popular variant of maxSPRT has been PmaxSPRT followed by BmaxSPRT. In this work the major focus will be on the BmaxSPRT variant.
 
 One situation when a safety surveillance method such as the BmaxSPRT could be applied, would be an introduction of a new vaccine to a national vaccination program, such as the introduction of chicken pox vaccination starting in 1.9.2017 in Finland. If there are previously identified safety signals (any reasons to suspect a possible causal relation between the vaccine and some rare adverse event), safety surveillance could be initialized to refine these signals, utilizing accumulating data from electronic health records.
 

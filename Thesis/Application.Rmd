@@ -1,5 +1,5 @@
 
-# Vaccinations and febrile seizures: application of BmaxSPRT safety surveillance method to Finnish register data
+# Childhood vaccinations and febrile seizures: application of BmaxSPRT safety surveillance method to Finnish register data
 
 In this proof-of-concept application, BmaxSPRT vaccine safety surveillance was retrospectively applied to data from the Finnish HILMO register. The exposures of interest are three different childhood vaccinations: Measles-Mumps-Rubella Vaccine (MMR), Pneumococcal vaccination (PCV) and the Rota virus vaccination (Rota). The outcome of interest are febrile seizures. The three vaccines are interesting because: 
 
@@ -14,19 +14,21 @@ MMR, PCV and Rota are all included in the vaccination program in Finland and are
 
 Fevers can cause a child to experience spasms or jerky movements called seizures. Seizures caused by a fever are called febrile seizures. Febrile seizures usually last for less than one or two minutes and they do not cause any permanent harm or have any lasting effects. 
 
-It is established that there is an increased risk of acute fever seizures during the 5-12 days following the first dose vaccination with MMR for childred of ages 6 months - 2 years. This relationship has also been previously shown by both international studies and using Finnish register data. Also, a study by the Centers for Disease Control and Prevention (CDC) has indicated that PCV vaccination together with a flu shot is associated with an increased risk of febrile seizures during the 24 hours following exposure. A PCV vaccination alone might also cause a small increased risk of seizures. There is no evidence of Rota vaccination having similar effects. [@CDC2017]
+It is established that there is an increased risk of acute fever seizures during the 5-12 days following the first dose vaccination with MMR for childred of ages 6 months - 2 years. This relationship has been previously shown by both international studies and using Finnish register data. A study by the Centers for Disease Control and Prevention (CDC) has also indicated that PCV vaccination together with a flu shot is associated with an increased risk of febrile seizures during the 24 hours following exposure. A PCV vaccination alone might also cause a small increased risk of seizures. There is no evidence of Rota vaccination having similar effects. [@CDC2017]
 
 ## Study population and data sources
 
-Finnish children under 2 years of age, born during 2010 - 2014 were considered eligible for this study. The analysis was performed with the assumption that new data might become available each day, starting from 2010-01-01. Vaccination data of all the three vaccines (Rota, PCV, MMR) was collected from the National Vaccination Register maintained by THL. Health care data regarding the febrile seizures was collected from the HILMO register.
+Finnish children under 2 years of age, born during 2010 - 2014 were considered eligible for this study. Vaccination data of all the three vaccines (Rota, PCV, MMR) was collected from the National Vaccination Register maintained by THL. Health care data regarding the febrile seizures was collected from the HILMO register.
 
-### Vaccinations  
+### Vaccinations and vaccination groups  
 
-The vaccinations of interest are the first doses of MPR, PCV and Rota. The three vaccines were analysed separately. A child belongs to a vaccine group if he/she was vaccinated with that vaccine during the observation period. A child can belong to multiple vaccine groups. Only unique vaccination records in the vaccination register were considered. A non-unique vaccination record was defined as a record with the same personal identification code and the same date as another record.  
+One challenge with analysing the effects of vaccines in an observational study is that multiple vaccinations can be given during the same day. The recommended schedule for each of the three vaccinations of interest is given in table \ref{tab:vaccine-groups}. For example, the second dose of Rota is recommended to be taken dring the same age as the first dose of PCV. In an effort to make the vaccines more identifiable, only first doses of each of the vaccines were considered in the experiment. 
 
-One challenge with analysing the effects of vaccines in an observational study is that multiple vaccinations can be given during the same day. The recommended schedule for each of the vaccinations is given in table (\ref{tab:vaccine-groups}). For example, the second dose of Rota is recommended to be taken dring the same age as the first dose of PCV. In an effort to make the vaccines more identifiable, only first doses of each of the vaccines were considered in the experiment. For each of the vaccine groups, age distributions at the time of the first vaccinations were analysed and the observation periods for each vaccine group were defined so that they cover most first vaccinations (>95%).  
+The vaccinations of interest are the first doses of MPR, PCV and Rota. Only unique vaccination records in the vaccination register were considered. A non-unique vaccination record was defined as a record with the same personal identification code and the same date as another record.  
 
-The observation periods for each vaccine group as ages in days are also displayed in table (\ref{tab:vaccine-groups}), along with information regarding vaccination coverage and the underlying study population size. For the MPR group, the 2014 birth cohort was not considered in the study, as due to the higher expected first dose vaccination age, no sufficient data for the 2014 cohort was yet available at the time of the study.  
+The three vaccines were analysed separately by defining vaccination groups. A child belongs to a vaccination group if he/she was vaccinated with that vaccine during the observation period. A child can belong to multiple vaccine groups. For each of the vaccines, age distributions at first dose were analysed and the observation periods for each vaccination group were defined so that the observation period covers most first dose vaccinations (>95%). The observation periods for each vaccine group as ages in days are displayed in table \ref{tab:vaccine-groups}, along with information regarding vaccination coverage and the underlying study population size.  
+
+For the MPR group, the 2014 birth cohort was not considered in the study, as due to the higher expected first dose vaccination age, no sufficient data for the 2014 cohort was yet available at the time of the study.  
 
 ```{r}
 group <- c("MPR", "Rota", "PCV")
@@ -35,54 +37,61 @@ ages <- c("250-650 days", "30-140 days", "60-200 days")
 bc <- c("2010-2013", "2010-2014","2010-2014")
 pop <- c("238 568", "295 800", "295 800")
 cove <- c("95%", "93%", "94%")
-df <- data.frame("Group" = group, "Recommended schedule" = sched, "Observation ages" = ages, "Included birth cohorts" = bc, "Study population size" = pop, "Vaccination coverage" = cove)
-knitr::kable(df, caption = "\\label{tab:vaccine-groups}The recommended vaccination schedule, observation ages, included birth cohorts, size of the study population and vaccination coverage by vaccine group.")
+df <- data.frame("Group" = group, "Schedule" = sched, "Observation ages" = ages, "Cohorts" = bc, "Population" = pop, "Vaccination coverage" = cove)
+knitr::kable(df, caption = "\\label{tab:vaccine-groups}The recommended vaccination schedule, observation ages, included birth cohorts, size of the study population and the vaccination coverage by vaccination group.")
 ```
 
 ### Hospitalizations
 
-Febrile seizures were identified with the following ICD-10 diagnosis codes:
+Febrile seizures were operationalized utilizing medical diagnoses related to hospitalizations. Febrile seizures were identified with the following ICD-10 diagnosis codes:
 
 - A858: *Other specified viral encephalitis*, A86: *Unspecified viral encephalitis*, A87: *Viral meningitis*, A88: *Other viral infections of central nervous system, not elsewhere classified*
 - G038: *Meningitis due to other specified causes*, G039: *Meningitis, unspecified*, G04: *Encephalitis, myelitis and encephalomyelitis*, G05: *Encephalitis, myelitis and encephalomyelitis in diseases classified elsewhere*
 - R291: *Meningismus*, R55: *Syncope and collapse*, R560: *Febrile convulsions*, R568: *Other and unspecified convulsions*
 
-Hospitalization associated with any one of these diagnosis codes was classified as a febrile seizure diagnosis. The date of the seizure was taken to be the date of hospitalization. A seizure within 7 days from the previous one for the same child was considered to represent the same event and thus the latter event was not included in the analysis.
+Hospitalization associated with any one of these diagnosis codes was classified as a febrile seizure event. The date of the seizure was taken to be the date of hospitalization. A seizure within 7 days from the previous one for the same child was considered to represent the same event and thus the latter event was not included in the analysis.
 
-For each of the vaccine age groups, the event incidences during the non-risk periods were estimated to aid with determining the maximum number of observations for each vaccine group, which is needed as a parameter for the BmaxSPRT experiment. The non-risk incidences were estimated by dividing the number of hospitalizations during the non-risk parts of the observation period by the non-risk person years (scaled by 1000). The size of the vaccinated population was estimated using available birth data and vaccination coverages (see table \ref{tab:vaccine-groups}).
+For each of the vaccine age groups, the event incidences during the non-risk periods were estimated to aid with determining the maximum number of observations for each vaccine group, which is needed as a parameter for the BmaxSPRT experiment. The non-risk incidences were estimated by dividing the number of hospitalizations during the non-risk parts of the observation period by the non-risk person years. The size of the vaccinated population was estimated using available birth data and vaccination coverages (see table \ref{tab:vaccine-groups}). Table \ref{tab:incidence} displays these incidences as the number of events per 1000 person years. 
 
 
 ```{r}
 group <- c("MPR", "Rota", "PCV")
 nre <- c(3588, 640, 815)
 nri <- c(14.6, 8.1, 7.9)
-df <- data.frame("group" = group, "non-risk events" = nre, "non-risk incidence" = nri)
-knitr::kable(df, caption = "\\label{tab:incidence}Event incidence estimates for the vaccinated populations during the nonrisk time periods. Non-risk is the time during the observation period excluding the risk period. Incidence estimates are given by 1000 person years.")
+ages <- c("250-650 days", "30-140 days", "60-200 days")
+df <- data.frame("Group" = group, "Observation ages" = ages, "Nonrisk events" = nre, "Nonrisk incidence" = nri)
+knitr::kable(df, caption = "\\label{tab:incidence}Event incidence estimates for the vaccinated populations during the non-risk time periods for each vaccination group. Non-risk time is the time during the observation period excluding the defined risk period of 0-13 days following vaccination. Incidence estimates are given by 1000 person years.")
 ```
 
 
 ## Method
 
-The method used is the binomial variant of maxSPRT, BmaxSPRT. In what follows I will briefly describe the design- and decision elements of the method. For details please refer to earlier sections. The experiment was carried out as if new observations were available daily. It should be noted that even though the observation calendar period starts from 2010-01-01, in reality the first observation is expected to arrive much later, since a person born during 2010 will first have to be vaccinated, then be hospitalized, and then pass through both the risk and control periods in order to contribute to the study.
+The method used in this experiment is the binomial variant of maxSPRT, BmaxSPRT. The analysis was performed with the assumption that new data might become available each day, starting from 2010-01-01. It should be noted that in reality the first observation is expected to arrive much later, since a person born during 2010 will first have to be vaccinated, then be hospitalized, and then pass through both the risk and control periods in order to contribute to the study. 
 
-### Study design
+In what follows I will briefly describe the design- and decision elements of the BmaxSPRT method. For details please refer to earlier chapters. 
 
-From an epidemiological design standpoint, the study design in BmaxSPRT is a case-only design, such as the simple SCCS design introduced in section (2.2.3). In the simple SCCS, the observation period for each child is divided into risk and control periods following exposure. A febrile seizure during the risk period is classified as a case and a febrile seizure during the control period is classified as a control. The children who are not vaccinated have no contribution to the likelihood and so only children who were both vaccinated and were hospitalized during the observation period contribute to the study 
+### Study design \label{section:application-study-design}
 
-In this application, the risk interval was chosen to be 0 - 13 days following vaccination and the control interval 14 - 41 days following vaccination, for each of the vaccines. This risk interval simultaneously covers the suspected risk intervals for both PCV (24 hours following exposure) and MMR (5 - 12 days following exposure). It should be noted that the interval might be too long for PCV, which could affect the power of the BmaxSPRT experiment for the PCV group. However, this type of specific knowledge might not be available in a real application of BmaxSPRT and it therefore seems approriate to use the same risk and control intervals for all three vaccines. See section 4.5 for a simulation study of how the choice of the risk interval affects the power of the experiment.
+From an epidemiological design standpoint, the study design in BmaxSPRT is a case-only design, such as the simple SCCS design introduced in section \ref{section:simpleSCCS}. In the simple SCCS, the observation period for each child is divided into risk and control periods following exposure. A febrile seizure during the risk period is classified as a case and a febrile seizure during the control period is classified as a control. The children who are not vaccinated have no contribution to the likelihood and so only children who were both vaccinated and were hospitalized during the observation period contribute to the study.  
+
+In this application, the risk interval was chosen to be 0 - 13 days following vaccination and the control interval 14 - 41 days following vaccination, for each of the vaccines. This risk interval simultaneously covers the suspected risk intervals for both PCV (24 hours following exposure) and MMR (5 - 12 days following exposure).  
+
+It should be noted that the chosen risk interval is likely to be too long especially for PCV, which is suspected to be related to febrile seizures within 24 hours from vaccination. This could affect the power of the BmaxSPRT experiment for the PCV group. However, in a real safety surveillance application, specific knowledge of the actual risk period for the vaccine and adverse event pair might not be available, which is why in this proof-of-concept application a choice of a conservative common risk period was used. See section \ref{section:sensitivity-analysis} for a simulation study of how the choice of the risk interval affects the power of the experiment.
 
 ### Hypotheses and decision rule
 
-For each vaccine group, the hypotheses are 
+For each vaccination group, the hypotheses are 
 
 - $H_0: RR = 1$
-- $H_1: RR > 1.$
+- $H_1: RR > 1,$
 
-Inference in the experiment is based on a conditional likelihood (\ref{eq:SCCS-binomial}) which can be thought of as independent binomial trials, were the probability of an event classified as a "case" is a function of the rate ratio parameter $RR$. Higher values of $RR$ correspond to a higher probability of an event occuring during the risk period (and thus classified as "case"). 
+where $RR = \lambda_1 / \lambda_0$ is the rate ratio of incidences of adverse events during the risk period ($\lambda_1$) and control period ($\lambda_0$).  
 
-The test statistic is the maximized log-likelihood ratio (\ref{eq:LLR-BmaxSPRT}). The experiment proceeds as described in algorithm (\ref{alg:maxSPRT}). For each vaccine group a maximum number of observations is first defined and then for each day of surveillance, the value of the test statistic is computed and compared to a critical value to make a decision. If there are no new observations, the value of the test statistic will remain the same.  
+Inference in the experiment is based on a conditional likelihood as in (\ref{eq:SCCS-binomial}), which can be thought of as independent binomial trials, were the probability of an adverse event being classified as a "case" is a function of the rate ratio parameter $RR$. Higher values of $RR$ correspond to a higher probability of an event occuring during the risk period instead of the control period (and thus classified as "case"). 
 
-If at any point during surveillance the test statistic exceeds the critical value, the experiment is stopped for the vaccine group and the $H_0$ is rejected. If the maximum number of observations is reached without rejecting $H_0$, the experiment is stopped and $H_0$ is accepted.
+The test statistic is the maximized log-likelihood ratio as in (\ref{eq:LLR-BmaxSPRT}). The experiment proceeds as described in algorithm \ref{alg:maxSPRT}. For each vaccination group a maximum number of observations $N$ is first defined, a desired type I error level $\alpha'$ is chosen and a critical value $c$ is computed. Then for each day of surveillance, the value of the test statistic is computed and compared to the critical value to make a decision. In the BmaxSPRT experiment, if there are no new observations, the value of the test statistic will remain the same and the decision made during the previous day will not change.  
+
+If at any point during surveillance the value of the test statistic reaches the critical value, the experiment is stopped for the vaccination group and the $H_0$ is rejected. If this does not happen and the maximum number of observations is reached without rejecting $H_0$, the experiment ends and $H_0$ is accepted.
 
 ### Parameters of the experiment
 
@@ -101,38 +110,40 @@ In order to deploy the BmaxSPRT, one needs to specify
 1. The risk interval
 2. The control interval
 3. The desired maximum type I error rate
-4. The maximum number of observations (or the power of the test for a defined rate ratio)
+4. The maximum number of observations
 
-The parameters defining the stopping conditions of the maxSPRT experiment for each vaccine group are displayed in table (\ref{tab:application-parameters}). The risk and control intervals are as specified earlier and in this experiment the desired type I error rate was chosen to be $\alpha' = 0.05$. 
+Alternatively to directly specifying 4, the desired power of the test corresponding to the choices made for 1-3 and a specified rate ratio could be chosen instead, which then determines the maximum number of observations. In this experiment the maximum number of observations was directly defined. An estimate for the expected number of events during surveillance under the null hypothesis (no increased risk during the risk period) was used as the maximum number of observations. This was done for practical reasons for each vaccination group to help ensure that the experiment would reach a conclusion.  
 
-In order to determine the maximum numbers of observations, the expected number of events during surveillance under the null hypothesis was estimated for each age group. These estimates were then used as the maximum number of observations in the experiment. The power of the sequential hypothesis test was computed for a rate ratio of 1.5. Critical values of the test statistic were computed using a Markoc chain approach implemented in the Sequential R-package.
+The parameters defining the stopping conditions of the maxSPRT experiment for each vaccination group are displayed in table \ref{tab:application-parameters}. The risk and control intervals are as specified earlier in section \ref{section:application-study-design} and the desired type I error rate was chosen to be $\alpha' = 0.05$. The power of the sequential hypothesis test was computed for a choice of $RR = 1.5$.  
 
 ```{r}
 conditions <- data.frame(data$conditions)
 conditions$risk <- "0-13"
 conditions$ctrl <- "14-41"
 conditions$z <- 2
-conditions$p_0 <- "1/3"
-conditions <- conditions[, c("risk", "ctrl", "z","p_0", "N", "c", "alpha", "power")]
-kable(conditions, caption = "\\label{tab:application-parameters}Parameters of the BmaxSPRT experiment. z is the ratio of the lengths of the control and risk periods, p_0 is the expected proportion of cases under the null hypothesis, N is the maximum number of observations. The power was computed for a rate ratio of 1.5.")
+conditions$p <- "1/3"
+conditions <- conditions[, c("risk", "ctrl", "z","p", "N", "c", "alpha", "power")]
+kable(conditions, caption = "\\label{tab:application-parameters}Parameters of the BmaxSPRT experiment. z is the ratio of the lengths of the control and risk periods, p is the expected proportion of cases under the null hypothesis (p = 1 / (z + 1)), N is the maximum number of observations. The power was computed for a rate ratio of 1.5.")
 ```
 
 
 ## Results
 
-All analyses were carried out using the R program for statistical computing. Functions from the Sequential R package were used for parts of the computations. In some cases the source code was modified for efficiency.
+All analyses were carried out using the R program for statistical computing [@R-software]. Functions from the Sequential R package were used for parts of the computations [@R-Sequential]. In some cases the source code was modified for efficiency.
 
 ### Surveillance results
 
-The BmaxSPRT method generated a signal on day 693 for PCV and on day 1041 for MMR. No signal was generated for Rota. The values of the test statistic and the rate ratio estimates for each day of surveillance are displayed in \ref{fig:surveillance-results1}). The rate ratio estimes at the time of signal generation were 1.59 for MMR and 2.15 for PCV. For Rota, the rate ratio estimate at the end of surveillance was 1.01. For MMR there were 66 cases out of 149 events ($\approx 0.44$) and for PCV there were 29 cases out of 56 events ($\approx 0.52$). For Rota, the proportion of cases ($87 / 259 \approx 0.34$) closely matches the expected proportion under the $H_0$ ($1/3$).
+The BmaxSPRT method generated a signal on day 693 of surveillance for PCV and on day 1041 for MMR. No signal was generated for Rota and the maximum number of observations was reached without rejecting $H_0$. The values of the test statistic and the rate ratio estimates for each day of surveillance are illustrated in figure \ref{fig:surveillance-results1}).  
+
+The rate ratio estimes at the time of signal generation were 1.59 for MMR and 2.15 for PCV. For Rota, the rate ratio estimate at the end of surveillance was 1.01. According to the choices of the risk and control intervals, the expected proportion of cases under the $H_0$ is approximately $33$%. For MMR there were 66 cases out of 149 events ($\approx 44$%) and for PCV there were 29 cases out of 56 events ($\approx 52$%). For Rota, the proportion of cases ($\approx 34$%) closely matched the expected proportion. These results are gathered in table \ref{tab:surveillance-results-summary1}.
 
 ```{r}
 summary <- data$summary
-summary$p_obs <- c("0.44", "0.52", "0.34")
-kable(summary, caption = "\\label{}Summary of the results of the BmaxSPRT surveillance for the three vaccine groups. A signal was detected for MMR and PCV and not detected for Rota.")
+summary$prop.cases <- paste0(100*round(summary$cases / summary$n, 2), "%")
+kable(summary, caption = "\\label{tab:surveillance-results-summary1}Summary of the results of the BmaxSPRT surveillance for the three vaccination groups. A signal was generated for MMR and PCV.")
 ```
 
-```{r, fig.height = 8.5, fig.cap = "\\label{fig:surveillance-results1}"}
+```{r, fig.height = 8.5, fig.cap = "\\label{fig:surveillance-results1} Results of BmaxSPRT surveillance for MMR, Rota and PCV. A signal was generated on day 1041 for MMR and on day 694 for PCV as the value of the test statistic (solid black) reached the critical value (solid red). The maximum number of observations was reached for Rota without generating a signal. The running maximum likelihood estimate for the rate ratio is also displayed in the picture (dashed blue) along with a reference line for the value RR = 1 (solid grey)."}
 par(mfrow = c(3,1))
 signalPlot2(x = data$dates, Y = data$results$MMR, main = "MMR")
 signalPlot2(x = data$dates, Y = data$results$Rota, main = "Rota")
@@ -142,38 +153,45 @@ signalPlot2(x = data$dates, Y = data$results$PCV, main = "PCV")
 
 ### More results and conclusions
 
-In maxSPRT the surveillance ends once evidence of an association between the vaccine and the adverse event has been found (a signal is generated). In this proof-of-concept application however, we can satisfy our curiosity and see what would happen if surveillance was continued for the two groups for which early stopping occured (MMR, PCV). These results are displayd in figure (\ref{fig:surveillance-results2}).  
+In a real application of BmaxSPRT, the surveillance immidiately ends once evidence of an association between the vaccine and the adverse event has been found (a signal is generated) or if the maximum number of observation is reached. In this proof-of-concept application however, it is possible to satisfy ones curiosity and see what would happen if surveillance was instead continued for the two vaccination groups for which signal was generated and early stopping occured (MMR, PCV).  
 
-Further surveillance shows that when using all the available data for the cohorts under study, the estimate of the rate ratio for the PCV group goes down and the value of the test statistic stays below the critical value. The evidence of an association to febrile seizures for the PCV group is therefore inconclusive, when utilizing the whole data set. For MMR the evidence of an association only gets stronger with more observations.  
+The values of the test statistic and the rate ratio estimates for each day of the continued surveillance for MMR and PCV are illustrated in figure (\ref{fig:surveillance-results2}). Further surveillance shows that when using all the available data for the cohorts under study, the estimate of the rate ratio for the PCV group goes down and the value of the test statistic stays below the critical value. The evidence of an association to febrile seizures for the PCV group therefore seems inconclusive, when utilizing the whole data set. For MMR the evidence of an association gets stronger with more observations.  
 
-It should be reminded at this point that the risk interval in this experiment for the PCV group is possibly much too long, as according to the literature the most likely risk interval is within a 24 hour period following vaccination. The sentitivity of the BmaxSPRT experiment to the choice of the risk period is an important and interesting question, which I will consider next.
+It should be noted at this point that there are two reasons for why in this proof-of-concept application the results of the sequential hypothesis test should not be considered as conclusive results, especially for the PCV group. First, since a group of data is already available, the continuous maxSPRT is not the optimal hypothesis test. A regular hypothesis test would have greater power, as discussed in section \ref{section:group-sequential}. 
 
-```{r, fig.height = 8, fig.cap = "\\label{fig:surveillance-results2}"}
+Second, the chosen risk intervals (0-13 days from vaccination) are possibly too long especially for PCV, where according to the literature the suspected increased risk of a febrile seizure is within a 24 hour period following vaccination. The sensitivity of the power of the BmaxSPRT experiment to the choice of the risk period is an important question, which I will consider next.  
+
+```{r, fig.height = 6, fig.cap = "\\label{fig:surveillance-results2} Results for continued surveillance for the PCV and MMR groups, both of which a safety signal was generated. Continued surveillance shows that the evidence of an association to febrile seizures for MMR gets stronger when utilizing the complete data set: The value of the test statistic (solid black) gets higher and further away from the critical value (solid red). The estimate for the rate ratio (dashed blue) remains nearly constant and above the reference line at 1 (solid grey). Results for PCV are inconclusive, as the evidence of an association gets weaker with more observations."}
 par(mfrow = c(2,1))
-signalPlot2(x = data$dates, Y = data$results$MMR, stop = F, main = "MMR")
-signalPlot2(x = data$dates, Y = data$results$PCV, stop = F, main = "PCV")
+signalPlot2(x = data$dates, Y = data$results$MMR, stop = F, main = "MMR", cex = 0.7)
+signalPlot2(x = data$dates, Y = data$results$PCV, stop = F, main = "PCV", cex = 0.7)
 ```
 
 
-## Sensitivity analysis of BmaxSPRT
+## Sensitivity analysis of BmaxSPRT \label{section:sensitivity-analysis}
 
 ```{r data}
 sim <- get(load("../data/risk_interval_simulation_results.Rda"))
 ```
 
-It is clear that the results of the BmaxSPRT method are dependent on the choice of the risk period. Intuitively, if the actual risk period is shorter or longer than the chosen one, that should have a decreasing effect on the power of the test. I studied the sensitivity of the maxSPRT method to the choices of risk and nonrisk intervals by simulation. The main interest of the simulation is to find out how much of an impact does a poor choice of risk and control periods have on the power of the maxSPRT test. 
+It is clear that the results of the BmaxSPRT experiment depend on the choice of the risk interval. Intuitively, if the actual time interval of increased risk is shorter or longer than the chosen risk interval, that should have a decreasing effect on the power of the test. An interesting question is therefore to quantify this effect for different choices of risk and control intervals. I used simulation to study how the power of the BmaxSPRT method is affected by the (poor) choices of risk and control intervals. 
 
-This question was studied by repeadetly simulating adverse events data and applying the B-maxSPRT method to the simulated data with different choices for the risk and nonrisk intervals. Below I will describe the assumptions of the simulation and then present the results of the experiment.
+The analysis was carried out by repeadetly simulating adverse events data and applying the BmaxSPRT method to the simulated data with different choices for the risk and nonrisk intervals. Below I will describe the assumptions of the simulation and then present the results of the analysis. 
 
 ### The studied risk and control intervals
 
-Six intervals which differ from the actual risk and non-risk periods were chosen for the simulation, along with a seventh reference pair which matched the actual risk interval perfectly. The intervals define the classification of events into cases or controls. The figure (\ref{fig:sim-intervals}) describes the chosen case and control intervals. 
+Six types of choices for the risk and nonrisk intervals which differ from the actual risk and non-risk periods were chosen for the simulation, along with a seventh pair of reference intervals choices which matched the actual risk (and therefore nonrisk) period perfectly. The figure (\ref{fig:sim-intervals}) illustrates the chosen case and control intervals. All the chosen intervals have a common ratio between the risk and control periods, as shown in table \ref{tab:sim-interval-choices}.
 
 
 ```{r, fig.cap = "\\label{fig:sim-intervals}The six risk and control interval choices studied in the experiment. In the top row the risk interval is too short and the control interval overlaps with the risk interval. In the bottom row the risk interval is too long and overlaps with the control interval."}
 overlaps <- names(sim$case_intervals)
 par(mar = c(1,1,4,1), mfrow = c(2, 3))
 for(i in 2:7) interval_plot(sim$risk_period, sim$case_intervals[[i]], sim$control_intervals[[i]], main = overlaps[i])
+```
+
+```{r}
+names(sim$choices)[1:4] <- c("risk","risk.length","control", "control.length")
+knitr::kable(sim$choices[c(1,3,2,4,5)], caption = "\\label{tab:sim-interval-choices}Risk and control interval choices for the simulation experiment. The reference group matches the actual risk interval used in the simulation.")
 ```
 
 <!-- The simulation proceeded according to the following algorithm -->
@@ -207,10 +225,9 @@ Adverse events were simulated for the 6 birth cohorts 10 000 times. For each of 
 
 ### Results of the simulation
 
-Table (\ref{tab:sim-results}) shows the detection rates for each risk and control interval pair in the simulation. Detection rate is the proportion of simulation iterations where the null hypothesis was rejected and it corresponds to the power of the test. If the risk and control intervals are chosen perfectly as was done with the reference group, the expected detection rate in the simulation was $0.9$.
+Table \ref{tab:sim-results} shows the detection rates for each risk and control interval pair in the simulation. Detection rate is the proportion of simulation iterations where the null hypothesis was rejected and it corresponds to the power of the test. If the risk and control intervals are chosen perfectly as was done with the reference group, the expected detection rate in the simulation was $0.9$.
 
 ```{r}
-names(sim$choices)[1] <- "risk.interval"
 N <- sim$iter
 
 # detect rates for each interval type
@@ -218,8 +235,8 @@ detection_rate <- apply(sim$results, 2, function(r) {
   detect_rate <- sum(!is.na(r)) / N
   detect_rate
 })
-df <- data.frame(detect_rate = round(detection_rate, 2))
+df <- data.frame("signal rate" = round(detection_rate, 2))
 
-knitr::kable(cbind(sim$choices, df), caption = "\\label{tab:sim-results}Risk and control interval choices for the simulation experiment. The reference group matches the actual risk interval used in the simulation.")
+knitr::kable(cbind(sim$choices[, c(1,3)], df), caption = "\\label{tab:sim-results}Results of the simulation. The signal rate for the reference group matches the desired power of the experiment. As expected, the signal rates are lower the more the choices for the risk and control intervals differ from the reference.")
 ```
 
