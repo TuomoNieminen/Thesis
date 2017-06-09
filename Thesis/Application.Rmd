@@ -7,26 +7,26 @@ In this proof-of-concept application, BmaxSPRT vaccine safety surveillance was r
 - For PCV there exists a suspected relationship to febrile seizures
 - For Rota there is no evidence of a relationship to febrile seizures
 
-MMR, PCV and Rota are all included in the vaccination program in Finland and are free for all children. The main interest of this application was to see if and when the BmaxSPRT method would generate a signal for the MMR-febrile seizure pair, and also to see what the results would be for the other pairs. 
+MMR, PCV and Rota are all included in the vaccination program in Finland and are free for all children. The main interest of this application was to see if and when the BmaxSPRT method would generate a signal for the MMR-febrile seizure pair, and also to see what the results would be for the two other vaccines.   
 
 
 ## Febrile seizures and vaccinations
 
 Fevers can cause a child to experience spasms or jerky movements called seizures. Seizures caused by a fever are called febrile seizures. Febrile seizures usually last for less than one or two minutes and they do not cause any permanent harm or have any lasting effects. 
 
-It is established that there is an increased risk of acute fever seizures during the 5-12 days following the first dose vaccination with MMR for childred of ages 6 months - 2 years. This relationship has been previously shown by both international studies and using Finnish register data. A study by the Centers for Disease Control and Prevention (CDC) has also indicated that PCV vaccination together with a flu shot is associated with an increased risk of febrile seizures during the 24 hours following exposure. A PCV vaccination alone might also cause a small increased risk of seizures. There is no evidence of Rota vaccination having similar effects. [@CDC2017]
+It is established that there is an increased risk of acute fever seizures during the 5-12 days following the first dose vaccination with MMR in children aged from 6 months to 2 years. This relationship has been previously shown by both international studies and using Finnish register data. A study by the Centers for Disease Control and Prevention (CDC) has also indicated that PCV vaccination together with a flu vaccination is associated with an increased risk of febrile seizures during the 24 hours following exposure. A PCV vaccination alone might also cause a small increased risk of seizures. There is no evidence of Rota vaccination having similar effects. [@CDC2017]
 
 ## Study population and data sources
 
-Finnish children under 2 years of age, born during 2010 - 2014 were considered eligible for this study. Vaccination data of all the three vaccines (Rota, PCV, MMR) was collected from the National Vaccination Register maintained by THL. Health care data regarding the febrile seizures was collected from the HILMO register.
+Finnish children under 2 years of age, born during 2010 - 2014 were considered eligible for this study. Vaccination data of all the three vaccines (Rota, PCV, MMR) was collected from the National Vaccination Register maintained by THL. Health care data regarding the febrile seizures were collected from the HILMO register.
 
 ### Vaccinations and vaccination groups  
 
 One challenge with analysing the effects of vaccines in an observational study is that multiple vaccinations can be given during the same day. The recommended schedule for each of the three vaccinations of interest is given in table \ref{tab:vaccine-groups}. For example, the second dose of Rota is recommended to be taken dring the same age as the first dose of PCV. In an effort to make the vaccines more identifiable, only first doses of each of the vaccines were considered in the experiment. 
 
-The vaccinations of interest are the first doses of MPR, PCV and Rota. Only unique vaccination records in the vaccination register were considered. A non-unique vaccination record was defined as a record with the same personal identification code and the same date as another record.  
+The vaccinations of interest are the first doses of MPR, PCV and Rota. Vaccination records with the same personal identification code and the same date as another record were excluded from analyses.  
 
-The three vaccines were analysed separately by defining vaccination groups. A child belongs to a vaccination group if he/she was vaccinated with that vaccine during the observation period. A child can belong to multiple vaccine groups. For each of the vaccines, age distributions at first dose were analysed and the observation periods for each vaccination group were defined so that the observation period covers most first dose vaccinations (>95%). The observation periods for each vaccine group as ages in days are displayed in table \ref{tab:vaccine-groups}, along with information regarding vaccination coverage and the underlying study population size.  
+The three vaccines were analyzed separately by defining vaccination groups. A child belongs to a vaccination group if he/she was vaccinated with the respective vaccine during the observation HUOM period. A child can belong to multiple vaccine groups. For each of the vaccines, age distributions at first dose were analyzed and the observation periods for each vaccination group were defined so that the observation period covers most first dose vaccinations (>95%). The observation periods for each vaccine group as ages in days are displayed in table \ref{tab:vaccine-groups}, along with information regarding vaccination coverage and the underlying study population size.  
 
 For the MPR group, the 2014 birth cohort was not considered in the study, as due to the higher expected first dose vaccination age, no sufficient data for the 2014 cohort was yet available at the time of the study.  
 
