@@ -6,7 +6,7 @@ html_document: default
 
 # Study designs in vaccine safety surveillance
 
-In vaccine safety surveillance the researcher (or a defined automated system) observes, but does not alter, the events that occur. Therefore safety surveillance falls under observational studies. The researcher observes accumulating data related to vaccinations and medical diagnoses, and attempts to answer the question: has the rate of adverse events for a vaccinated individual increased due to the exposure. 
+In vaccine safety surveillance the researcher (or a defined automated system) observes, but does not intervene, with the events that occur. Therefore safety surveillance falls under observational studies. The researcher observes accumulating data related to vaccinations and medical diagnoses, and attempts to answer the question: has the rate of adverse events for a vaccinated individual increased due to the exposure. 
 
 A natural follow-up question is: increased as compared to what? To answer this question, the researcher needs a *study design* which defines the groups of individuals to be compared. Ideally, the defined groups would only differ with respect to their exposure status, so that observed changes in the rates of events could be directly assigned to the exposure. In practise this is difficult to achieve.
 
@@ -91,7 +91,7 @@ The case-crossover design (CCO) and the self-controlled case series design (SCCS
 
 In CCO and SCCS, events occuring during the risk period can be labeled as "cases" and events during the control period as "controls." Individuals act as both cases and controls in the study because the person time of the individuals is used to define both the cases and the controls. Both designs aim at comparing the incidence rates of the adverse events between the risk and control periods.  
 
-From a statistical inference point of view, incidence rates can be compared with their ratio, called the *rate ratio*, denoted by $RR$. The rate ratio between incidence rates $\lambda_1$ and $\lambda_0$ is
+From a statistical inference point of view, incidence rates can be compared with their ratio, called the *rate ratio*, denoted by $RR$. The rate ratio between two constant incidence rates $\lambda_1$ and $\lambda_0$ is
 
 \begin{equation}
 RR = \frac{\lambda_1}{\lambda_0}.
@@ -140,8 +140,9 @@ In what follows is a mathematical description of SCCS largely inspired by the de
 
 ### Poisson process  
 
-An underlying assumption in the SCCS method is that adverse events arrive as a Poisson process. A poisson process describes the probabilities for the numbers of events during some time interval(s). An important assumption related to the Poisson process is that the random variables corresponding to these numbers of events are independent. This implies that an occurrence of an adverse event should not influence the probabilities of future adverse events. This assumption is likely to be violated in practise, but if the event is rare (relative to the length of the observation period), then this violation is unlikely to have practical consequences.    
+An underlying assumption in the SCCS method is that adverse events occur as a Poisson process. A poisson process describes the probabilities for the numbers of events during some time interval(s). An important assumption related to the Poisson process is that the random variables corresponding to these numbers of events are independent. This implies that an occurrence of an adverse event should not influence the probabilities of future adverse events. This assumption is likely to be violated in practise, but if the event is rare (relative to the length of the observation period), then this violation is unlikely to have practical consequences.    
 
+HUOM
 \begin{definition}[Poisson process]
 \label{poissonprocess}
 Let $D$ be the time period of interest and $d$ disjoint subsets of $D$. Let $Y_d$ denote the number of events during $d$ with $E[Y_d] = \lambda_d$. A Poisson process is defined by the following assumptions:  \\[10pt]
@@ -154,7 +155,7 @@ $$
 
 ### Incidence function  
 
-The observation period in SCCS is the calendar period and ages in days during which individuals can be sampled as cases. An assumption is made that during this observation period, adverse events for individuals $i = 1, 2, ..., N$ arrive as a non-homogenous piecewise-constant Poisson process. What this means is that while the intensity of the process can vary, it remains constant for disjoint intervals of the oservation period. For each individual, I will index the observation period by days denoted by $d$. In this work the smallest measurable unit for time is a day, since data in electronic health care data bases such as AvoHILMO is collected daily. 
+The observation period in SCCS is the calendar- and age period during which individuals can be sampled as cases. An assumption is made that during this observation period, adverse events for individuals $i = 1, 2, ..., N$ arrive as a non-homogenous piecewise-constant Poisson process. What this means is that while the intensity of the process can vary, it remains constant for each of the disjoint intervals of the oservation period. In this work the smallest measurable unit for time is a day, since data in electronic health care data bases such as AvoHILMO is collected daily. For each individual, I will index the observation period by days denoted by $d$. 
 
 The rate of the adverse events during each day for each individual depends on the idividual intensity of the Poisson process during that day. The incidence is assumed to be constant within each day, but can vary between days. The intensity during day $d$ for individual $i$ is given by the incidence function $\lambda_{id}$, which depends on a constant individual effect $\phi_i$ and a time-dependent effect $\boldsymbol\theta$. The latter captures exposures to vaccination and changes in age. The effect of each $\theta_d$ is assumed to be multiplicative, so that the incidence function for individual $i$ during day $d$ is given by
 
@@ -162,7 +163,7 @@ The rate of the adverse events during each day for each individual depends on th
 \lambda_{id} = exp(\phi_i + \theta_d).
 \end{equation}
 
-Due to the properties of the Poisson process the total incidence over a number of days during the observation period is a sum of the daily incidences. If the incidence stays constant for a period of consequent, say, $t_q$ days, the incidence during that period is given by the number of days times the daily incidence. Assuming that the observation period consists of such disjoint periods, the incidence function is then given by
+Due to the properties of the Poisson process the cumulative incidence over a number of days during the observation period is a sum of the daily incidences. If the incidence stays constant for a period of consequent, say, $t_q$ days, the incidence during that period is given by the number of days times the daily incidence. Assuming that the observation period consists of such disjoint periods, the incidence function is then given by
 
 \begin{equation}
 \label{incfunc}

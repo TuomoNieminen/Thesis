@@ -15,7 +15,7 @@ interval_plot <- function(risk, case, ctrl, ...) {
   rect(h + risk[1], ylim[1] - 5,  h + risk[2], ylim[2] + 5, col = "salmon", border = NA, density = 15)
   rect(h + case[1], 30, h + case[2], 40, col = "grey50", lwd = 0)
   rect(h + ctrl[1] - 1, 30, h + ctrl[2] - 1, 40, col ="grey80", lwd = 0)
-  leg <- paste(c("actual risk period", "risk interval", "control interval"), lapply(list(risk, case, ctrl), paste, collapse = "-"))
+  leg <- paste(c("actual risk period", "risk period", "control period"), lapply(list(risk, case, ctrl), paste, collapse = "-"))
   legend("topright", legend = leg, col = c("red", "grey50", "grey80"), lty = 1, lwd = c(1, 8,8), bty = "n")
 }
 

@@ -7,7 +7,7 @@ output: pdf_document
 
 Pharmaceutical products (drugs) can have unintended side effects. An untoward medical occurrence in a patient administered a drug is called an adverse event. Rare adverse events related to drugs are often impossible to detect in pre-licensure studies and therefore there is an incentive to monitor the safety of a drug post-licensure [@Kulldorff2011]. In this work, monitoring the safety of drugs is called safety surveillance. 
 
-The information related to a possible causal relationship between a drug and an adverse event is called a safety signal (signal). Safety surveillance is interested in finding and generating these signals. According to @Nelson2015, post-licensure safety aims related to drugs can be classified into three stages:
+The information related to a possible causal relationship between a drug and an adverse event is called a safety signal (signal). Safety surveillance is interested in finding these signals. According to @Nelson2015, post-licensure safety aims related to drugs can be classified into three stages:
 
 1. **Signal identification**: Considers a large number of events and involves detecting signals related to unexpected adverse events.
 2. **Signal refinement**: Considers biologically plausible drug-event pairs suspected to have a causal relationship. Addresses multiple specified hypotheses related to the pairs.
@@ -17,7 +17,7 @@ Safety surveillance can relate to stages one or two, with the aim of either find
 
 An assumption to the type of safety surveillance considered in this work is that a biologically plausible exposure-event pair has been previously identified. Further, the method to be introduced assumes that the relationship between the exposure and the adverse event can be characterised by defining a time interval of possibly increased risk. This places the safety surveillance considered here to the refinement stage.  
 
-In this thesis the drug of interest is a vaccine product (vaccine). The goal is to define and utilize a safety surveillance method to make decisions related to safety signal generation, utilizing electronic medical records.   
+In this thesis the drug of interest is a vaccine product (vaccine). The goal is to define and utilize a safety surveillance method to make decisions related to the generation of safety signals, utilizing electronic medical records.   
 
 ## Vaccine safety surveillance  
 

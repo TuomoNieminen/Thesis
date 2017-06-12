@@ -175,15 +175,15 @@ library(Sequential)
 # critical values
 mpr_c <- CV.Binomial(mpr_expected,  alpha = 0.05, M = 1, z = match_ratio)
 cv_mpr  <- mpr_c$cv
-aplha_mpr <- mpr_c$TypeIerror
+alpha_mpr <- mpr_c$Type_I_Error
 
-rota_c <- CV.Binomial(rota_expected, alpha = 0.05, M = 1, z = match_ratio)$cv
+rota_c <- CV.Binomial(rota_expected, alpha = 0.05, M = 1, z = match_ratio)
 cv_rota <- rota_c$cv
-alpha_rota <- rota_c$TypeIerror
+alpha_rota <- rota_c$Type_I_Error
 
-pcv_c  <- CV.Binomial(pcv_expected,  alpha = 0.05, M = 1, z = match_ratio)$cv
-cv_pcv < c_pcv$cv
-alpa_pcv <- c_pcv$TypeIerror
+pcv_c  <- CV.Binomial(pcv_expected,  alpha = 0.05, M = 1, z = match_ratio)
+cv_pcv <- pcv_c$cv
+alpa_pcv <- pcv_c$Type_I_Error
   
 # Performance (power) assuming a risk ratio of 1.5 
 RR <- 1.5
@@ -192,11 +192,11 @@ power_rota <- Performance.Binomial(N = rota_expected, M = 1, cv = cv_rota, z = m
 power_pcv <- Performance.Binomial(N = pcv_expected, M = 1, cv = cv_pcv, z = match_ratio, RR = RR)$Power
 
 
-conditions <- round(rbind(MPR = c(N = mpr_expected, c = cv_mpr, power = power_mpr, alpha = 0.05),
-                           ROTA= c(N = rota_expected, c = cv_rota, power = power_rota, alpha = 0.05),
-                           PCV = c(N = pcv_expected, c = cv_pcv, power = power_pcv, alpha = 0.05)),2)
+conditions <- rbind(MPR = c(N = mpr_expected, c = cv_mpr, power = power_mpr, alpha = alpha_mpr),
+                           ROTA= c(N = rota_expected, c = cv_rota, power = power_rota, alpha = alpha_rota),
+                           PCV = c(N = pcv_expected, c = cv_pcv, power = power_pcv, alpha = alpa_pcv))
 
-out$`Surveillance conditions` <- paste(eosMatrix(conditions),
+out$`Surveillance conditions` <- paste(eosMatrix(round(conditions, 2)),
                                        "<p> The power is calculated for assumed risk ratio of 1.5 </p>")
 
 # MONITORING
@@ -247,11 +247,11 @@ pcv_test$c <- cv_pcv
 #### RESULTS
 
 # Summary statistics
-test_results <- list(MPR = mpr_test, Rota = rota_test, PCV = pcv_test)
-detection <- lapply(test_results, function(df){
+results <- list(MPR = mpr_test, Rota = rota_test, PCV = pcv_test)
+detection <- lapply(results, function(df){
   day <- which(df$signal)[1]
   if(is.na(day)) day <- nrow(df)
-  detection_info <- df[day, c("signal","day", "ts","cases","controls", "n", "RR")]
+  detection_info <- df[day, c("signal","signal.day", "ts","cases","controls", "n", "RR")]
   detection_info
 })
 

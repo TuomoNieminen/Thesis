@@ -52,21 +52,20 @@ Now, if the hypotheses are as in (\ref{eq:hypotheses}), and the parameter of int
 
 Next, I will introduce sequential hypothesis testing and Walds sequential probability ratio test (SPRT), which was designed for testing two simple hypotheses. Wald's suggestion for computing the critical values of the SPRT test requires a known power (or Type II error, $\beta$). 
 
-HUOM
 \begin{table}[h]
 \label{tab:hypothesis-terminology}
 \caption{Terminology related to statistical hypothesis testing} \vspace{5mm}
 \begin{tabular}{ l  l }
 \hline 
-Term  & Description \\ [1mm]
+Term  & Description \\ [1.5mm]
 \hline \\ [-3mm]
-$H_0$ & The null hypothesis ($H_0 : \theta = \theta_0$) \\ [1mm]
-$H_1$ & The alternative hypothesis ($H_1 : \theta = \theta_1$) \\ [1mm]
+$H_0$ & The null hypothesis ($H_0 : \boldsymbol\theta \in \Theta_0$) \\ [1.5mm]
+$H_1$ & The alternative hypothesis ($H_1 : \boldsymbol\theta \in \Theta_1$) \\ [1.5mm]
 Composite hypothesis & A hypothesis which adresses more than a single point in the parameter space. \\ 
- & For example $H_1: \theta > 1$ \\ [1mm]
-$\alpha$ & $P(\text{reject } H_0 \mid H_0)$. The type I error (false positive rate) \\ [1mm]
-$\beta$ &  $P(\text{accept } H_0 \mid H_1)$. The type II error (false negative rate) \\ [1mm]
-Power & $1 - \beta$ \\ [1mm]
+ & For example $H_1: \theta > 1$ \\ [1.5mm]
+$\alpha$ & $P(\text{reject } H_0 \mid H_0)$. The type I error (false positive rate) \\ [1.5mm]
+$\beta$ &  $P(\text{accept } H_0 \mid H_1)$. The type II error (false negative rate) \\ [1.5mm]
+Power & $1 - \beta$ \\ [1.5mm]
 \hline
 \end{tabular}
 \end{table}
@@ -82,9 +81,9 @@ A naive approach to sequential analysis would be to perform a standard hypothesi
 
 Sequential analysis was developed by @Wald1945 during the second world war and it adresses the problem of hypothesis testing in a situation where observations arrive sequentially. Wald defined a sequential test of a statistical hypothesis as a test procedure which gives a rule of making one of three possible decisions at a single trial of the experiment:
 
-1. accept the null hypothesis
-2. reject the null hypothesis
-3. continue the experiment by making an additional observation.
+1. Accept the null hypothesis.
+2. Reject the null hypothesis.
+3. Continue the experiment by making an additional observation.
 
 @Wald1945 developed the sequential probability ratio test (SPRT), which is the most powerful sequential hypothesis test between two simple hypotheses. For given type II error rates, SPRT minimizes the expected sample size until a decision can be made.  
 
@@ -104,7 +103,7 @@ LR_n
 
 where $\mathbf{y}_n$ are the current observations for $n = 1, 2,  ...$ The SPRT procedure is described in Algorithm \ref{section:SPRT}. Even though there is no defined upper limit to the number of observations, @Wald1945 [p. 128] proved that the SPRT experiment will eventually terminate with probability 1. He also later showed that SPRT is the optimal sequential test for testing a simple null hypothesis against a simple alternative, in the sense that it has the lowest expected sample size among tests of equal power [@Wald1948]. 
 
-\begin{tcolorbox}[colback=white,title=Algorithm \ref{section:SPRT}: SPRT] 
+\begin{tcolorbox}[enlarge top by=0.5cm, colback=white,title=Algorithm \ref{section:SPRT}: SPRT] 
 Input: Desired Type I and Type II error rates $\alpha$ and $\beta$, test statistic function $LR_n$ as in (\ref{eq:LR-SPRT}) \\
 1. Compute critical upper and lower boundaries $A = (1- \beta)/ \alpha$ and $B = (1 - \alpha) / \beta$. \\
 2. After observation n = 1, 2, ... do  \\
@@ -172,7 +171,7 @@ layout(matrix(c(1,1,2,3), ncol=2, byrow=TRUE), heights=c(1, 4))
 # common legend
 par(mai=c(0,0,0,0))
 plot.new()
-legend("center", inset = 0, legend = c("P(Y | H0)", "P(Y | H1)", "y"), col = cols, lty = 1, horiz = TRUE, xpd = T)
+legend("center", inset = 0, legend = c("P(Y | H0)", "P(Y | H1)", "y"), col = cols, lty = c(1,1,2), horiz = TRUE, xpd = T)
 
 par(las = 1, mar = c(5, 1, 4, 2))
 # poor H1 can delay detection
@@ -216,7 +215,7 @@ LR_n = \underset{RR_1}{max} \frac{ L(RR_1; \mathbf y_n) }{ L(RR_0; \mathbf y_n) 
 
 The maxSPRT procedure is described in Algorithm \ref{section:maxSPRT}. The procedure uses a test statistic such as (\ref{eq:LR-maxSPRT}) and requires that the desired type I error rate and the maximum number of observations are chosen before the experiment is carried out. The first step is the computation of the critical value of the test statistic. This computation depends on the statistical model for the observations (i.e. the likelihood function). The following sections discuss the case where the likelihood is binomial.  
 
-\begin{tcolorbox}[colback=white,title=Algorithm \ref{section:maxSPRT}: MaxSPRT]\label{alg:maxSPRT}
+\begin{tcolorbox}[enlarge top by=0.5cm, colback=white,title=Algorithm \ref{section:maxSPRT}: MaxSPRT]\label{alg:maxSPRT}
 Input: Desired type I error rate $\alpha'$, upper boundary for the sample size $N$, test statistic function $LR_n$ as in (\ref{eq:LR-maxSPRT})\\
 1. Compute the critical value $c$ of the test.\\
 2. After observation $n = 1, .., N - 1$ do\\
@@ -329,20 +328,21 @@ The matrix $\mathbf{P}$ in (\ref{eq:transition-matrix}) is a transition matrix w
 \begin{figure}
 \begin{equation}\label{eq:transition-matrix}
 \mathbf{P} = \bordermatrix{
-& (0,0) & (1,0) & (1,1) & (2,0) & (2,1) & (2,2) & ... & (N,0) & (N,1) & ... & (N,N)\cr
-(0,0) &  0 & 1-p & p & 0 & 0 & 0 & ... & 0 & 0 &... & 0 \cr
-(1,0) &  0 & 0 & 0 & 1-p & p & 0 & ... & 0 & 0 & ... & 0 \cr
-(1,1) &  0 & 0 & 0 & 0 & 0 & 1-p & ... & 0 & 0 & ... & 0 \cr
-(2,0) &  0 & 0 &  0 & 0 & 0 & 0 & ... & 0 & 0 & ... & 0 \cr
-(2,1) &  0 & 0 &  0 & 0 & 0 & 0 & ... & 0 & 0 & ... & 0 \cr
-(2,2) &  0 & 0 &  0 & 0 & 0 & 0 & ... & 0 & 0 & ... & 0 \cr
-. & . & . & . & . & . & . & ... & . & . & ... & . \cr
-. & . & . & . & . & . & . & ... & . & . & ... & . \cr
-(N,0) &  0 & 0 &  0 & 0 & 0 & 0 & ...  & 1 & 0 & ... & 0 \cr
-(N,1) &  0 & 0 &  0 & 0 & 0 & 0 & ...& 0 & 1 &... & 0 \cr
-. & . & . & . & . & . & . & ... & . & . & ... & . \cr
-. & . & . & . & . & . & . & ... & . & . & ... & . \cr
-(N,N) &  0 & 0 &  0 & 0 & 0 & 0 &  ... & 0 & 0 & ... & 1 \cr
+&      (0,0) & (1,0) & (1,1) & (2,0) & (2,1) & (2,2) & (3,0) & (3,1) & .. & (N,0) & .. & (N,N) \cr
+(0,0) &  0   & 1-p   & p     & 0     & 0     & 0     & 0     & 0     & .. & 0     & .. & 0     \cr
+(1,0) &  0   & 0     & 0     & 1-p   & p     & 0     & 0     & 0     & .. & 0     & .. & 0     \cr
+(1,1) &  0   & 0     & 0     & 0     & 1-p   & p     & 0     & 0     & .. & 0     & .. & 0     \cr
+(2,0) &  0   & 0     & 0     & 0     & 0     & 0     & 1-p   & p     & .. & 0     & .. & 0     \cr
+(2,1) &  0   & 0     & 0     & 0     & 0     & 0     & 0     & 1-p   & .. & 0     & .. & 0     \cr
+(2,2) &  0   & 0     & 0     & 0     & 0     & 0     & 0     & 0     & .. & 0     & .. & 0     \cr
+(3,0) &  0   & 0     & 0     & 0     & 0     & 0     & 0     & 0     & .. & 0     & .. & 0     \cr
+(3,1) &  0   & 0     & 0     & 0     & 0     & 0     & 0     & 0     & .. & 0     & .. & 0     \cr
+.     &  .   & .     & .     & .     & .     & .     & .     & .     & .. & .     & .. & .     \cr
+.     &  .   & .     & .     & .     & .     & .     & .     & .     & .. & .     & .. & .     \cr
+(N,0) &  0   & 0     & 0     & 0     & 0     & 0     & 0     & 0     & .. & 1     & .. & 0     \cr
+.     &  .   & .     & .     & .     & .     & .     & .     & .     & .. & .     & .. & .     \cr
+.     &  .   & .     & .     & .     & .     & .     & .     & .     & .. & .     & .. & .     \cr
+(N,N) &  0   & 0     & 0     & 0     & 0     & 0     & 0     & 0     & .. & 0     & .. & 1     \cr
 }
 \end{equation}
 \caption{A transition matrix describing the transition probabilities between the states in the state space S of the BmaxSPRT experiment. The rows and columns of the matrix are the possible states and $\mathbf{P}_{ij}$ gives the probability of the transition $s_i -> s_j$. For example under the null hypothesis of the BmaxSPRT experiment the probability of the transition $(0,0) -> (1,0)$ ("failure") is given by $1-p = z / (1 + z)$ and the probability of the transition $(0,0) -> (1,1)$ ("success") is given by $p = 1 / (1 + z)$. The states where the maximum number of observations is reached are all absorbing states.}
@@ -376,14 +376,14 @@ For any given critical value $c$, the overall probability of reaching the critic
 
 \begin{equation}
 \label{eq:probability-critical}
-P(Q \mid H_0) = \sum_{s \in Q} \mathbf{v}\mathbf{P}_0^{(N)},
+\alpha_{(BmaxSPRT)} = P(Q \mid H_0) = \sum_{s \in Q} \mathbf{v}\mathbf{P}_0^{(N)},
 \end{equation}
 
 where $\mathbf{P}_0$ is the transition matrix (\ref{eq:transition-matrix}), where $p = 1 / (1 + z)$ is according to $H_0$. Using this result, it is then possible to try out possible values of $c$ until the one is found which best matches the desired $\alpha'$. One way to execute this procedure is given in algorithm \ref{section:BmaxSPRT-critical}.  
 
 It should be noted that for a desired $\alpha'$, the algorithm finds the value $c$ which corresponds to a type I error $\alpha$ for which the inequality $\alpha \leq \alpha'$ holds. It is unlikely that $\alpha = \alpha'$ exactly. This is due to the discrete nature of the binomial distribution.  
 
-\begin{tcolorbox}[colback=white,title=Algorithm \ref{section:BmaxSPRT-critical}: BmaxSPRT critical]
+\begin{tcolorbox}[enlarge top by=0.5cm, colback=white,title=Algorithm \ref{section:BmaxSPRT-critical}: BmaxSPRT critical]
 Input: States $S$, initial probabilities $\mathbf{v}$, transition matrix $\mathbf{P_0}$, test statistic function $LLR_n$ as in (\ref{eq:LLR-BmaxSPRT}) \\
 1. Compute all possible test statistic values $L = \{LLR(s) \mid s \in S\}$ and sort $L$ from lowest to highest. \\
 2. Choose $c' = min\{L\}$ to be the critical value. The absorbing states are  $Q = \{s \in S \mid LLR(s) \geq c \}$. \\
@@ -398,10 +398,10 @@ The power of the BmaxSPRT experiment depends on the true value of the rate ratio
 
 From this observation it is easy to see that the power of the BmaxSPRT experiment can be computed for any chosen fixed value of $RR$, say $RR_1 = 1.5$. One simply needs to define the transition matrix $\mathbf{P}_1$, where the probabilities are given by $p_1 = RR_1 / (RR_1 + z)$. This value only corresponds to the actual power of the experiment in the case where $RR_1 = RR_a$, which is of course unlikely. However, this procedure can provide a conservative estimate for the power of the experiment for a reasonable (small) choice of fixed $RR_1$.
 
-Denoting the critical region corresponding to a desired $\alpha'$ as $Q_0$, the power of the BmaxSPRT experiment is given by the overall probability of reaching the critical region, as in equation \ref{eq:BmaxSPRT-power}, where $\mathbf{v}$ are the initial probabilities of the states and $\mathbf{P}_1$ is the transition matrix (\ref{eq:transition-matrix}), where $p = RR_1 / (RR_1 + z)$ for some fixed choice of $RR_1$.  
+Denoting the critical region corresponding to a desired $\alpha'$ as $Q_0$, the power of the BmaxSPRT experiment is given by the overall probability of reaching the critical region, as in equation (\ref{eq:BmaxSPRT-power}), where $\mathbf{v}$ are the initial probabilities of the states and $\mathbf{P}_1$ is the transition matrix (\ref{eq:transition-matrix}), where $p = RR_1 / (RR_1 + z)$ for some fixed choice of $RR_1$.  
 
 \begin{equation}\label{eq:BmaxSPRT-power}
-P(Q_0 | H_1) = \sum_{s \in Q_0} \mathbf{v}\mathbf{P}_1^{(N)},
+\text{Power}_{(BmaxSPRT)} = P(Q_0 | H_1) = \sum_{s \in Q_0} \mathbf{v}\mathbf{P}_1^{(N)}
 \end{equation}
 
 ## Grouped observations \label{section:group-sequential}
@@ -441,22 +441,16 @@ A conclusion can be made that not adjusting for the availability of the data can
 
 ### Group sequential methods
 
-When data are collected during infrequent calendar times (such as three times a year) and observations arrive in groups, group sequential analysis should be used. The same statistical model and test statistic that would be utilized in a continuous sequential analysis can be applied for group sequential analysis. However, when analyses are done for groups of data there are less opportunities to reject the $H_0$ and therefore the critical values of the sequential hypothesis test should be affected. Unfortunately, if the number of observations per group is unkown, the computation of the critical values becomes difficult.  
+The same statistical model and test statistic that would be utilized in a continuous sequential analysis can be applied for group sequential analysis. However, when analyses are done for groups of data, there are less opportunities to reject the $H_0$ and therefore the critical values of the sequential hypothesis test should be affected. Unfortunately, if the number of observations per group is unkown, the computation of the critical values becomes difficult. Two assumptions could be made to simplify this computation, but the validity of the assumptions is questionable.
 
-There are two simplifying assumptions which could be made to make the computation of the critical values of a group sequential hypothesis test easier. 
+The problem of determining the critical values of a group sequential test would simplify if the number of
+observations per group were assumed to be fixed (fixed group sizes).ś @R-Sequential have implemented this solution for computing critical values of a group sequential BmaxSPRT test in their Sequential R package, available in the Comprehensive R Archive Network (CRAN). This assumption makes the problem very similar to the situation discussed in section \ref{section:computing-BmaxSPRT-critical}. The intution for the similarity is that continuous BmaxSPRT can be seen as a special case of a group sequential hypothesis test with group sizes fixed at 1.  
 
-1. Fix the number of observations per group.
-2. Fix the number of groups.
+It is quite obvious that if adverse events are assumed to arrive as a random process in time but are collected during infrequent time intervals, the number of observations per group is by assumption a random variable. Therefore the solution of fixed group sizes does not seem satisfactory if the grouped nature of the data were due to administrative reasons.  
 
-The problem of determining the critical values of a group sequential test would simplify if the number of observations per group were assumed to be fixed. @R-Sequential have implemented this solution for computing critical values of a group sequential BmaxSPRT test in their Sequential R package, available in the Comprehensive R Archive Network (CRAN). This assumption makes the problem very similar to the situation discussed in section \ref{section:computing-BmaxSPRT-critical}. The intution for the similarity is that continuous BmaxSPRT can be seen as a special case of a group sequential hypothesis test with group sizes fixed at 1.  
+The problem would also simplify if the maximum number of groups was fixed. However, assuming that the group sizes are unkown, fixing the number of groups will not fix the number of observations at the end of surveillance. Rememeber that the goal of safety surveillance is to keep collecting and analyzing data until there is sufficient information regarding a possible association between the exposure and the event. Naturally, the amount of information depends on the amount of observations. Therefore it would clearly be better to fix the number of observations than the number of groups.
 
-It is quite obvious that if adverse events are assumed to arrive as a random process in time but are collected during infrequent time intervals, the number of observations per group is by assumption a random variable. Therefore assumption 1 does not seem realistic if the grouped nature of the data were due to administrative reasons.
-
-The problem of computing critical values of a group sequential test would also simplify if the maximum number of groups was fixed. However, if the group sizes (i.e. the number of observations per group) are unknown, fixing the number of groups will not fix the number of observations at the end of surveillance.  
-
-The goal of safety surveillance is to keep collecting and analyzing data until there is sufficient information regarding a possible association between the exposure and the event and a decision to stop the experiment can be made. Naturally the amount of information depends on the amount of observations. Therefore it would clearly be better to fix the number of observations than the number of groups.
-
-Since both simplifying assumptions seem unsatisfactory, a possible solution is to use and error spending approach, as introduced by @Jennison1999 in their book which focuses on group sequential methods in clinical trials. Next, I will introduce the concept of error spending functions and maximum information trials, which could be useful approaches for future research regarding vaccine safety surveillance with grouped observations.    
+A possible solution which needs neither simplifying assumption is to use and error spending approach, as introduced by @Jennison1999 in their book focusing on group sequential methods in clinical trials. Next, I will introduce the concept of error spending functions and maximum information trials, which could be useful approaches for future research regarding vaccine safety surveillance with grouped observations.    
 
 ### Error spending functions
 
@@ -468,7 +462,7 @@ P(|Z_1| < c_1, ..., |Z_{k-1}| < c_{k-1}, |Z_k| \geq c_k) = \pi_k
 
 Intuitively this means that for each group $k$, only a proportion of the desired error probability $\alpha$ is spent. 
 
-A practical problem remaining is: how should each $\pi_k$ be chosen? To solve this problem, @Jennison1999 [pp. 148-150] introduce families of error spending functions and compare their properties. An error spending function $f(t)$ is a non-decreasing function which partitions the desired type I error rate for which $f(0) = 0$ and $f(t) = \alpha$ for $t \geq 1$. @Jennison1999 [p. 148] suggest a family of error spending functions defined by
+A practical problem remaining is: how should each $\pi_k$ be chosen? To solve this problem, @Jennison1999 [pp. 148-150] introduce families of error spending functions and compare their properties. An error spending function $f(t)$ is a non-decreasing function which partitions the desired type I error rate and for which $f(0) = 0$ and $f(t) = \alpha$ for $t \geq 1$. @Jennison1999 [p. 148] suggest a family of error spending functions defined by
 
 \begin{equation} \label{eq:error-spending-func}
 f(t) = min\{\alpha \cdot t^p, \alpha \}
@@ -478,7 +472,7 @@ where the choices of $p \in \{1,3\}$ yield similar results to more classical app
 
 ### Maximum information trials \label{section:infotrials}
 
-Utilizing the concept of errors spending functions, @Jennison1999 [pp. 146-148] discuss decision rules in the case of two-sided alternative hypotheses, where the stopping rule for rejecting $H_0$ is defined by a target maximum information level, denoted by $I_{max}$. Information level for group $k$ is defined as
+Utilizing the concept of errors spending functions, @Jennison1999 [pp. 146-148] discuss decision rules in the case of two-sided alternative hypotheses, where the stopping rule for accepting $H_0$ is defined by a target maximum information level, denoted by $I_{max}$. Information level for group $k$ is defined as
 
 \begin{equation} \label{eq:information-level}
 I_k = \{var(\hat\theta^{(k)})^{-1}\}, k = 1, 2, ..
@@ -495,19 +489,19 @@ where $\hat\theta$ is the estimator for the parameter of interest $\theta$. A ma
 
 A decision rule for a maximum information trial is described in Algorithm \ref{section:infotrials} [@Jennison1999, p. 54]. 
 
-\begin{tcolorbox}[colback=white,title=Algorithm \ref{section:infotrials}: A maximum information trial]
+\begin{tcolorbox}[enlarge top by=0.5cm, colback=white,title=Algorithm \ref{section:infotrials}: A maximum information trial]
 Input: target information $I_{max}$, sequence of groups $k$, test statistic function $Z$. \\
-Define $K$ as the smallest value $k$ for which the information reaches the target information: $K = min\{k \mid I_k \geq I_{max} \}$ \\
+1. Define $K$ as the smallest value $k$ for which the information reaches the target information: $K = min\{k \mid I_k \geq I_{max} \}$ \\
 \\
-After group $k = 1, ... , K$ \\
+2. After group $k = 1, ... , K$ \\
 - if $|Z_k| \geq c_k$ stop, reject $H_0$ \\
 - otherwise continue to group k + 1 \\
 
-After group $K$ \\
+3. After group $K$ \\
 - if $|Z_k| \geq c_k$ stop, reject $H_0$ \\
 - otherwise stop, accept $H_0$
 \end{tcolorbox}
 
-The target information $I_{max}$ is a seemingly similar idea to the maximum sample size in maxSPRT. In their example utilizing the maximum information trial approach however, @Jennison1999 [pp. 150-153] assume that the test statistic has a normal distribution and the alternative hypothesis is two-sided. In maxSPRT type surveillance, the alternative hypothesis is one-sided and the test statistic is not assumed to be normal.  
+The target information $I_{max}$ is a very similar idea to the maximum sample size in maxSPRT. In their example utilizing the maximum information trial approach, @Jennison1999 [pp. 150-153] assume that the test statistic has a normal distribution and the alternative hypothesis is two-sided. In maxSPRT type surveillance, the alternative hypothesis is one-sided and the test statistic is not assumed to be normal.  
 
 Maximum information trials provide a promising approach for grouped observation in vaccine safety surveillance, but further research is needed to adopt the method in the maxSPRT setting.  
