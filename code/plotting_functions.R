@@ -32,14 +32,14 @@ signalPlot2 <- function(x, Y, stop = T , right = 16, cex = 0.7,  ...) {
   
   # graphical adjustments
   par(mar = c(6,4,4, right), las = 2, cex = cex)
-  ylim <- c(0, max(TS, cv) + 5)
-  xlim <- c(min(day), max(day) + 30)
+  ylim <- c(0, max(TS, cv) + 1)
+  xlim <- c(min(day), max(x))
   
   # plot day vs test statistic
   plot(day, TS, type = "n" , xlab = "day", ylab = "LLR", xlim = xlim, ylim = ylim, bty = "l", ...)
   
   # horizontal line at 1 (reference for RR)
-  abline(h = 1, col = "grey90")
+  abline(h = 0:round((max(ylim))), col = "grey92")
   
   # horizontal line at critical value 
   abline(h = cv, col = "red")
@@ -55,9 +55,9 @@ signalPlot2 <- function(x, Y, stop = T , right = 16, cex = 0.7,  ...) {
   margin <- as.numeric(xlim[2] - xlim[1])*0.05
   
   # add legend
-  legend(xlim[2] + margin , ylim[2] + 2, xpd = T, legend = c("maxSPRT test statistic", "critical value", "rate ratio", "RR = 1",
+  legend(xlim[2] + margin , ylim[2] + 2, xpd = T, legend = c("maxSPRT test statistic", "critical value", "rate ratio",
                                paste0("signal: ", day[detectionday]," (day ",detectionday,")")), bty = "n",
-         col=c("black","red","cornflowerblue", "grey95", "green", "grey90"), lty =c(1, 1, 2, 1, 1))
+         col=c("black","red","cornflowerblue", "green"), lty =c(1, 1, 2, 1))
 }
 
 

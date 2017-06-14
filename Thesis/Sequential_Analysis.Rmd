@@ -1,5 +1,5 @@
 
-# Decision rules for safety surveillance  
+# Decision rules for vaccine safety surveillance  
 
 One of the key elements of a safety surveillance method is a decision rule for generating safety signals. In safety surveillance, the observations of interest are medical diagnoses used as proxies for the biological condition of interest (adverse event). Gradually accumulating diagnoses form the sample to be analysed and decisions related to safety signal generation are made based on the sample. The sample never represents the total study population of interest, which can be thought to include also unborn individuals, possibly experiencing adverse events in the future. Furthermore, there is presumably random variation in the occurrance of adverse events in the population.  
 

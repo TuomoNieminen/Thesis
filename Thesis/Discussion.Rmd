@@ -1,6 +1,33 @@
-# Discussion
+# Conclusions and discussion
 
-*UNDER CONSTRUCTION* 
-- strengths and weaknesses of self-controlled designs 
-- dealing with confounders (general SCCS)
-- data-mining methods in signal indentification
+All pharmaceutical products, including vaccines, can increase the risk of some undesired medical occurances (adverse events). Evaluating these risks is essential for evaluating the safety of the vaccine. Vaccine safety surveillance is an observational study where the goal is to evaluate the safety of a vaccine (or vaccines) in real-time. The goal of a safety surveillance method is to generate a safety signal as soon as possible, when an association between a vaccine and an adverse event exists.  
+
+Electronic health care data bases (registers) can be utilized as sources of data for safety surveillance. Registers such as AvoHILMO in Finland provide daily data and thus enable near real-time surveillance. The adverse events of interest can be operationalized by one or several medical diagnoses, identified with an ICD code. An important consideration is that medical diagnoses do not always correspond to the underlying biological condition of interest.  
+
+Sources of bias such as self-selection and changes in diagnosis coding practises present challenges for which observational study designs, such as the cohort and the case-control design are vulnerable to. Case-only designs such as SCCS and CCO are self-controlled study designs which eliminate all time invariant confounders. They can be considered more suitable than the cohort design for drug safety analysis. SCCS is conceptually more suitable for vaccine safety analysis.  
+
+in the refiment stage of drug safety studies, where the interest is in refining a previously identified, biologically plausible relationship between a vaccine and an adverse event. The refinement stage is preceeded by an identification stage and possibly followed by a confirmation stage. 
+
+## Contribution to existing literature  
+
+This thesis has considered vaccine safety surveillance from the general perspectives of drug safety and epidemiological studies. The type of safety surveillance considered is placed in the refiment stage of drug safety studies, where the interest is in refining a previously identified, biologically plausible relationship between a vaccine and an adverse event. The refinement stage is preceeded by an identification stage and possibly followed by a confirmation stage. 
+
+A key contribution of this thesis to existing literature is to explicitly link the BmaxSPRT vaccine safety surveillance method to a specific epidemiological study design (the SCCS), showing how and why the BmaxSPRT is a self-controlled method. More specifically, I have shown how a simple version of SCCS gives a binomial likelihood for the observations, which combined with the maximized sequential probability ratio test (maxSPRT) gives the BmaxSPRT method. Additionally I have, both mathematically and algorithmically, presented the computation of the critical values of BmaxSPRT, which are essential elements of the decision rule of BmaxSPRT.  
+
+I have also studied the sensitivity of BmaxSPRT to the choice of risk and control periods by simulation, showing how the power of BmaxSPRT is affected by a poor choice of risk and control periods.
+
+## Discussion of application results
+
+As a proof-of-concept, I applied the BmaxSPRT method retrospectively to Finnish register data to show how the method performs with real data. The outcome of interest was febrile seizures. Three vaccines, MMR, PCV and Rota, each with a different type of known or suspected relationship to febrile seizures, were the exposures of interest. Based on previous knowledge, for MMR the risk of febrile seizures increases during 5-12 days following vaccination, for PCV the risk of febrile seizures is suspected to increase during the 24 hours following vaccination and for Rota the risk of febrile seizures is suspected to decrease following vaccination.
+
+The effects of each of the vaccines were studied during a risk period of 0-13 days following vaccination. The results of the experiment were as expected for MMR and Rota, as a safety signal was generated for the former and not generated for the latter. A safety signal was however also generated for PCV. 
+
+The result of the experiment for PCV raises further questions. Utilizing all the available data, the point estimate for the rate ratio between the chosen risk and control periods stayed consistently, but not considerably, above 1, indicating some increased risk during the risk period. Given that the chosen risk period significantly differed from the suspected risk period for PCV, there are at least two plausible interpretations for this outcome: (i) The actual risk period for PCV is much longer than the suspected period, and the risk of febrile seizures increases only slightly. (ii) The actual risk period for PCV is according to the suspected risk period and the risk of febrile seizures increases substantially.  
+
+A confirmation analysis studying the relationship between febrile seizures and PCV vaccinations should be performed.
+
+## Further reasearch
+
+The thesis provides starting points for further reseach in developing the BmaxSPRT method. The general version of SCCS results in a multinomial likelihood and can provide a framework for a more general version of a self-controlled maxSPRT, a multinomial maxSPRT if you will. Maximum information trials provide a promising approach for dealing with grouped observations. 
+
+This thesis has argued that the BmaxSPRT method belongs to the refinement stage of drug safety studies and requires that a safety signal has been previously identified. However, there is no reason that vaccine safety surveillance should be limited to the refiment stage. Vaccine safety surveillance could also aim to identify safety signals. However, that would require developing new methods. 
