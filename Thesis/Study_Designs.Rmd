@@ -1,8 +1,3 @@
----
-output:
-pdf_document: default
-html_document: default
----
 
 # Study designs in vaccine safety surveillance
 
@@ -140,30 +135,31 @@ In what follows is a mathematical description of SCCS largely inspired by the de
 
 ### Poisson process  
 
-An underlying assumption in the SCCS method is that adverse events occur as a Poisson process. A poisson process describes the probabilities for the numbers of events during some time interval(s). An important assumption related to the Poisson process is that the random variables corresponding to these numbers of events are independent. This implies that an occurrence of an adverse event should not influence the probabilities of future adverse events. This assumption is likely to be violated in practise, but if the event is rare (relative to the length of the observation period), then this violation is unlikely to have practical consequences.    
+An underlying assumption in the SCCS method is that adverse events occur as a Poisson process. A Poisson process describes the probabilities for the numbers of events during some time interval(s). An important assumption related to the Poisson process is that the random variables corresponding to these numbers of events are independent between all disjoint time intervals. This implies that an occurrence of an adverse event should not influence the probabilities of future adverse events. This assumption is likely to be violated in practise, but if the event is rare (relative to the length of the observation period), then this violation is unlikely to have practical consequences.    
 
-HUOM
 \begin{definition}[Poisson process]
 \label{poissonprocess}
-Let $D$ be the time period of interest and $d$ disjoint subsets of $D$. Let $Y_d$ denote the number of events during $d$ with $E[Y_d] = \lambda_d$. A Poisson process is defined by the following assumptions:  \\[10pt]
-1. The random variables $Y_d$ are independent \\[4pt]
-2. The point probabilities for the number of events are given by the Poisson distribution:
-$$
-y_d \sim Poi(\lambda_d) \Leftrightarrow P(Y_d = y_d) = \frac{\lambda_d^{y_d} \cdot e^{-\lambda_d}}{y_d !}
-$$
+A counting process $\{Y(t), t \geq 0 \}$ is a Poisson process with rate $\lambda$ if \\[9pt]
+1. $Y(0) = 0$ \\ [3pt]
+2. $Y(t)$ has independent increments \\ [3pt]
+3. The probabilities for the number of events during an interval of length $t$ are given by the Poisson distribution with $E[Y(t)] = \lambda t$:
+
+ $$ y_t \sim Poisson(\lambda t) \Leftrightarrow P(Y(t) = y_t) = \frac{(\lambda t)^{y_t} \cdot e^{-\lambda t}}{y_t !}$$
 \end{definition}
 
 ### Incidence function  
 
-The observation period in SCCS is the calendar- and age period during which individuals can be sampled as cases. An assumption is made that during this observation period, adverse events for individuals $i = 1, 2, ..., N$ arrive as a non-homogenous piecewise-constant Poisson process. What this means is that while the intensity of the process can vary, it remains constant for each of the disjoint intervals of the oservation period. In this work the smallest measurable unit for time is a day, since data in electronic health care data bases such as AvoHILMO is collected daily. For each individual, I will index the observation period by days denoted by $d$. 
+The observation period in SCCS is the calendar period and age interval during which individuals can be sampled as cases. In this work the smallest measurable unit for time is a day, since data in electronic health care data bases such as AvoHILMO is collected daily. For each individual, I will index the observation period by age in days denoted by $d$. A single day has a time unit of 1.
 
-The rate of the adverse events during each day for each individual depends on the idividual intensity of the Poisson process during that day. The incidence is assumed to be constant within each day, but can vary between days. The intensity during day $d$ for individual $i$ is given by the incidence function $\lambda_{id}$, which depends on a constant individual effect $\phi_i$ and a time-dependent effect $\boldsymbol\theta$. The latter captures exposures to vaccination and changes in age. The effect of each $\theta_d$ is assumed to be multiplicative, so that the incidence function for individual $i$ during day $d$ is given by
+An assumption is made that during the observation period, adverse events for individuals $i = 1, 2, ..., N$ arrive as a non-homogenous piecewise-constant Poisson process. The expected number of events (the incidence rate) for individual $i$ is constant within each day, but can vary between days.  
+
+The incidence rate during day $d$ for individual $i$ is given by the incidence function $\lambda_{id}$, which depends on a constant individual effect $\phi_i$ and a time-dependent effect $\boldsymbol\theta$. The latter captures exposures to vaccination and changes in age. The effect of each $\theta_d$ is assumed to be multiplicative, so that the incidence rate for individual $i$ during day $d$ is given by
 
 \begin{equation}
 \lambda_{id} = exp(\phi_i + \theta_d).
 \end{equation}
 
-Due to the properties of the Poisson process the cumulative incidence over a number of days during the observation period is a sum of the daily incidences. If the incidence stays constant for a period of consequent, say, $t_q$ days, the incidence during that period is given by the number of days times the daily incidence. Assuming that the observation period consists of such disjoint periods, the incidence function is then given by
+Due to the properties of the Poisson process the cumulative incidence over a number of days during the observation period is a sum of the daily incidences. If the incidence stays constant for a period of consequent, say, $t_q$ days, the incidence during that period is given by the number of days times the daily incidence. Assuming that the observation period consists of such disjoint periods, the incidence rates are then given by
 
 \begin{equation}
 \label{incfunc}
@@ -172,11 +168,11 @@ Due to the properties of the Poisson process the cumulative incidence over a num
 
 where $\theta_q$ is the constant $\theta_d$, for the all $d$ days in period $q$.
 
-For example in a simple case as in figure (\ref{fig:simpleSCCS}), where $q \in \{\text{risk period}, \text{control period}\}$, the incidence function takes on two different values.
+For example in a simple case as in Figure (\ref{fig:simpleSCCS}), where $q \in \{\text{risk period}, \text{control period}\}$, the incidence function (\ref{incfunc}) takes on two different values.
 
 ### Likelihood
 
-Assume now that events of $i = 1, 2, ..., N$ individuals are sampled, with $n_i \geq 1$ events for each $i$ for a total of $n$ events. Assume that the observation period is as described above and that events arrive as a Poisson process with an incidence function as defined in (\ref{incfunc}). Denote the number of events for individual $i$ during period $q$ as $y_{iq}$. The probabilities for the numbers of events during the disjoint intervals $q$ are given by the Poisson distribution: $y_{iq} \sim Poi(\lambda_{iq})$. The individual contribution to the likelihood for the observations is therefore  
+Assume now that events of $i = 1, 2, ..., N$ individuals are sampled, with $n_i \geq 1$ events for each $i$ for a total of $n$ events. Assume that the observation period is as described above and that events arrive as a Poisson process with an incidence function as defined in (\ref{incfunc}). Denote the number of events for individual $i$ during period $q$ as $y_{iq}$. The probabilities for the numbers of events during the disjoint intervals $q$ are given by the Poisson distribution: $y_{iq} \sim Poisson(\lambda_{iq})$. The individual contribution to the likelihood for the observations is therefore  
 
 \begin{equation}
 L_i(\boldsymbol\theta) 
@@ -187,7 +183,7 @@ L_i(\boldsymbol\theta)
 
 where $\lambda_{iq} = t_q \cdot exp(\phi_i + \theta_q)$ as in (\ref{incfunc}). The likelihood contains the individual baseline incidence $\phi_i$ which is a nuisance parameter, since the real interest is in the effect of the vaccination and/or age, captured by $\boldsymbol\theta$.  
 
-The total number of events for the individual $n_i = \sum_q y_{iq}$ turns out to be a sufficient statistic for $\phi_i$, meaning that conditioning on $n_i$ removes the dependency on $\phi_i$. It is therefore convenient to operate with the conditional likelihood instead. Since the random variable corresponding to the total number of events is a sum of Poisson random variables, it is also Poisson distributed $n_i \sim Poi(\sum_q \lambda_{iq})$. The individual contribution to the conditional likelihood is
+The total number of events for the individual, $n_i = \sum_q y_{iq}$, turns out to be a sufficient statistic for $\phi_i$, meaning that conditioning on $n_i$ removes the dependency on $\phi_i$. It is therefore convenient to operate with the conditional likelihood instead. Since the random variable corresponding to the total number of events is a sum of Poisson random variables, it is also Poisson distributed: $n_i \sim Poisson(\sum_q \lambda_{iq})$. The individual contribution to the conditional likelihood is
 
 \begin{equation}
 \label{condlik}
@@ -195,7 +191,7 @@ L_i(\boldsymbol\theta \mid n_i)
 = P(\mathbf{y}_i \mid n_i, \phi_i, \boldsymbol\theta)  
 = \frac{P(\mathbf{y}_i \mid \phi_i, \boldsymbol\theta) }{P(n_i \mid \phi_i, \boldsymbol\theta)} 
 \propto \frac{\prod_q \lambda_{iq}^{y_{iq}}}{\left( \sum_q \lambda_{iq} \right) ^{\sum_q y_{iq}}}
-= \prod_q \left( \frac{ \lambda_{iq} }{ \sum_{q'} \lambda_{iq'}) } \right)^{y_{iq}}
+= \prod_q \left( \frac{ \lambda_{iq} }{ \sum_{q'} \lambda_{iq'}) } \right)^{y_{iq}}.
 \end{equation}
 
 Now, plugging in the actual incidence function (\ref{incfunc}), the conditional likelihood is
@@ -276,9 +272,10 @@ which, again, is the multinomial likelihood where all the individual baseline in
 
 The most popular case-only design utilised in pharmacovigilance is the case-crossover design (CCO). CCO is a modification of a case-control design, originally developed by @Maclure1991 to study the effect of transient exposures to acute events. Its use in drug safety studies has increased during 2000-2010 [@Nordmann2012].  
 
-Following the description of @Maclure2012, one way to describe the CCO design is as follows: Assume that rare events are observed for individuals $i = 1, .., n$. Each event occurs during some *event day*. A *control day* is defined as the day that was $d$ time units (e.g. days) before the event day. For each sampled individual $i$, exposure status is retrospectively examined. Exposures during a time interval of length $t$ immediately preceding the event day are considered as related to the event. Exposures occuring during a time interval of the same length ($t$) immediately preceding the control day are considered as not related to the event.
+Following the description of @Maclure2012, one way to describe the CCO design is as follows: Assume that rare events are observed for individuals $i = 1, .., n$. Each event occurs during some *event day*. A *control day* is defined as the day that was $d$ time units (e.g. days) before the event day. The control day could for example be two weeks before the event day. For each sampled individual $i$, exposure status is retrospectively examined and exposures during a time interval of length $t$ immediately preceding the event day are considered as related to the event. Exposures occuring during a time interval of the same length ($t$) immediately preceding the control day are considered as not related to the event.
 
-The periods where the exposure status is of interest are sometimes called risk and control periods in CCO literature, but I will call these periods the *related period* and the *non-related period*, respectively, in order to avoid confusion with the risk and control periods of the SCCS design, where the risk period is a time period during which the rate of events (not exposures) is of interest. The idea of the CCO method is to compare the rates of exposure between the related and the non-related periods. This description of CCO is illustrated in Figure \ref{fig:simpleCCO}.  
+The periods where the exposure status is of interest are sometimes called risk and control periods in CCO literature. I will call these periods the *related period* and the *non-related period*, respectively. The idea of the CCO design is to compare the rates of exposure between the related and the non-related periods. This description of CCO is illustrated in Figure \ref{fig:simpleCCO}.  
+
 
 ```{r, echo = FALSE, fig.width = 10, fig.height = 4, fig.align = "center", out.width= "350px", fig.cap = "\\label{fig:simpleCCO}A graphical illustration of the CCO design. Exposures occuring immediately before the event day are considered as related to the event and exposures occuring immediately before the control day are considered as not related to the event."}
 
@@ -307,24 +304,28 @@ legend("topright",
 
 ```
 
-The description given above follows the so-called retrospective conditional argument of case-control studies. In the retrospective probability model, the exposures are conditioned by the case or control status and the odds ratio of exposure between different event status ("case" or "control") is the parameter of interest. The estimation of disease-exposure relationship in case-control studies may however also be approached using a prospective conditional argument. In the prospective probability model, the event status is conditioned on the exposure and the odds ratio of the event status between levels of exposure is estimated [@ClaytonHills, ch. 16].  
 
-From a prospective point of view, a time interval $[t_0, t_1]$ following exposure is called the *effect period* in CCO literature, during which the rate of events for the exposed individuals is possibly increased. The effect period is comparable to the risk period of the SCCS design and thus I will use the term risk period to refer to the effect period. I will also refer to the time outside the risk period as the control period, as in SCCS.  
+### Prospective and retrospective arguments for CCO
+
+The description of CCO given by @Maclure2012 follows the so-called retrospective conditional argument of case-control studies. In the retrospective probability model, the exposures are conditioned by the case or control status and the odds ratio of exposure between different event status ("case" or "control") is the parameter of interest. However, the estimation of disease-exposure relationship in case-control studies may also be approached using a prospective conditional argument. In the prospective probability model, the event status is conditioned on the exposure and the odds ratio of the event status between levels of exposure is estimated [@ClaytonHills, ch. 16].  
+
+From a prospective point of view, a time interval following exposure is called the *effect period* in CCO literature, during which the rate of events for the exposed individuals is possibly increased. The effect period corresponds to the related period and is of identical length. The effect period in CCO is comparable to the risk period in SCCS and thus I will use the term risk period to refer to the effect period. Similarily, a control period of identical length to the non-related period can be defined.
+
+For example, the risk period could be a period of two weeks following vaccination, in which case the related period is the period two weeks prior to the event day. A control period could also be defined as the period of 2 weeks following the risk period, in which case the control day would be the day two weeks prior to the event day and the non-related period would be the period two weeks prior to the control day. See again Figure \ref{fig:simpleCCO} for an illustration.  
 
 CCO is interested in the same question as SCCS, which is to infer if the rate of events is affected by exposure. Even though the method is based on the idea of exposures as the random variable, the parameter of interest can be defined as any of the prospective relative risk parameters: the odds ratio, relative risk or the incidence rate ratio [@Nordmann2012 p.8]. In what follows, I will introduce the probability model and assumptions of the CCO design in more detail by treating the desing in the general framework for case-control studies following the presentation of @ClaytonHills [ch. 16].
 
 ### The probability model for CCO  
 
-Assume that we have sampled individuals who each experienced at least one of the events of interest. The date of the events is labeled as the event day. Define a control day as the day that was $d$ time units (e.g. days) prior to the event day $d$. The control day could for example be two weeks and one day before the event day. Also define the related and the non-related periods, or equivalently the risk and the nonrisk risk periods, both of length $t$ days. For example, the risk period could be a period of two weeks following vaccination, in which case the related period is the period two weeks prior to the event day. Then, the non-related period is the period two weeks prior to the control day. See again Figure \ref{fig:simpleCCO} for an illustration.  
-
-To set up the notation, denote the probabilities of the occurrence of an adverse event in individual $i$ during the risk and controls periods as $P(AE_1) = \pi_{i1}$ and $P(AE_0) = \pi_{i0}$, respectively. Denote the random variable corresponding to being vaccinated during the related period by $V_{i1}$ and during the non-related period by $V_{i0}$.  
+Assume first that we have sampled individuals who each experienced at least one of the events of interest. To set up the notation, denote the random variable corresponding to being vaccinated during the related period by $V_{i1}$ and during the non-related period by $V_{i0}$. Denote the probabilities of the occurrence of an adverse event in individual $i$ during the risk and controls periods as $P(AE \mid V_{i1}) = \pi_{i1}$ and $P(AE \mid V_{i0}) = \pi_{i0}$, respectively. 
 
 Now assume that in the underlying cohort (the study base), exposure to vaccination for each individual is equally likely during both the related and non-related periods. The random variables $V_{i.}$ are then Bernoulli random variables with equal probabilities of success $P(V_{i1}) =  P(V_{i0}) = p_i$. Note, however the distinction to the conditional probabilities $P(V_{i.} \mid AE)$ which are not assumed to be equal.  
 
-To solve the probability that an individual who experienced an event was vaccinated during the related period, notice that this sequence of events requires that an individual was first vaccinated and then experienced an event during the risk period. Therefore, the probability is given by $p_i \cdot \pi_{i1}$. Similarily, the probability that an individual with an event was vaccinated during the non-related period is given by $p_i \cdot \pi_{i0}$.  This is illustrated in figure \ref{cco_probmodel}. These probabilities define a joint probability model for the vaccination status and the (adverse event) outcome.  
+To solve the probability that an individual who experienced an event was vaccinated during the related period, notice that this sequence of events requires that an individual was first vaccinated ($V+$) and then experienced an event during the risk period. Therefore, the probability is given by $p_i \cdot \pi_{i1}$. Similarily, the probability that an individual with an event was vaccinated during the non-related period is given by $p_i \cdot \pi_{i0}$.  
 
-HUOM
-```{r cco_probmodel, message = F, fig.cap = "\\label{cco_probmodel}The probability model in the study base for the case-crossover design, where only individuals with events (AE) are considered. An individual is first either vaccinated (V+) with probability P(V) or not vaccinated (V-). If she was vaccinated, the AE she experienced happened during a risk period with probability P(AE_1) or a control period with probability P(AE_0). If she was not vaccinated the AE happened with probability P(AE_0)"}
+The probabilities above define a joint probability model for the vaccination status and the (adverse event) outcome, as illustrated in figure \ref{cco_probmodel}.  
+
+```{r cco_probmodel, message = F, fig.cap = "\\label{cco_probmodel}The probability model in the study base for the CCO design, where only individuals with events (AE) are considered. An individual is first either vaccinated (V+) with probability P(V) or not vaccinated (V-). Furthermore, the vaccination occured either during a related or non-related period. If she was vaccinated, the AE she then experienced happened during a risk period with probability P(AE | V1) or a control period with probability P(AE | V0). If she was not vaccinated the event happened with probability P(AE | V-)."}
 
 plot.probtree <- function(nodes, edges, labels, attributes = list(node=list(label="foo", fillcolor="grey85", fontsize="11"),
                                                                  edge=list(color="black", fontsize = "9"), graph=list(size = "6.00,5.00",rankdir="LR"))) {
@@ -336,14 +337,14 @@ plot.probtree <- function(nodes, edges, labels, attributes = list(node=list(labe
   plot(rEG, edgeAttrs=list(label=setNames(labels, edgeNames(rEG))), attrs=attributes)
 }
 i <- "i"
-V<-"V+"
+V <-"V+"
 notV<-"V-"
-AE_r<-"AE_1"
-AE_c<-"AE_0"
+AE1<-"AE1"
+AE0 <-"AE0"
 AE <- "AE"
-nodes1 <- c(i, V, notV, AE_r, AE_c, AE)
-edges1 <- c(1,2,1,3,2,4,2,5,3,6)
-labels1 <- c("P(V)", "1 - P(V)", "P(AE_1)", "P(AE_0)", "P(AE_0)")
+nodes1 <- c(i, V, notV, AE1, AE0, AE)
+edges1 <- c(1,2, 1,3, 2,4, 2,5, 3,6)
+labels1 <- c("P(V)", "1 - P(V)", "P(AE | V1)", "P(AE | V0)", "P(AE | V-)")
 
 plot.probtree(nodes1, edges1, labels1)
 
@@ -353,11 +354,13 @@ Using the probability model for the CCO, I will next derive equations for the od
 
 ### The odds ratio and risk ratio
 
-Based on the joint probability model of the vaccination status and the adverse event, define $O_1$ as the odds of vaccination during the related period and $O_0$ as the odds of vaccination during the non-related period.
+Based on the joint probability model of the vaccination status and the adverse event, now define $O_1$ as the odds of vaccination during the related period and $O_0$ as the odds of vaccination during the non-related period.
 
-HUOM
 \begin{equation}
-O_1 = \frac{p_i \cdot \pi_{i1}}{(1-p_i) \cdot \pi_{i0}}, \quad O_0 = \frac{p_i \cdot \pi_{i0}}{(1-p_i) \cdot \pi_{i0}}.
+\begin{cases}
+O_1 =  \frac{P(V+|AE_1)}{P(V-|AE_1)} = \frac{P(V+,AE_1)}{P(V-, AE_1)} = \frac{p_i \cdot \pi_{i1}}{(1-p_i) \cdot \pi_{i0}} \\
+O_0 = \frac{P(V+|AE_0)}{P(V-|AE_0)} = \frac{P(V+,AE_0)}{P(V-, AE_0)} = \frac{p_i \cdot \pi_{i0}}{(1-p_i) \cdot \pi_{i0}}.
+\end{cases}
 \end{equation}
 
 Then, the odds ratio (OR) of vaccination between the related and non-related periods is 
