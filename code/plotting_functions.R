@@ -15,8 +15,8 @@ interval_plot <- function(risk, case, ctrl, ...) {
   rect(h + risk[1], ylim[1] - 5,  h + risk[2], ylim[2] + 5, col = "salmon", border = NA, density = 15)
   rect(h + case[1], 30, h + case[2], 40, col = "grey50", lwd = 0)
   rect(h + ctrl[1] - 1, 30, h + ctrl[2] - 1, 40, col ="grey80", lwd = 0)
-  leg <- paste(c("actual risk period", "risk period", "control period"), lapply(list(risk, case, ctrl), paste, collapse = "-"))
-  legend("topright", legend = leg, col = c("red", "grey50", "grey80"), lty = 1, lwd = c(1, 8,8), bty = "n")
+  leg <- paste(c("actual risk period:", "risk period:", "control period:"), lapply(list(risk, case, ctrl), paste, collapse = "-"))
+  legend("topright", legend = leg, bty = "n", fill = c("red", "grey50", "grey80"), density = c(30, NA, NA))
 }
 
 signalPlot2 <- function(x, Y, stop = T , right = 16, cex = 0.7,  ...) {
@@ -36,7 +36,7 @@ signalPlot2 <- function(x, Y, stop = T , right = 16, cex = 0.7,  ...) {
   xlim <- c(min(day), max(x))
   
   # plot day vs test statistic
-  plot(day, TS, type = "n" , xlab = "day", ylab = "LLR", xlim = xlim, ylim = ylim, bty = "l", ...)
+  plot(day, TS, type = "n" , xlab = "day", ylab = "LLR & RR", xlim = xlim, ylim = ylim, bty = "l", ...)
   
   # horizontal line at 1 (reference for RR)
   abline(h = 0:round((max(ylim))), col = "grey92")

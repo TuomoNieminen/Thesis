@@ -5,7 +5,7 @@ output: pdf_document
 
 ## Safety surveillance
 
-Pharmaceutical products (drugs) can have unintended side effects. An untoward medical occurrence in a patient administered a drug is called an adverse event. Rare adverse events related to drugs are often impossible to detect in pre-licensure studies and therefore there is an incentive to monitor the safety of a drug post-licensure [@Kulldorff2011]. In this work, monitoring the safety of drugs is called safety surveillance. 
+Pharmaceutical products (drugs) can have unintended side effects. An untoward medical occurrence in a patient administered a drug is called an adverse event. Rare adverse events related to drugs are often impossible to detect in pre-licensure studies and therefore there is an incentive to monitor the safety of a drug post-licensure [@Kulldorff2011]. Monitoring the safety of drugs post-licensure is called safety surveillance. 
 
 The information related to a possible causal relationship between a drug and an adverse event is called a safety signal (signal). Safety surveillance is interested in finding these signals. According to @Nelson2015, post-licensure safety aims related to drugs can be classified into three stages:
 
@@ -13,30 +13,32 @@ The information related to a possible causal relationship between a drug and an 
 2. **Signal refinement**: Considers biologically plausible drug-event pairs suspected to have a causal relationship. Addresses multiple specified hypotheses related to the pairs.
 3. **Signal confirmation**:  Involves a one-time, more in depth study of a previously generated signal. 
 
-Safety surveillance can relate to stages one or two, with the aim of either finding new associations (identification) or validating the evidence of suspected associations (refinement).
+Safety surveillance could relate to stages one or two, with the aim of either finding new associations (identification) or validating the evidence of suspected associations (refinement).  
 
-An assumption to the type of safety surveillance considered in this work is that a biologically plausible exposure-event pair has been previously identified. Further, the method to be introduced assumes that the relationship between the exposure and the adverse event can be characterised by defining a time interval of possibly increased risk. This places the safety surveillance considered here to the refinement stage.  
+An assumption to the type of safety surveillance considered in this thesis is that a biologically plausible exposure-event pair has been previously identified. Further, the method to be introduced requires that the relationship between the exposure and the adverse event can be characterized by defining a time interval of possibly increased risk. This places the safety surveillance considered in this work to the refinement stage.  
 
-In this thesis the drug of interest is a vaccine product (vaccine). The goal is to define and utilize a safety surveillance method to make decisions related to the generation of safety signals, utilizing electronic medical records.   
+In this theis the drug of interest is a vaccine product (vaccine). The goal is to introduce and utilize a vaccine safety surveillance method to make decisions related to the generation of safety signals, utilizing electronic medical records.  
 
 ## Vaccine safety surveillance  
 
-In vaccine safety surveillance the researcher or an automated system monitors the safety of vaccines. Natural goals of vaccine safety surveillance are to control the expected rate of false positive and false negative signals. It is also desirable to generate a signal as soon as possible, if an association between the vaccine and an adverse event exists. After a signal has been generated, further action can be taken, for example a confirmation analysis can be performed.
+In vaccine safety surveillance the researcher or an automated system monitors the safety of vaccines and generates a safety signal if an unexpectedly large number of adverse events are observed. After a signal has been generated, further action can be taken, for example a confirmation analysis can be performed.  
 
-Statistical methods designed specifically for vaccine safety surveillance exist. This thesis will largely focus on the maximized sequential probability ratio test (maxSPRT), which is a statistical hypothesis testing method designed for vaccine safety surveillance [@Kulldorff2011]. Vaccine safety survaillance based on maxSPRT has been utilized between 2005 - 2015 in many countries such as in USA, UK, Taiwan and New Zealand. The main focus has been on studying the effects of influenza vaccines. [@Leite2016]
+Assuming that there is random variation in the numbers of events, the observations might not always correspond to the true state of association between the vaccine and the event, leading to false positive or false negative signals. Natural goals of vaccine safety surveillance are to control the expected rates of false positive and false negative signals. It is also desirable to generate a signal as soon as possible, if an association between the vaccine and an adverse event exists. 
 
-There are multiple variants of the maxSPRT method such as the Poisson maxSPRT (PmaxSPRT), binomial maxSPRT (BmaxSPRT) and conditional PmaxSPRT, along with further versions designed for handling grouped observations. According to @Leite2016, the most popular variant of maxSPRT has been PmaxSPRT followed by BmaxSPRT. In this work the major focus will be on the BmaxSPRT variant.  
+Statistical methods designed specifically for vaccine safety surveillance exist. This thesis will focus on the maximized sequential probability ratio test (maxSPRT), which is a statistical hypothesis testing method designed for vaccine safety surveillance [@Kulldorff2011]. Vaccine safety survaillance based on maxSPRT has been utilized between 2005 - 2015 in many countries such as in USA, UK, Taiwan and New Zealand. The main focus has been on studying the effects of influenza vaccines. [@Leite2016]
 
-When making decisions under uncertainty, some amount of erroneous decisions are expected. Statistical hypothesis tests such as the maxSPRT aim to control the expected rate of these errors. In statistical theory the false positive signals are called type I errors, and the false negative signals are called type II errors. The expected true positive signal rate is called the power. 
+Statistical hypothesis tests such as the maxSPRT aim to control the expected rate of errors when making decisions under uncertainty. In statistical theory the false positive signals are called type I errors, and the false negative signals are called type II errors. The expected true positive signal rate is called the power. 
+
+There are multiple variants of the maxSPRT method such as the Poisson maxSPRT (PmaxSPRT), binomial maxSPRT (BmaxSPRT) and conditional PmaxSPRT, along with further versions designed for handling grouped observations. According to @Leite2016, the most popular variant of maxSPRT has been PmaxSPRT followed by BmaxSPRT. In this work the focus will be on the BmaxSPRT variant.  
 
 One situation when a safety surveillance method such as the BmaxSPRT could be applied, would be an introduction of a new vaccine to a national vaccination program, such as the introduction of chicken pox vaccination starting in 1.9.2017 in Finland. If there are previously identified safety signals (any reasons to suspect a possible causal relation between the vaccine and some rare adverse event), safety surveillance could be initialized to refine these signals, utilizing accumulating data from electronic health records.
 
 
 ## Elements of safety surveillance
 
-In this work I will generally view a safety surveillance method as consisting of three elements: (1) data accumulation (2) study design and (3) decision rule for generating signals. Table \ref{tab:elements} describes options for the elements. A unique combination of the three elements can be thought to define a unique safety surveillance method. The different variants of maxSPRT can be viewed as unique safety surveillance methods which vary in terms of the underlying study design and assumptions related to data accumulation. They all use (sequential) hypothesis testing as the decision element.
+In this work I will generally view a safety surveillance method as consisting of three elements: (1) data accumulation (2) study design and (3) decision rule for generating signals. Table \ref{tab:elements} describes options for the elements. A unique combination of the three elements can be thought to define a unique safety surveillance method. The different variants of maxSPRT can therefore be viewed as unique safety surveillance methods which vary in terms of the underlying study design and assumptions related to data accumulation. They all use (sequential) hypothesis testing as the decision element.
 
-For any reasonably rare adverse events, daily accumulating observations can be considered as continuous observations. In this work I will mainly consider situations where observations (electronic health care data) accumulates daily. Therefore the focus will be on continuous observations. I will present a case for utilizing case-only designs -- and specifically the self-controlled case series (SCCS) -- as the design element of a vaccine safety surveillance method. I will utilize maxSPRT sequential hypothesis testing as the decision element.  
+For any reasonably rare adverse events, daily collected data can be considered as continuous observations. In this work I will mainly consider situations where observations (electronic health care data) accumulates daily and therefore the focus will be on continuous observations. I will a utilize a case-only design -- and specifically the self-controlled case series (SCCS) -- as the design element and I will use maxSPRT sequential hypothesis testing as the decision element of a vaccine safety surveillance method.
 
 These choices (continuous observations, a case-only design and maxSPRT) lead to the continuous binomial variant of maxSPRT, BmaxSPRT.
 
@@ -68,8 +70,8 @@ Data from AvoHILMO and NVR are available as daily collections and at the time of
 
 This thesis will introduce the vaccine safety surveillance method BmaxSPRT in detail by breaking it down to its elements. The study design and decision rules for signal generation are the main focus of this work and are given thorough treatment. The outline of the thesis is as follows.  
 
-**Chapter 2** offers discussion related to the design elements in vaccine safety surveillance, focusing on case-only study designs.  
-**Chapter 3** offers discussion related to the decision elements in vaccine safety surveillance and focuses on sequential hypothesis testing. Dealing with grouped observations (data accumulation) is briefly discussed in section 3.4.  
-**Chapter 4** offers a proof of concept application of the BmaxSPRT method, utilizing three different vaccine exposures and a single outcome of interest.  
+- Chapter 2 offers discussion related to the design elements in vaccine safety surveillance, focusing on case-only study designs. 
+- Chapter 3 offers discussion related to the decision elements in vaccine safety surveillance and focuses on sequential hypothesis testing. Dealing with grouped observations (data accumulation) is briefly discussed in section 3.4.
+- Chapter 4 offers a proof of concept application of the BmaxSPRT method, utilizing three different vaccine exposures and a single outcome of interest.
 
-The thesis ends with conclusions and discussion.  
+The thesis ends with conclusions.  
