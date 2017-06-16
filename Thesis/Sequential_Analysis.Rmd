@@ -374,8 +374,8 @@ The Markov property means that the probability of transition to the next state d
 \begin{equation} \label{eq:markov-property}
 P(S_{i+1} = s_{i+1} \mid S_1, .., S_i) =
 \begin{cases}
-P(Y_{i + 1} = y_{i+1} \mid Y_1 , .., Y_i ) \overset{\perp\!\!\!\perp}= p, \quad \text{when } LR(s_i) < c, \\
-0, \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \text{when } LR(s_i) \geq c.
+P(Y_{i + 1} = y_{i+1} \mid Y_1 , .., Y_i ) \overset{\perp\!\!\!\perp}= p, \quad \text{when } LLR(s_i) < c, \\
+0, \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \text{when } LLR(s_i) \geq c.
 \end{cases}
 \end{equation}
 

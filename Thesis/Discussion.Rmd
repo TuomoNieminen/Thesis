@@ -16,7 +16,7 @@ A key contribution of this thesis to existing literature is to explicitly link t
 
 More specifically, I have shown how a simple version of SCCS combined with the maximized sequential probability ratio test (maxSPRT) gives the BmaxSPRT method. Additionally I have, both mathematically and algorithmically, presented the computation of the critical values of BmaxSPRT, which are essential elements of the decision rule of BmaxSPRT, also presented in detail in this work.
 
-I have also studied the sensitivity of BmaxSPRT to the choice of risk and control periods by simulation, showing how the power of BmaxSPRT is affected by a poor choice of risk and control periods.
+I have also analyzed the sensitivity of BmaxSPRT to the choice of risk and control periods by simulation, showing how the power of BmaxSPRT is affected by the choices. The analysis highlights the importance of careful selection of the risk and control periods as the loss of power due to poor choices can be considerable.  
 
 ## Discussion of application results
 
@@ -32,4 +32,4 @@ A confirmation analysis studying the relationship between febrile seizures and P
 
 The thesis provides starting points for further reseach in developing the BmaxSPRT method. The general version of SCCS can provide a framework for a more general version of a self-controlled maxSPRT, a multinomial maxSPRT if you will. Maximum information trials provide a promising approach for dealing with grouped observations. 
 
-This thesis has argued that the BmaxSPRT method belongs to the refinement stage of drug safety studies and requires that a safety signal has been previously identified. However, there is no reason that vaccine safety surveillance should be limited to the refiment stage. Vaccine safety surveillance could also aim to identify safety signals. However, that would require different methods. 
+This thesis has argued that the BmaxSPRT method belongs to the refinement stage of drug safety studies and requires that a biologically plausible vaccine-adverse event pair has been previously identified. Electronic medical records could however also be used to identify safety signals. According to @Nelson2015, signal identification has primarily been conducted using spontaneous report databases, which are not considered in this work. @Dumouchel1999 introduces Bayesien data mining methods for detecting adverse drug reactions from such data bases.

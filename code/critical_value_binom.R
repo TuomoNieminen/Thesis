@@ -2,34 +2,43 @@
 
 # auth: Tuomo Nieminen
 
-# maxSPRT test statistic, Binomial likelihood (maximized likelihood ratio)
-# k : observed events in risk group (cases). can be a vector
-# n : total observed events
-# z : expected proportion of controls to cases
-LLR.Binomial.vec <- function(k, n, z) {
+#' Compute the maxSPRT test statistic
+#'
+#' Computes the maxSPRT test statistic for Binomial and Poisson likelihoods. Vectorized for efficiency.
+#'
+#' @param c_n : The observed events in the risk group. Can be a vector giving the cumulative observed events.
+#' @param n : The ttotal number of observed events. can be a vector of same length as c_n giving the cumulative total number of events.
+#' @param z : The expected proportion of controls to cases.
+#' This is defined by the lengths of the risk and nonrisk periods : length(nonrisk) / length(risk)
+#'
+#' @return The value of the test statistic
+#'
+#' @examples
+#' df <- data.frame(n_case = cumsum(rpois(n = 1000, lambda = 1)), n_ctrl = cumsum(rpois(n = 1000, lambda = 2)))
+#' df$n <- rowSums(df)
+#' TS <- LLR_Binomial(df$n_case, df$n, z = 3)
+#' str(TS)
+#' # num [1:1000] 1.3863 0.0521 0.0231 0 0.0362 ...
+#'
+#' @export
+LLR_Binomial <- function(c_n, n, z) {
+  ifelse(n == 0, 0,
+         ifelse(c_n == n, c_n*log(z + 1),
+                ifelse((z*c_n /(n - c_n)) <= 1, 0,
+                       c_n * log(c_n/n) + (n-c_n) * log((n-c_n)/n)-c_n*log(1/(z+1))-(n-c_n)*log(z/(z + 1)))))
   
-  if(n==0) return(rep(0, length(k)))
-  
-  TS <- numeric(length(k))
-  
-  equal <- k == n
-  TS[equal] <- k[equal] * log(z + 1)
-  k <- k[!equal]
-  
-  expected <- ( z * k / (n - k) ) <= 1
-  TS[!equal][expected] <- 0
-  k <- k[!expected]
-  
-  TS[!equal][!expected] <-  k * log(k / n) + (n - k) * log((n - k) / n) - k * log(1 / (z + 1)) - (n - k) * log(z / (z + 1))
-  TS
 }
 
-# help function to build the sample space S
-sequence2 <- function(nvec) unlist(lapply(nvec, seq_len)) - 1
-
-# compute the transition matrix P for the binomial markov chain. 
+# Compute the state space S, transition matrix P and initial probabilities for the binomial markov chain. 
 # P is a square matrix with all possible transitions (n, k) -> (n, k) ;  n = 0, 1, ..., N ; k = 0, 1, .., n.
+#' @return List with 3 elements.
+#' - v = initial probabilities for the states
+#' - S = the state space as a 2 column matrix
+#' - P = transition matrix
 get_transition <- function(N, p) {
+  
+  # help function to build the sample space S
+  sequence2 <- function(nvec) unlist(lapply(nvec, seq_len)) - 1
   
   # all possible states (n, k) in a 2-column matrix (S)
   states <- rep.int(0:N, times = 1:(N+1))
@@ -67,7 +76,8 @@ get_transition <- function(N, p) {
 }
 
 
-# compute probabilities for each possible state (n, k) after N steps, given by p = v %*% P^(N)
+# compute probabilities for each possible state (n, k) after N transitions, given by p = v %*% P^(N)
+#' @return a vector of probabilities
 get_state_probs <- function(P, N, v) {
   PS <- P
   for(i in 1:(N-1)) { 
@@ -78,8 +88,8 @@ get_state_probs <- function(P, N, v) {
 }
 
 
-# iteratively determine critical values for binomial maxSPRT.
-# N = maximum observations, z = ratio of controls to cases, a =  alpha.
+# Iteratively determine critical values for binomial maxSPRT.
+# N = maximum observations, z = ratio of controls to cases, alpha =  type I error
 
 # example usage:
 
@@ -103,7 +113,7 @@ cv_binom <- function(N , z , alpha = 0.05) {
   S <- TR$S
   
   # test statistic value for all possible states
-  L <- mapply(LLR.Binomial.vec, S[, "k"], S[,"n"], z = z)
+  L <- mapply(LLR_Binomial, S[, "k"], S[,"n"], z = z)
   
   # unique values of the test statistic
   test_stats <- sort(unique(L), decreasing = T)
@@ -111,8 +121,13 @@ cv_binom <- function(N , z , alpha = 0.05) {
   # for each possible test_stat value (starting from the highest), check which test statistic are >= than that test_statistic. 
   # then compute the typeI error by summing the probabilities of those critical states, using the transition matrix P
   new_a <- 0; i <- 1
+  
+  message("Iterating...")
+  options(digits = 5)
   while(new_a <= alpha & i <= length(test_stats)) {
     ts <- test_stats[i]
+    
+    cat("\rTrying critical value ", ts, "... ")
     
     # logical vector indicating the states which reject the null
     C <- L >= ts
@@ -124,18 +139,20 @@ cv_binom <- function(N , z , alpha = 0.05) {
     P[C, ] <- 0
     diag(P)[C] <- 1
     
-    #critical values of the absorbing states
-    C_S <- S[C, ]
-    
-    # get probabilities of being in each state after N steps and sum the probabilities corresponding to the rejection states
+    # get probabilities of being in each state after N steps
     p <- get_state_probs(P, N, v = TR$v)
+    
+    # sum the probabilities corresponding to the rejection states
     new_a <- sum(p[C])
     
     a <- ifelse(new_a > alpha, a, new_a)
+    
+    cat("alpha is ", new_a)
     i <- i  + 1
   }
+  message("Returning the previous critical value and alpha")
   
-  return(list(cv=ts, alpha = a))
+  return(list(cv=test_stats[i-2], alpha = a))
 }
 
 

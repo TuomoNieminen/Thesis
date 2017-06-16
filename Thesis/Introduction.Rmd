@@ -7,15 +7,13 @@ output: pdf_document
 
 Pharmaceutical products (drugs) can have unintended side effects. An untoward medical occurrence in a patient administered a drug is called an adverse event. Rare adverse events related to drugs are often impossible to detect in pre-licensure studies and therefore there is an incentive to monitor the safety of a drug post-licensure [@Kulldorff2011]. Monitoring the safety of drugs post-licensure is called safety surveillance. 
 
-The information related to a possible causal relationship between a drug and an adverse event is called a safety signal (signal). Safety surveillance is interested in finding these signals. According to @Nelson2015, post-licensure safety aims related to drugs can be classified into three stages:
+The information related to a possible causal relationship between a drug and an adverse event is called a safety signal (signal). Safety surveillance is interested in finding these signals. According to @Nelson2015 [p. 179], post-licensure safety aims related to drugs can be classified into three stages:
 
 1. **Signal identification**: Considers a large number of events and involves detecting signals related to unexpected adverse events.
-2. **Signal refinement**: Considers biologically plausible drug-event pairs suspected to have a causal relationship. Addresses multiple specified hypotheses related to the pairs.
+2. **Signal refinement**: Considers drug-event pairs suspected to have a causal relationship, based on biological plausibility or a previsouly identified signal. Addresses specified hypotheses related to the pairs.
 3. **Signal confirmation**:  Involves a one-time, more in depth study of a previously generated signal. 
 
-Safety surveillance could relate to stages one or two, with the aim of either finding new associations (identification) or validating the evidence of suspected associations (refinement).  
-
-An assumption to the type of safety surveillance considered in this thesis is that a biologically plausible exposure-event pair has been previously identified. Further, the method to be introduced requires that the relationship between the exposure and the adverse event can be characterized by defining a time interval of possibly increased risk. This places the safety surveillance considered in this work to the refinement stage.  
+An assumption to the type of safety surveillance considered in this thesis is that a biologically plausible exposure-event pair has been previously identified. The method to be introduced requires that the relationship between the exposure and the adverse event can be characterized by defining a time interval of possibly increased risk. This places the safety surveillance considered in this work to the refinement stage.  
 
 In this theis the drug of interest is a vaccine product (vaccine). The goal is to introduce and utilize a vaccine safety surveillance method to make decisions related to the generation of safety signals, utilizing electronic medical records.  
 

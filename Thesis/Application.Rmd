@@ -70,11 +70,10 @@ The chosen maximum number of observations affects the power of the experiment. A
 The choices 1-4 were used to compute the critical value of the BmaxSPRT experiment, which together with the maximum number of observations defines the stopping conditions for the experiment. In what follows I will briefly describe the BmaxSPRT method and the parameters of the experiment. For details on the method please refer to earlier chapters.  
 
 
-### Observation period
+### Observation period  
+
 
 The observation period in BmaxSPRT for each individual is an age interval during which the individual can be sampled as a case, starting from some determined calendar date. To define the age intervals of interest, distributions of age at first vaccination dose were analyzed for each of the vaccination groups. The observation period for each vaccination group was then defined so that the chosen age interval covers most first dose vaccinations (>95%). The observation periods as ages in days for each of the vaccination groups are displayed in Table \ref{tab:vaccine-groups}.  
-
-The analysis was performed with the assumption that new data might become available each day, starting from 2010-01-01. It should be noted that in reality the first observation is expected to arrive much later, since a person born during 2010 will first have to be vaccinated, then be hospitalized, and then pass through the risk and control periods in order to contribute to the study. 
 
 ```{r}
 group <- c("MPR", "Rota", "PCV")
@@ -83,6 +82,9 @@ ages <- c("250-650 days", "30-140 days", "60-200 days")
 df <- data.frame("Group" = group, "Schedule" = sched, "Observation ages" = ages)
 knitr::kable(df, caption = "\\label{tab:vaccine-groups}The recommended vaccination schedule and observation ages by vaccination group.")
 ```
+
+The analysis was performed with the assumption that new data might become available each day, starting from 2010-01-01. It should be noted that in reality the first observation is expected to arrive much later, since a person born during 2010 will first have to be vaccinated, then be hospitalized, and then pass through the risk and control periods in order to contribute to the study. 
+
 
 ### Risk and control periods  
 
@@ -100,9 +102,6 @@ For each of the age intervals of interest, the incidence of febrile seizures dur
 
 The size of the vaccinated population was estimated using available birth data and vaccination coverage estimates. The expected number of seizures during surveillance, during which each vaccinated individual contributes a total of 42 person days to the experiment, was then computed. These expected numbers of events were then used as the maximum number of observations in the experiment.
 
-It should be noted that alternative strategies could have been used. For this retrospective experiment, it would have also been possible to simply count the total number of events during the risk and control periods in the available data for each vaccination group, instead of estimating the expected number of events. One could then choose the smallest of those as the mutual maximum number of observations. It is likely that other plausible solutions exist as well.
-
-
 ```{r}
 ages <- c("250-650 days", "30-140 days", "60-200 days")
 bc <- c("2010-2013", "2010-2014","2010-2014")
@@ -112,6 +111,9 @@ nri <- c(14.6, 8.1, 7.9)
 df <- data.frame("Age" = ages, "Cohorts" = bc, "Population" = pop, "Vaccination coverage" = cove, "Baseline incidence" = nri, Expected.Events = data.frame(data$conditions)$N)
 knitr::kable(df, caption = "\\label{tab:incidence}The included birth cohorts, size of the study population and estimated  vaccination coverage for each of the observed age groups, along with the baseline event incidence estimates given by 1000 person years. The incidence estimates were used to calculate the expected number of events during surveillance, during which vaccinated individuals contribute 42 person days to the experiment.")
 ```
+
+It should be noted that alternative strategies could have been used. For this retrospective experiment, it would have also been possible to simply count the total number of events during the risk and control periods in the available data for each vaccination group, instead of estimating the expected number of events. One could then choose the smallest of those as the mutual maximum number of observations. It is likely that other plausible solutions exist as well.
+
 
 ### Hypotheses and decision rule
 
@@ -176,7 +178,7 @@ It should be noted at this point that there are two reasons for why in this proo
 
 The sensitivity of the power of the BmaxSPRT experiment to the choice of the risk period is an important question, which I will consider next.  
 
-```{r, fig.height = 6, fig.cap = "\\label{fig:surveillance-results2} Results for continued surveillance for the PCV and MMR groups, both of which a safety signal was generated. Continued surveillance shows that the evidence of an association to febrile seizures for MMR gets stronger when utilizing the complete data set: The value of the test statistic (solid black) gets higher and further away from the critical value (solid red). The estimate for the rate ratio (dashed blue) remains above 1. Results for PCV are inconclusive, as the evidence of an association gets weaker with more observations."}
+```{r, fig.height = 6, fig.cap = "\\label{fig:surveillance-results2} Results for continued surveillance for the PCV and MMR groups, both of which a safety signal was generated. Continued surveillance shows that the evidence of an association to febrile seizures for MMR gets stronger when utilizing the complete data set: the value of the test statistic (solid black) gets higher and further away from the critical value (solid red). The estimate for the rate ratio (dashed blue) remains above 1. Results for PCV are inconclusive, as the evidence of an association gets weaker with more observations."}
 par(mfrow = c(2,1))
 signalPlot2(x = data$dates, Y = data$results$MMR, stop = F, main = "MMR", cex = 0.7)
 signalPlot2(x = data$dates, Y = data$results$PCV, stop = F, main = "PCV", cex = 0.7)
