@@ -7,13 +7,13 @@ output: pdf_document
 
 Pharmaceutical products (drugs) can have unintended side effects. An untoward medical occurrence in a patient administered a drug is called an adverse event. Rare adverse events related to drugs are often impossible to detect in pre-licensure studies and therefore there is an incentive to monitor the safety of a drug post-licensure [@Kulldorff2011]. Monitoring the safety of drugs post-licensure is called safety surveillance. 
 
-The information related to a possible causal relationship between a drug and an adverse event is called a safety signal (signal). Safety surveillance is interested in finding these signals. According to @Nelson2015 [p. 179], post-licensure safety aims related to drugs can be classified into three stages:
+The information related to a possible causal relationship between a drug and an adverse event is called a safety signal (signal). The interest in safety surveillance is in finding these signals. According to @Nelson2015 [p. 179], post-licensure safety aims related to drugs can be classified into three stages:
 
-1. **Signal identification**: Considers a large number of events and involves detecting signals related to unexpected adverse events.
-2. **Signal refinement**: Considers drug-event pairs suspected to have a causal relationship, based on biological plausibility or a previsouly identified signal. Addresses specified hypotheses related to the pairs.
-3. **Signal confirmation**:  Involves a one-time, more in depth study of a previously generated signal. 
+1. **Signal identification** considers a large number of events and involves detecting signals related to unexpected adverse events.
+2. **Signal refinement** considers drug-event pairs suspected to have a causal relationship, based on biological plausibility or a previsouly identified signal. Addresses specified hypotheses related to the pairs.
+3. **Signal confirmation**  involves a one-time, more in depth study of a previously generated signal. 
 
-An assumption to the type of safety surveillance considered in this thesis is that a biologically plausible exposure-event pair has been previously identified. The method to be introduced requires that the relationship between the exposure and the adverse event can be characterized by defining a time interval of possibly increased risk. This places the safety surveillance considered in this work to the refinement stage.  
+An assumption about the type of safety surveillance considered in this thesis is that a biologically plausible exposure-event pair has been previously identified. The method to be introduced requires that the relationship between the exposure and the adverse event can be characterized by defining a time interval of possibly increased risk. This places the safety surveillance considered in this work to the refinement stage.  
 
 In this theis the drug of interest is a vaccine product (vaccine). The goal is to introduce and utilize a vaccine safety surveillance method to make decisions related to the generation of safety signals, utilizing electronic medical records.  
 
@@ -23,27 +23,25 @@ In vaccine safety surveillance the researcher or an automated system monitors th
 
 Assuming that there is random variation in the numbers of events, the observations might not always correspond to the true state of association between the vaccine and the event, leading to false positive or false negative signals. Natural goals of vaccine safety surveillance are to control the expected rates of false positive and false negative signals. It is also desirable to generate a signal as soon as possible, if an association between the vaccine and an adverse event exists. 
 
-Statistical methods designed specifically for vaccine safety surveillance exist. This thesis will focus on the maximized sequential probability ratio test (maxSPRT), which is a statistical hypothesis testing method designed for vaccine safety surveillance [@Kulldorff2011]. Vaccine safety survaillance based on maxSPRT has been utilized between 2005 - 2015 in many countries such as in USA, UK, Taiwan and New Zealand. The main focus has been on studying the effects of influenza vaccines. [@Leite2016]
+Some statistical methods designed specifically for vaccine safety surveillance exist. This thesis will focus on the maximized sequential probability ratio test (maxSPRT), which is a statistical hypothesis testing method designed for vaccine safety surveillance [@Kulldorff2011]. Vaccine safety surveillance based on maxSPRT has been utilized in many countries such as in USA, UK, Taiwan and New Zealand. The main focus has been on studying the effects of influenza vaccines. [@Leite2016]
 
 Statistical hypothesis tests such as the maxSPRT aim to control the expected rate of errors when making decisions under uncertainty. In statistical theory the false positive signals are called type I errors, and the false negative signals are called type II errors. The expected true positive signal rate is called the power. 
 
 There are multiple variants of the maxSPRT method such as the Poisson maxSPRT (PmaxSPRT), binomial maxSPRT (BmaxSPRT) and conditional PmaxSPRT, along with further versions designed for handling grouped observations. According to @Leite2016, the most popular variant of maxSPRT has been PmaxSPRT followed by BmaxSPRT. In this work the focus will be on the BmaxSPRT variant.  
 
-One situation when a safety surveillance method such as the BmaxSPRT could be applied, would be an introduction of a new vaccine to a national vaccination program, such as the introduction of chicken pox vaccination starting in 1.9.2017 in Finland. If there are previously identified safety signals (any reasons to suspect a possible causal relation between the vaccine and some rare adverse event), safety surveillance could be initialized to refine these signals, utilizing accumulating data from electronic health records.
+One situation when a safety surveillance method such as the BmaxSPRT could be applied, would be an introduction of a new vaccine to a national vaccination program, such as the introduction of chicken pox vaccination starting in Finland on September 1, 2017. If there are previously identified safety signals (any reasons to suspect a possible causal relation between the vaccine and some rare adverse event), safety surveillance could be initiated to refine these signals, utilizing accumulating data from electronic health records.
 
 
 ## Elements of safety surveillance
 
-In this work I will generally view a safety surveillance method as consisting of three elements: (1) data accumulation (2) study design and (3) decision rule for generating signals. Table \ref{tab:elements} describes options for the elements. A unique combination of the three elements can be thought to define a unique safety surveillance method. The different variants of maxSPRT can therefore be viewed as unique safety surveillance methods which vary in terms of the underlying study design and assumptions related to data accumulation. They all use (sequential) hypothesis testing as the decision element.
+In this work I will generally view a safety surveillance method as consisting of three elements: (1) data accumulation (2), study design and (3), decision rule for generating signals. Table \ref{tab:elements} describes options for the three elements. A unique combination of the elements can be thought to define a unique safety surveillance method. The different variants of maxSPRT can therefore be viewed as unique safety surveillance methods which vary in terms of the underlying study design and assumptions related to data accumulation. They all use (sequential) hypothesis testing as the decision element.
 
-For any reasonably rare adverse events, daily collected data can be considered as continuous observations. In this work I will mainly consider situations where observations (electronic health care data) accumulates daily and therefore the focus will be on continuous observations. I will a utilize a case-only design -- and specifically the self-controlled case series (SCCS) -- as the design element and I will use maxSPRT sequential hypothesis testing as the decision element of a vaccine safety surveillance method.
-
-These choices (continuous observations, a case-only design and maxSPRT) lead to the continuous binomial variant of maxSPRT, BmaxSPRT.
+For any reasonably rare adverse events, daily collected data can be considered as continuous observations. In this work I will mainly consider situations where electronic health care data accumulates daily and therefore the focus will be on continuous observations. I will a utilize a case-only design -- and specifically the self-controlled case series (SCCS) -- as the design element and I will use maxSPRT sequential hypothesis testing as the decision element of the vaccine safety surveillance method. These choices (continuous observations, a case-only design and maxSPRT) lead to the continuous binomial variant of maxSPRT, BmaxSPRT.
 
 
 ```{r}
 element <- c("Data accumulation", "Study design", "Decision rule")
-options <- c("Continuous observations, grouped observations", 
+options <- c("Continuously over time, at discrete time points (groupeded data)", 
              "Case-only design, cohort design, case-control design", 
              "Hypothesis testing")
 df <- data.frame(Element = element, Options = options)
@@ -53,11 +51,11 @@ knitr::kable(df, caption  = "\\label{tab:elements}Elements of Vaccine safety sur
 
 ## The operationalization of exposure and outcome
 
-The starting point of vaccine safety surveillance is the definition of one or several vaccine - adverse event pairs. In this thesis the biological condition of interest (the adverse event) is operationalized by a group of medical diagnoses related to hospital visits. The medical diagnoses are identified based on a diagnosis code recorded in an electronic medical record data base. Vaccinations are operationalized similarily from medical records, identified using the vaccines name or an identification code. 
+The starting point of vaccine safety surveillance is the definition of one or several vaccine - adverse event pairs. In this thesis the biological condition of interest (the adverse event) is operationalized by a group of medical diagnoses related to hospital visits. The medical diagnoses are identified based on a diagnosis code recorded in an electronic medical record database. Vaccinations are operationalized similarily from medical records, identified using the vaccine's name or identification code. 
 
 Utilizing register data for vaccine safety research is both economical and powerful, because the data collection is practically free and the registers allow for near population level studies. However, it is important to note that registers are secondary data sources - the data are originally collected for other reasons than the research question at hand - and therefore the selection, quality and methods of the data collection are not controlled by the researcher [@Sorensen1996]. The visit to a hospital resulting in a certain diagnosis code might not directly relate to the biological condition of interest.
 
-In Finland, medical diagnoses data are available from electronic health record data bases such as The National Hospital Discharge Register (HILMO) and The Register of Primary Health Care Visits (AvoHILMO). Vaccination data are available from the National Vaccination Register (NVR). AvoHILMO, HILMO and NVR all contain time-stamped patient-level information and the data from the registers can be linked using a personal identification code, unique to all individuals in Finland. Diagnoses and vaccinations can thus be linked on an individual level and the relative timing of vaccinations to medical diagnoses can be asserted.
+In Finland, medical diagnoses data are available from electronic health record databases such as The National Hospital Discharge Register (HILMO) and The Register of Primary Health Care Visits (AvoHILMO). Vaccination data are available from the National Vaccination Register (NVR). AvoHILMO, HILMO and NVR all contain time-stamped patient-level information and the data from the registers can be linked using a personal identification code, unique to all individuals in Finland. Diagnoses and vaccinations can thus be linked on an individual level and the relative timing of vaccinations to medical diagnoses can be asserted.
 
 There are two diagnosis classifications used in Finland: the International Classification of Diseases and Related Health Problems, 10th edition (ICD-10) and to lesser extent the International Classification of Primary Care, 2nd edition (ICPC-2). The ICD-10 is much broader than the ICPC-2, but the ICPC-2 can be used alongside the ICD-10 due to cross-tabulation provided by the World Health Organisation [@icd10]. 
 
@@ -68,8 +66,8 @@ Data from AvoHILMO and NVR are available as daily collections and at the time of
 
 This thesis will introduce the vaccine safety surveillance method BmaxSPRT in detail by breaking it down to its elements. The study design and decision rules for signal generation are the main focus of this work and are given thorough treatment. The outline of the thesis is as follows.  
 
-- Chapter 2 offers discussion related to the design elements in vaccine safety surveillance, focusing on case-only study designs. 
-- Chapter 3 offers discussion related to the decision elements in vaccine safety surveillance and focuses on sequential hypothesis testing. Dealing with grouped observations (data accumulation) is briefly discussed in section 3.4.
+- Chapter 2 discusses the design elements in vaccine safety surveillance, focusing on case-only study designs. 
+- Chapter 3 discusses the decision elements in vaccine safety surveillance, focusing on sequential hypothesis testing. Data accumulation and the case of grouped observations is briefly discussed in section 3.4.
 - Chapter 4 offers a proof of concept application of the BmaxSPRT method, utilizing three different vaccine exposures and a single outcome of interest.
 
 The thesis ends with conclusions.  

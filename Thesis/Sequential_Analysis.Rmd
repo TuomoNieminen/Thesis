@@ -1,32 +1,30 @@
 
 # Decision rules for vaccine safety surveillance  
 
-One of the key elements of a safety surveillance method is a decision rule for generating safety signals. In safety surveillance, the observations are medical diagnoses used as proxies for the biological condition of interest (adverse event). The goal is to stop observing and take some further action if an unexpectedly high number of adverse events are observed. Dynamically determing what exactly is "unexpectedly high", is a problem that this chapter aims to solve. 
+In safety surveillance, observations are medical diagnoses used as proxies for the biological condition of interest (adverse event). Gradually accumulating diagnoses form the sample to be analyzed and decisions related to safety signal generation are made based on the sample. The goal is to stop observing and take some further action if an unexpectedly high number of adverse events have been observed. Dynamically determing what exactly is "unexpectedly high", is a problem that this chapter aims to solve.  
 
-Gradually accumulating diagnoses form the sample to be analysed and decisions related to safety signal generation are made based on the sample. The sample never represents the total study population of interest, which can be thought to include also unborn individuals, possibly experiencing adverse events in the future. Furthermore, there is presumably random variation in the occurrance of adverse events in the population.  
+One of the key elements of a safety surveillance method is a decision rule for generating safety signals. The available sample never perfectly represents the total study population of interest, which can be thought to include unborn individuals, possibly experiencing adverse events in the future. Furthermore, there is random variation in the occurrence of adverse events in the population. The decision making process in safety surveillance involves uncertainty and inevitably some amount of error is expected.  
 
-The decision making process in safety surveillance involves uncertainty. Inevitably, some amount of errors are expected to be made. A desirable quality of a safety surveillance method is to control the expected rate of false positive and false negative signals. When a true association between a vaccination and an adverse event exists, another desirable quality is to generate a safety signal as soon as possible. In other words, a natural goal is to minimize the number of adverse events needed to generate a signal, for some fixed rate of false positive and false negative signals.
+A desirable quality of a safety surveillance method is to control the expected rate of false positive and false negative signals. When a true association between a vaccination and an adverse event exists, another desirable quality is to generate the signal as soon as possible. In other words, a natural goal is to minimize the number of adverse events needed to generate the signal, given some fixed rates of false positive and false negative signals.
 
-In this chapter, the focus will be on sequential hypothesis testing, which can be used to control the expected rate of errors and minimize the time to signal generation. The BmaxSPRT safety surveillance method is described in detail, including the derivation of decision rules for safety signal generation. 
-
+This chapter discusses sequential hypothesis testing, which is a statistical method that can be utilized for vaccine safety surveillance to both control the expected rates of false positive and false negative safety signals, as well as to minimize the time to signal generation.  
 
 ## Hypothesis tests in vaccine safety surveillance
 
-Statistical hypothesis testing is a method of statistical inference for decision making under uncertainty. Uncertainty usually arises from the fact that available observations do not cover the whole population of interest, but rather are a sample from that population. In a regular hypothesis testing scenario, there is a single fixed sample and a single hypothesis test is performed to reach a conclusion. The setting in safety surveillance is different, since observations arrive sequentially.
+Statistical hypothesis testing is a method of statistical inference for decision making under uncertainty. Uncertainty usually arises from the fact that available observations do not cover the whole population of interest, but rather are a sample from that population. In a regular hypothesis testing scenario there is a single fixed sample and a single hypothesis test is performed to reach a conclusion. The setting in safety surveillance is different, since observations arrive sequentially.
 
 In the following sections, I will discuss the use of sequential hypothesis testing for deriving decision rules for vaccine safety signal generation. I will first describe hypothesis testing in general and then discuss testing with sequential observations. I will introduce the sequential probability ratio test (SPRT), which was the first hypothesis testing method developed for sequential analysis. I will then describe in detail the maximized sequential probability ratio test (maxSPRT), which is a sequential hypothesis testing method designed for (but not limited to) vaccine safety surveillance.  
 
-
 ### Statistical hypotheses 
 
-Statistical inference is based on  on a family of probability models $P(Y | \boldsymbol\theta)$ for the observations $Y$, indexed by the parameters $\boldsymbol\theta$. A statistical hypothesis is a proposition which assigns restrictions for the parameter of a statistical model. Usually there are two hypotheses: the null hypothesis $H_0$ and the alternative hypothesis $H_1$. These are expressed by   
+Statistical inference is based on  on a family of probability models $P(Y | \boldsymbol\theta)$ for the observations $Y$, indexed by the parameters $\boldsymbol\theta$. A statistical hypothesis is a proposition which assigns restrictions for the parameter of the statistical model. Usually there are two hypotheses: the null hypothesis $H_0$ and the alternative hypothesis $H_1$. These are expressed by   
 
 $$H_0 : \boldsymbol\theta \in \Theta_0 \quad H_1 : \boldsymbol\theta \in \Theta_1,$$
 
 
 where $\Theta_0$ and $\Theta_1$ are disjoint and usually $\Theta_0 \cup \Theta_1 = \Theta$, so that the two hypothesis together cover the whole parameter space (all possible values of the parameter). For short I will denote $\boldsymbol\theta \in \Theta_0$ as $\boldsymbol\theta_0$ and similarily for $\boldsymbol\theta_1$.  
 
-A hypothesis is called simple if it addresses only a single point in the parameter space. In many applications such as in vaccine safety, the most interesting alternative hypothesis is of the form $H_1 : \theta > \theta_0$. This type of hypothesis -- which addresses more than a single point in the parameter space -- is called a composite hypothesis.  
+A hypothesis is called simple if it addresses only a single point in the parameter space. It is common that the null hypothesis is simple, i.e. $H_0: \theta = \theta_0$. In many applications such as in vaccine safety, the most interesting alternative hypothesis is of the form $H_1 : \theta > \theta_0$. This type of hypothesis -- which addresses more than a single point in the parameter space -- is called a composite hypothesis.  
 
 When the objective is to find evidence of an association between an exposure and an event (for example that the rate ratio for exposed and not exposed is positive), the null proposition (hypothesis) is a state of no association. The alternative hypothesis is composite: some positive association. Using the rate ratio parameter $RR$, this can be stated as two competing hypotheses as follows:
 
@@ -48,7 +46,7 @@ LR
 = \frac{P(\mathbf{y} \mid \boldsymbol\theta_1)}{P(\mathbf{y} \mid \boldsymbol\theta_0)}.
 \end{equation}
 
-Values of (\ref{eq:LR}) greater than 1 mean that the observations are more likely under the alternative hypothesis ($P(\mathbf{y} \mid \boldsymbol\theta_1) > P(\mathbf{y} \mid \boldsymbol\theta_0)$).
+Any value of the likelihood ratio greater than 1 mean that the observations are more likely under the alternative hypothesis ($P(\mathbf{y} \mid \boldsymbol\theta_1) > P(\mathbf{y} \mid \boldsymbol\theta_0)$).
 
 ### Errors and power  
 
@@ -59,9 +57,9 @@ When a decision is made between two competing hypothesis, two types of errors ca
 
 The probabilities of type I and II errors are usually denoted by $\alpha$ and $\beta$, respectively. Terminology related to hypothesis testing is displayed in Table 3.1.  
 
-The complement of $\beta$ is called the power of the hypothesis test: the probability of choosing $H_1$ (rejecting $H_0$) when the $H_1$ is true. If the hypotheses are as in (\ref{eq:hypotheses}), and the parameter of interest is $RR$, the power of a hypothesis test is usually a function of $RR$, meaning that higher values of $RR$ make it more likely for the test to reject the null hypothesis. This also means that the actual type II error rate is a decreasing function or $RR$. 
+The complement of $\beta$ is called the power of the hypothesis test: the probability of choosing $H_1$ (rejecting $H_0$) when $H_1$ is true. If the hypotheses are as in (\ref{eq:hypotheses}) and the parameter of interest is $RR$, the power of a hypothesis test is usually a function of $RR$, meaning that higher values of $RR$ make it more likely for the test to reject the null hypothesis. This also means that the actual type II error rate is a decreasing function of $RR$. 
 
-In the context of vaccine safety surveillance the above means that one would be more likely to conclude that there is a difference in the rate of events between two groups, the bigger that difference is. This is important because it leads to the following observation: when the alternative hypothesis is composite, knowing the type II error rate or the power of a test before collecting observations is impossible without fixing the value of $RR$.  
+In the context of vaccine safety surveillance the above means that one would be more likely to conclude that there is a difference in the rate of events between two groups, the bigger that difference is. This is ofcourse a positive observation and a desirable quality. But it is also important because it leads to the following: knowing the type II error rate or the power of a test before collecting observations is impossible without knowledge of the actual $RR$.  
 
 \begin{table}[h]
 \label{tab:hypothesis-terminology}
@@ -84,11 +82,11 @@ Power & $1 - \beta$ \\ [1.5mm]
 
 ## Sequential analysis
 
-From a statistical inference point of view, a situtation where observations accumulate gradually is different from a more common situation with a fixed number of observations. With a fixed bumber of observations, one can perform a single statistical hypothesis test and make a single decision. With accumulating data, multiple such tests could be done. Sequential analysis focuses on situations where there is a need to perform an analysis whenever new observations arrive. Sequential hypothesis tests can be used to derive decision rules for each new observation.
+From a statistical inference point of view, a situtation where observations accumulate gradually is different from a more common situation with a fixed number of observations. With a fixed bumber of observations, one can perform a single statistical hypothesis test and make a single decision. With accumulating data, multiple such tests can be done. Sequential analysis focuses on situations where there is a need to perform an analysis whenever new observations arrive. Sequential hypothesis tests can be used to derive decision rules for each new observation.
 
-A naive approach to sequential analysis would be to perform a standard hypothesis test on the accumulating data set each time new observations become available. Hypothesis testing is based on the general idea that if observations are unlikely under a statistical model defined by $H_0$, then some assumptions of that model can be questioned. However, if an experiment is repeated multiple times, then even very unlikely outcomes of the experiment are likely to be observed during at least one of the trials. Repeated analysis of accumulating data creates a problem, since repetition introduces multiple chances to reject the $H_0$. The naive approach needs adjustment: in a situation of accumulating data, methods designed specifically for sequential analysis are needed.  
+A naive approach to sequential analysis would be to perform a standard hypothesis test on the accumulating data set each time new observations become available. Hypothesis testing is based on the general idea that if observations are unlikely under a statistical model defined by $H_0$, then some assumptions of that model can be questioned. However, if an experiment is repeated multiple times, then even very unlikely outcomes of the experiment are more likely to be observed during at least one of the trials. Repeated analysis of accumulating data creates a problem, since repetition introduces multiple chances to reject the $H_0$. The naive approach needs adjustment: in a situation of accumulating data, methods designed specifically for sequential analysis are needed.  
 
-Sequential analysis was developed by @Wald1945 during the second world war and it adresses the problem of hypothesis testing in a situation where observations arrive sequentially. Wald defined a sequential test of a statistical hypothesis as a test procedure which gives a rule of making one of three possible decisions at a single trial of the experiment:
+Sequential analysis, developed by @Wald1945 during the second world war, adresses the problem of hypothesis testing in a situation where observations arrive sequentially. Wald defined a sequential test of a statistical hypothesis as a test procedure which gives a rule of making one of three possible decisions at a single trial of the experiment:
 
 1. Accept the null hypothesis.
 2. Reject the null hypothesis.
@@ -96,7 +94,7 @@ Sequential analysis was developed by @Wald1945 during the second world war and i
 
 @Wald1945 developed the sequential probability ratio test (SPRT), which is the optimal sequential hypothesis test between two simple hypotheses [@Wald1948].
 
-SPRT has since been extended to adress composite hypotheses with so called sequential generalized probability ratio tests. @Kulldorff2011 introduced a version of such a test, called the maxSPRT, designed for vaccine safety surveillance. In the following sections I will first briefly introduce SPRT and then describe the maxSPRT and its self-controlled binomial variant BmaxSPRT in detail.
+SPRT has since been extended to adress composite hypotheses with so called sequential generalized probability ratio tests. @Kulldorff2011 introduced a version of such a test, called the maxSPRT, designed for vaccine safety surveillance. In the following sections I will first briefly introduce SPRT and then describe in detail the maxSPRT and its self-controlled binomial variant BmaxSPRT.
 
 ### Sequential probability ratio test: SPRT \label{section:SPRT}
 
@@ -123,13 +121,11 @@ Input: Desired Type I and Type II error rates $\alpha$ and $\beta$, test statist
 
 ### Critical values of SPRT  
 
-The SPRT test has two critical regions: $Q_0 = \{LR_n \mid LR_n \geq A, B < LR_{n-1} < A\}$ for rejecting $H_0$ and $Q_1 = \{LR_n \mid LR_n \leq B, B < LR_{n-1} < A\}$ for rejecting $H_1$, defined by the two critical values $A$ and $B$. These regions define the stopping criteria for the test for all observations $n = 1, 2, ...$. The SPRT procedure and the critical regions are illustrated in Figure \ref{fig:SPRT}.  
+The SPRT test has two critical regions: $Q_0 = \{LR_n \mid LR_n \geq A, B < LR_{n-1} < A\}$ for rejecting $H_0$ and $Q_1 = \{LR_n \mid LR_n \leq B, B < LR_{n-1} < A\}$ for rejecting $H_1$ (accepting $H_0$), defined by the two critical values $A$ and $B$. These regions define the stopping criteria for the test for all observations $n = 1, 2, ...$. The SPRT procedure and the critical regions are illustrated in Figure \ref{fig:SPRT}.
 
-Note that the probability of rejecting the null hypothesis when it is true (type I error) is given by $P(Q_0 \mid H_0) = \alpha$ and the probability of rejecting the alternative hypothesis when it is true (type II error) is given by $P(Q_1 \mid H_1) = \beta$. The critical values $A$ and $B$ should be chosen to match the desired (low) error rates.
+Note that the probability $\alpha$ of rejecting the null hypothesis when it is true (type I error) is given by $P(Q_0 \mid H_0)$ and the probability $\beta$ of rejecting the alternative hypothesis when it is true (type II error) is given by $P(Q_1 \mid H_1)$. The critical values $A$ and $B$ should be chosen to match the desired (low) error rates (probabilities).
 
 In order to determine the values $A$ and $B$, Wald considered the entire sample space consisting of all possible realisations in the sequential test. He showed that the critical values $A$ and $B$ can be approximated by functions of the desired $\alpha$ and $\beta$ regardless of the statistical model by setting $A = (1- \beta)/ \alpha$ and $B = (1 - \alpha) / \beta$. He also remarked that this procedure will guarantee that the actual type I and II errors will not exceed $\alpha$ and $\beta$ and will only differ from them slightly [@Wald1945, 127-133].  
-
-The above is a beautiful and simple result, but the solution requires a fixed $\alpha$ and $\beta$. To give the type II error a proper meaning, however, requires fixing the parameter of interest ($RR$), which can be considered a weakness. In what follows I will introduce Wald's suggested solution for dealing with a composite alternative hypothesis and then illustrate the weakness related to the solution.
 
 
 ```{r, fig.align ="center", fig.height = 5, fig.width = 11, fig.cap = "\\label{fig:SPRT}A graphical illustration of the critical boundaries of the sequential probability ratio test (SPRT) where the test statistic is the likelihood ratio (LR). If the numerator of LR is the likelihood according to the alternative hypothesis, then high values of LR mean that the alternative model fits the data better and are thus critical to the null hypothesis. The upper limit A (dashed red line) then defines the critical region to the null hypothesis. Similarily, the lower limit B (dashed green line) defines the critical region for the alternative hypothesis."}
@@ -148,27 +144,26 @@ par(op)
 
 ### SPRT and a composite alternative hypothesis
 
-SPRT was designed for testing two simple hypotheses. Wald did however propose a solution to a situation of a composite alternative hypothesis. In this section I will introduce this solution and then illustrate a weakness related to it.
+SPRT was designed for testing two simple hypotheses. Wald did however propose a solution to deal with composite alternative hypotheses. In this section I will introduce this solution and then illustrate a weakness related to it.
 
 @Wald1945 [p. 158] remarked that in common statistical models the power of the SPRT test is an increasing function of the parameter of interest $\theta$. He therefore suggested dealing with a composite alternative hypothesis by simply defining a value $\theta_1$ such that the difference $\theta_1 - \theta_0$ would be of significant interest in the application and then setting a point alternative hypothesis $H_1 : \theta = \theta_1$. Then one could simply utilize SPRT as described in algorithm \ref{section:SPRT} and test a simple null hypothesis against a simple alternative.  
 
 When the parameter of interest is the rate ratio, one example of the strategy above would be to view rate ratios $1 \leq RR < 1.2$ as of no interest and therefore for example set $H_1: RR = 1.2$. @Kulldorff2011 remarked that an unfortunate relation between the choice of $RR_1$ and the actual (i.e. true) $RR_a$ can either 
 
-1. delay the rejection of $H_0$ when the observed rate of events is higher than the specified alternative hypothesis would expect (delayed signal generation)
-2. increase the type II error when the actual rate of events is closer to the rate suggested by $H_0$, than the rate suggested by $H_1$ (decreased power).  
+1. delay the rejection of $H_0$ when the actual rate of events is higher than the rate suggested by $H_1$ (delayed signal generation)
+2. increase the type II error when the actual rate of events is closer to the rate suggested by $H_0$ than the rate suggested by $H_1$ (decreased power).  
 
 In other words, scenario (1) can happen when $RR_0 < RR_1 << RR_a$ and scenario (2) when $RR_0 < RR_a << RR_1$.  
 
-The intuition leading to (1) is that if $RR_a$ is far from both $RR_0$ and $RR_1$, then both models, befined by $H_0$ and $H_1$, are "bad" models and therefore $P(\mathbf{y} \mid RR_1)$ and $P(\mathbf{y} \mid RR_0)$ will on average be close to each other. For example, if one specifies $RR_0 = 1$ and $RR_1 = 1.2$ when in reality $RR_a = 6$, then both $H_0$ and $H_1$ specify bad models. In such a case the high number of adverse events expected to be observed would be given low probability by both models. The likelihoods would remain close to each other and the likelihood ratio would remain close to one. It might take a large number of samples to reach a point where $LR \geq A$  and $H_0$ is rejected.  
+The intuition leading to (1) is that if $RR_a$ is far from both $RR_0$ and $RR_1$, then both models, defined by $H_0$ and $H_1$, are inappropriate and therefore $P(\mathbf{y} \mid RR_1)$ and $P(\mathbf{y} \mid RR_0)$ will on average be close to each other. For example, if one specifies $RR_0 = 1$ and $RR_1 = 1.2$ when in reality $RR_a = 6$, then both $H_0$ and $H_1$ specify inappropriate models. In such a case the high number of adverse events expected to be observed would be given low probability by both models. The likelihoods would remain close to each other and the likelihood ratio would remain close to one. It might take a large number of samples to reach a point where $LR \geq A$  and $H_0$ is rejected.  
 
 The above is clearly undesirable especially with serious adverse events, where it is desirable that an unexpectedly high number of adverse events would lead to a quick decision to reject $H_0$.  
 
 To see the intuition behind scenario (2), assume again that we are interested to find if $RR > 1$. Following Wald's suggestion one might for example choose $RR_0 = 1$ and $RR_1 = 2$, when $RR_a = 1.4$. In this case the model specified by $H_0$ is closer to the real value of $RR$ and it is thus expected that $P(\mathbf{y} \mid RR_0)  > P(\mathbf{y} \mid RR_1)$, making it more likely that $LR \leq B$ ($H_1$ rejected). Thus the type II error is increased. See Figure \ref{fig:SPRT-weakness} for an illustration.
 
-```{r, fig.width = 8, fig.height = 4, fig.cap = "\\label{fig:SPRT-weakness}A graphical illustration of a weakness of Wald's SPRT. The blue line describes the number of observations and the green and red lines describe the statistical model for the observations under the null and alternative hypothesis, respectively. Left: A choice of point alternative hypothesis close to the null hypothesis and far from the actual observations can delay the rejection of H0, because the (high number of) observations are unlikely under both hypotheses. Right: A choice of point alternative hypothesis that is 'too agressive' compared to the actual observations can increase the type II error rate, because the data is more likely under the null hypothesis."}
+```{r, fig.width = 8, fig.height = 4, fig.cap = "\\label{fig:SPRT-weakness}A graphical illustration of a weakness of Wald's SPRT. The blue line describes the observed adverse events and the green and red lines describe the statistical model for the observations under the null and alternative hypothesis, respectively. Left: A choice of point alternative hypothesis close to the null hypothesis and far from the actual observations can delay the rejection of H0, because the (high number of) observations are unlikely under both hypotheses. Right: A choice of point alternative hypothesis that is 'too agressive' compared to the actual observations can increase the type II error rate, because the data are more likely under the null hypothesis."}
 op <- par(no.readonly = T)
 cols = c("green", "red", "blue")
-labels <- c(expression("Y | H0"), expression("Y | H1"), expression("y"))
 
 # tick <- function(pos, label, color) {
 #   abline(v = pos, col =color, lty = 2)
@@ -180,26 +175,26 @@ layout(matrix(c(1,1,2,3), ncol=2, byrow=TRUE), heights=c(1, 4))
 # common legend
 par(mai=c(0,0,0,0))
 plot.new()
-legend("center", inset = 0, legend = c("P(Y | H0)", "P(Y | H1)", "y"), col = cols, lty = c(1,1,2), horiz = TRUE, xpd = T)
+legend("center", inset = 0, legend = c("L(RR_0 ; y)", "L(RR_1 ; y)", "y"), col = cols, lty = c(1,1,2), horiz = TRUE, xpd = T)
 
 par(las = 1, mar = c(5, 1, 4, 2))
 # poor H1 can delay detection
 RR0 <- 1; RR1 <- 3; act <- 7
 curve(dnorm(x, RR0, 1), yaxt = "n", xaxt = "n", ylim = c(0, 0.6), xlim = c(-3, 10), col = "green", lty = 1, xlab = "", ylab = "")
 curve(dnorm(x, RR1, 1), yaxt = "n", xaxt = "n", ylim = c(0, 0.6), xlim = c(-3, 10), col = "red", lty = 1, xlab = "", ylab = "", add = T)
-axis(1, act, col = cols[3], label = labels[3])
+axis(1, act, col = cols[3], label = "y")
 abline(v = act, col = cols[3], lty = 2)
 
-title(sub = "Poor H1 can delay detection", main = expression(atop("Both models are 'bad'","P(Y | H1)" %~~% "P(Y | H0)")))
+title(sub = "Poor H1 can delay detection", main = expression(atop("Both models are 'bad'","L(RR_1 ; y)" %~~% "L(RR_0 ; y)")))
 
 # poor H1 can increase type II error rate
 RR0 <- 1; RR1 <- 7; act <- 3
 curve(dnorm(x, RR0, 1), yaxt = "n", xaxt = "n", ylim = c(0, 0.6), xlim = c(-3, 10), col = "green", lty = 1, xlab = "", ylab = "")
 curve(dnorm(x, RR1, 1), yaxt = "n", xaxt = "n", ylim = c(0, 0.6), xlim = c(-3, 10), col = "red", lty = 1, xlab = "", ylab = "", add = T)
-axis(1, act, col = cols[3], label = labels[3])
+axis(1, act, col = cols[3], label = "y")
 abline(v = act, col = cols[3], lty = 2)
 
-title(sub = "Poor H1 can increase Type II error rate", main = expression(atop("The H0 model is 'better'","P(Y | H1) < P(Y | H0)")))
+title(sub = "Poor H1 can increase Type II error rate", main = expression(atop("The H0 model is 'better'","L(RR_1 ; y) < L(RR_0 ; y)")))
 
 par(op)
 ```
@@ -207,16 +202,16 @@ par(op)
 
 ## Maximized sequential probability ratio test: maxSPRT \label{section:maxSPRT}
 
-A solution suggested by @Kulldorff2011 to the weakness of SPRT described above is to modify the test in two ways: 
+A solution suggested by @Kulldorff2011 to remove the weakness of SPRT as described above is to modify the test in two ways: 
 
-1. Maximize the likelihood ratio in the space of the alternative hypothesis $\Theta_1$
+1. Maximize the likelihood ratio in the space of the alternative hypotheses $\Theta_1$.
 2. Instead of setting a lower bound $B$ to reject $H_1$, define a maximum number of observations $N$ and reject $H_1$ if $n \geq N$.
 
 The modified sequential test is called the maximized sequential probability ratio test (maxSPRT). The maxSPRT is a general sequential hypothesis testing method, which can be used on any statistical model.  
 
-@Kulldorff2011 introduce two versions of the maxSPRT method: one based on Poisson likelihood and the other on Binomial likelihood. The binomial model arises when the study design is a simple self-controlled design such as the simple SCCS introduced in section \ref{section:simpleSCCS}.  
+@Kulldorff2011 introduced two versions of the maxSPRT method: one based on Poisson likelihood and the other on Binomial likelihood. The binomial model arises when the study design is a simple self-controlled design such as the simple SCCS introduced in section \ref{section:simpleSCCS}.  
 
-When the parameter of interest is $RR$, the maxSPRT test statistic is 
+When the parameter of interest is the rate ratio $RR$, the maxSPRT test statistic is 
 
 \begin{equation}\label{eq:LR-maxSPRT}
 LR_n = \underset{RR_1}{max} \frac{ L(RR_1; \mathbf y_n) }{ L(RR_0; \mathbf y_n) } = \underset{RR_1}{max} \frac{P( \mathbf y_n \mid RR_1)}{P( \mathbf y_n \mid RR_0)}.
@@ -238,7 +233,7 @@ Input: Desired type I error rate $\alpha'$, upper boundary for the sample size $
 
 ### Binomial maxSPRT: BmaxSPRT
 
-Let us now adopt the maxSPRT method in the setting of the simple SCCS. Assume that for the sequence of observations $(y_n, n), n = 0, 1, ...N$, where $y_n$ denotes the number of "cases" out of $n$ events, the probability distribution for $y_n$ is given by the binomial distribution as described in section \ref{section:simpleSCCS}. The probability of "success" (i.e. adverse event clasified as a "case"), depends on the unknown rate ratio parameter $RR$ and the known ratio between the lengths of the control and risk periods, $z$ and the conditional likelihood is as in (\ref{eq:SCCS-binomial}).  
+Let us now adopt the maxSPRT method in the setting of the simple SCCS. Assume that for the sequence of observations $(y_n, n), n = 0, 1, ...N$, where $y_n$ denotes the number of "cases" out of $n$ events, the probability distribution for $y_n$ is given by the binomial distribution as described in section \ref{section:simpleSCCS}. The probability of "success" (i.e. adverse event clasified as a "case"), depends on the unknown rate ratio parameter $RR$ and the known ratio between the lengths of the control and risk periods, $z$ and the conditional likelihood (\ref{eq:SCCS-binomial}).  
 
 Let the two hypotheses be as in (\ref{eq:hypotheses}). Using equation (\ref{eq:LR-maxSPRT}), the maxSPRT test statistic is given by
 
@@ -248,7 +243,7 @@ LR_n
 = \underset{RR>1}{max} \frac{ (\frac{RR}{z + RR})^{y_n} (\frac{z}{z + RR})^{n - y_n} }{ (\frac{1}{z + 1})^{y_n} (\frac{z}{z + 1})^{n - y_n}  }.
 \end{equation}
 
-@Kulldorff2011 call a sequential test based on the test statistics (\ref{eq:LR-BmaxSPRT}) the binomial maxSPRT. A simple SCCS design combined with the the maxSPRT method is one way to arrive at the BmaxSPRT, which shows that the BmaxSPRT method is self-controlled.
+@Kulldorff2011 call a sequential test based on the test statistics (\ref{eq:LR-BmaxSPRT}) the binomial maxSPRT (BmaxSPRT). A simple SCCS design combined with the the maxSPRT method is one way to arrive at the BmaxSPRT, which shows that the BmaxSPRT method is self-controlled.
 
 Computation of (\ref{eq:LR-BmaxSPRT}) requires maximization. It is easy to see that maximization in terms of $RR$ depends only on the numerator, which is a likelihood function. Maximizing a likelihood function is a common task in statistics and the value that maximizes the likelihood in terms of the parameter $RR$ is called the maximum likelihood estimate (MLE) for $RR$, denoted by $\hat{RR}$.  
 
@@ -263,7 +258,7 @@ A simplified form of (\ref{eq:LLR-BmaxSPRT}) is given by @Kulldorff2011 [p. 71].
 
 ### Computing the critical values of BmaxSPRT  \label{section:computing-BmaxSPRT-critical}
 
-The values of the test statistic (\ref{eq:LLR-BmaxSPRT}) are easy to compute. What then remains is the definition of the critical region $Q$ of the test: which values of the test statistic should lead to a decision to reject the null hypothesis. Since higher values of the test statistic are always more critical to the $H_0$, it is sufficient to determine a single critical value $c$, which defines the boundary of the critical region. Values of (\ref{eq:LLR-BmaxSPRT}) higher than $c$ then lead to rejection of $H_0$. The critical region of BmaxSPRT is 
+The values of the test statistic (\ref{eq:LLR-BmaxSPRT}) are easy to compute. What then remains is the definition of the critical region $Q$ of the test: which values of the test statistic should lead to the decision of rejecting the null hypothesis. Since higher values of the test statistic are always more critical to the $H_0$, it is sufficient to determine a single critical value $c$, which defines the boundary of the critical region. Values of (\ref{eq:LLR-BmaxSPRT}) higher than $c$ then lead to rejection of $H_0$. The critical region of BmaxSPRT thus is 
 
 $$Q = \{LLR_n \mid LLR_n \geq c, LLR_{n-1} < c\}, \quad \text{for all} \quad n = 1, 2, ..., N,$$
 
@@ -276,18 +271,18 @@ Next, I will introduce the concept of a Markov chain in the setting of the BmaxS
 
 #### State space
 
-In the BmaxSPRT sequential test, the possible states of the experiment are all the possible combinations of "trials" ($n$) and "successes" ($y_n$) during the experiment, bounded by the maximum number of observations $N$, set at the beginning of the experiment. Therefore the state space $S$ is defined as follows:
+In the BmaxSPRT sequential test, the possible states of the experiment comprise all possible combinations of "trials" ($n$) and "successes" ($y_n$) during the experiment, bounded by the maximum number of observations $N$. Therefore the state space $S$ is defined as follows:
 
 \begin{equation}
 \label{def:state-space}
 S = (n, y_n) , \quad \text{where} \quad n = 0, 1, ..., N \quad \text{and} \quad y_n = 0, 1, .. , n.
 \end{equation}
 
-The experiment always starts at the state $(0,0)$. Clearly, there are a finite number of states. In fact, there are $M = \sum_{n = 0}^{N} n + 1 = (N+1) (N+2) /2$ possible states.  
+The experiment always starts at the state $(0,0)$. Clearly, there are a finite number of states. In fact, there are $M = \sum_{n = 0}^{N} (n + 1) = (N+1) (N+2) /2$ possible states.  
 
 #### Transitions  
 
-In the BmaxSPRT experiment, a new observation is either a "success" ($Y = 1$) or a "failure" ($Y = 0$), depending on the outcome of a Bernoulli random variable $Y$. Possible transitions in the state space $S$ are therefore as follows:  
+In the BmaxSPRT experiment, observations are classified as a "case" ("success", $Y = 1$) or a "control" ("failure", $Y = 0$), depending on the outcome of a Bernoulli random variable $Y$ (See section \ref{section:simpleSCCS}). Possible transitions in the state space $S$ are therefore as follows:  
 
 \begin{equation}\label{eq:transitions}
 \begin{split}
@@ -305,7 +300,7 @@ Q = \{s \in S \mid LLR(s) \geq c \},
 which is the critical region of the test.  
 
 \begin{figure}[h]
-\caption{Visualization of the BmaxSPRT Markov Chain. The chain starts from the node (0,0) and a trial with the result "success" or "failure" is performed at each node, with p being the probability for "success". In this example the state (3,3) with 3 successes out of 3 trials is an absorbing state, corresponding to belonging to the critical region of the BmaxSPRT experiment.}
+\caption{Visualization of a BmaxSPRT type Markov Chain. The chain starts from the node (0,0) and a trial with the result "success" or "failure" is performed at each node, with p being the probability for "success". In this example the state (3,3) with 3 successes out of 3 trials is an absorbing state.}
 \includegraphics[]{figures/markov}
 \end{figure}
 
@@ -318,19 +313,19 @@ The BmaxSPRT experiment starts at the state $(0,0)$ with probability 1. Therefor
 \underset{1 \times M}{\mathbf{v}} = (1, 0, ..., 0).
 \end{equation}
 
-A Bernoulli random variable $Y$ determines the transitions. The transition probabilities for the transient states are given by 
+A Bernoulli random variable $Y$ determines the transitions. The transition probabilities for the transient states, i.e., for those for which $LLR(n, y_n) < c)$, are given by:
 
 \begin{equation}\label{eq:transition-probabilities1}
 \begin{split}
-P\{(n, y_n) \rightarrow (n + 1, y_n + 1) \mid LLR(n,y_n) < c\} = P(Y = 1) = p \\
-P\{(n, y_n) \rightarrow (n + 1, y_n) \mid LLR(n,y_n) < c\ \} = P (Y = 0) = 1 - p,
+P \{ (n+1,y_{n+1}) \mid (n,y_n) \} = P(Y=1) = p \\
+P \{ (n+1,y_{n}) \mid (n,y_n) \} = P(Y=0) = 1 - p
 \end{split}
 \end{equation}
 
-where $p$ is as in (\ref{eq:p}). Under the null hypothesis ($RR = 1$) $p = 1 / (1 + z)$. The probabilities of other transitions from the transient states are zero. The transition probabilities for the absorbing states are  
+where $p$ is as in (\ref{eq:p}). Under the null hypothesis ($RR = 1$) $p = 1 / (1 + z)$. The probabilities of other transitions from the transient states are zero. The transition probabilities for the absorbing states, i.e. for those for which $LLR(n, y_n) \geq c$ are:
 
 \begin{equation}\label{eq:transition-probabilities2}
-P\{(n, y_n) \rightarrow (n, y_n) \mid LLR(n,y_n) \geq c\ \}= 1,
+P \{ (n,y_{n}) \mid (n,y_n) \} = 1,
 \end{equation}
 
 meaning that if such a state is reached, it is never left.  
@@ -357,13 +352,15 @@ The matrix $\mathbf{P}$ in (\ref{eq:transition-matrix}) is a transition matrix w
 (N,N) &  0   & 0     & 0     & 0     & 0     & 0     & 0     & 0     & .. & 0     & .. & 1     \cr
 }
 \end{equation}
-\caption{A transition matrix describing the transition probabilities between the states in the state space S of the BmaxSPRT experiment. The rows and columns of the matrix are the possible states and $\mathbf{P}_{ij}$ gives the probability of the transition $s_i -> s_j$. For example under the null hypothesis of the BmaxSPRT experiment the probability of the transition $(0,0) -> (1,0)$ ("failure") is given by $1-p = z / (1 + z)$ and the probability of the transition $(0,0) -> (1,1)$ ("success") is given by $p = 1 / (1 + z)$. The states where the maximum number of observations is reached are all absorbing states.}
+\caption{
+A transition matrix describing the transition probabilities between the states in the state space S of the BmaxSPRT experiment. The rows and columns of the matrix correspond to the possible states and $\mathbf{P}_{ij}$ gives the probability of the transition $s_i \rightarrow s_j$. For example under the null hypothesis of the BmaxSPRT experiment the probability of the transition $(0,0) \rightarrow (1,0)$ ("failure") is given by $1-p = z / (1 + z)$ and the probability of the transition $(0,0) \rightarrow (1,1)$ ("success") is given by $p = 1 / (1 + z)$. The states where the maximum number of observations is reached are all absorbing states.
+}
 \end{figure}
 
 The probabilities of being in each of the states after $N$ transitions in the state space are given by
 
 \begin{equation}\label{eq:state-probabilities}
-\underset{1 \times M}{\mathbf{p}} = \mathbf{v} \mathbf{P}^{(N)}
+\underset{1 \times M}{\mathbf{p}} = \mathbf{v} \mathbf{P}^{(N)}.
 \end{equation}
 
 
@@ -380,18 +377,22 @@ P(Y_{i + 1} = y_{i+1} \mid Y_1 , .., Y_i ) \overset{\perp\!\!\!\perp}= p, \quad 
 \end{equation}
 
 
-### Algorithm for BmaxSPRT critical values \label{section:BmaxSPRT-critical}
+### Critical region
 
-Let $N$ now be the chosen maximum number of observations (adverse events) and $\alpha'$ the desired type I error rate in the BmaxSPRT experiment. Using the notation for the absorbing states defined in (\ref{eq:absorbing}), the goal is to define $c$ such that $P(Q \mid H_0) = \alpha'$, meaning that the overall probability of rejecting the null hypothesis when it is true is $\alpha'$.  
+Using the notation for the absorbing states defined in (\ref{eq:absorbing}), the goal is to define $c$ such that $P(Q \mid H_0) = \alpha'$, meaning that the overall probability of rejecting the null hypothesis when it is true is $\alpha'$.  
 
-For any given critical value $c$, the overall probability of reaching the critical region of the BmaxSPRT experiment can be computed by summing over the probabilities of being in each of the absorbing states $s \in Q$ after $N$ transitions in the state space $S$. Note that a transition from an absorbing state to itself counts as a transition. Using the result introduced in (\ref{eq:state-probabilities}), this probability is given by 
+Any critical value candidate $c'$ defines a critical region $Q'$. The overall probability of reaching the critical region can be computed by summing over the probabilities of being in each of the states $s \in Q'$ after $N$ transitions in the state space $S$. Note that a transition from an absorbing state to itself is a transition. Using the result introduced in (\ref{eq:state-probabilities}), this probability is given by 
 
 \begin{equation}
 \label{eq:probability-critical}
 \alpha_{(BmaxSPRT)} = P(Q \mid H_0) = \sum_{s \in Q} \mathbf{v}\mathbf{P}_0^{(N)},
 \end{equation}
 
-where $\mathbf{P}_0$ is the transition matrix (\ref{eq:transition-matrix}), where $p = 1 / (1 + z)$ is according to $H_0$. Using this result, it is possible to try out possible values of $c$ until the one is found which best matches the desired $\alpha'$. One way to execute this procedure is given in algorithm \ref{section:BmaxSPRT-critical}.  
+where $\mathbf{P}_0$ is the transition matrix (\ref{eq:transition-matrix}), where $p = 1 / (1 + z)$ is according to $H_0$.  
+
+### Algorithm for BmaxSPRT critical values \label{section:BmaxSPRT-critical}
+
+Utilizing equation (\ref{eq:probability-critical}), it is possible to try out possible values $c'$ until the one is found which best matches the desired $\alpha'$. One way to execute this procedure is given in algorithm \ref{section:BmaxSPRT-critical}.  
 
 It should be noted that for a desired $\alpha'$, the algorithm finds the value $c$ which corresponds to a type I error $\alpha$ for which the inequality $\alpha \leq \alpha'$ holds. It is unlikely that $\alpha = \alpha'$ exactly. This is due to the discrete nature of the binomial distribution.  
 
