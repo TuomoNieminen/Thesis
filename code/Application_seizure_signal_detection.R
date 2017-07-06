@@ -4,8 +4,8 @@
 
 # published at http://opus.thl.fi/roko/stat/vaccsafety/Seizure.signal.detection.html
 
-source("~/TNversio/vaccsafety/EUSAFE/EUSAFE_functions.R")
-source("~/TNversio/vaccsafety/Signal/maxSPRT.R")
+source("~/TNversio/vaccsafety/Projects/EUSAFE/EUSAFE_functions.R")
+source("~/TNversio/vaccsafety/Methods/Surveillance/maxSPRT.R")
 
 library(eRos)
 library(eRosPublish)

@@ -377,11 +377,11 @@ P(Y_{i + 1} = y_{i+1} \mid Y_1 , .., Y_i ) \overset{\perp\!\!\!\perp}= p, \quad 
 \end{equation}
 
 
-### Critical region
+### Critical region and type I error
 
-Using the notation for the absorbing states defined in (\ref{eq:absorbing}), the goal is to define $c$ such that $P(Q \mid H_0) = \alpha'$, meaning that the overall probability of rejecting the null hypothesis when it is true is $\alpha'$.  
+The critical value $c$ of the BmaxSPRT experiment defines the critical region $Q$ which in turn defines the type I error. Any critical value candidate $c'$ defines a critical region $Q'$, corresponding to some type I error $\alpha$. Therefore, for a desired type I error $\alpha'$, the goal is to find a $c$ such that $P(Q \mid H_0) \approx \alpha'$, meaning that the overall probability of rejecting the null hypothesis when it is true is (at least approximately) $\alpha'$.   
 
-Any critical value candidate $c'$ defines a critical region $Q'$. The overall probability of reaching the critical region can be computed by summing over the probabilities of being in each of the states $s \in Q'$ after $N$ transitions in the state space $S$. Note that a transition from an absorbing state to itself is a transition. Using the result introduced in (\ref{eq:state-probabilities}), this probability is given by 
+To compute the value of $\alpha$ for a given $c$, the overall probability of reaching the critical region can be computed by summing over the probabilities of being in each of the states $s \in Q$ after $N$ transitions in the state space $S$. Using the result introduced in (\ref{eq:state-probabilities}), the type I error probability for any critical region $Q$ is given by 
 
 \begin{equation}
 \label{eq:probability-critical}
@@ -392,7 +392,7 @@ where $\mathbf{P}_0$ is the transition matrix (\ref{eq:transition-matrix}), wher
 
 ### Algorithm for BmaxSPRT critical values \label{section:BmaxSPRT-critical}
 
-Utilizing equation (\ref{eq:probability-critical}), it is possible to try out possible values $c'$ until the one is found which best matches the desired $\alpha'$. One way to execute this procedure is given in algorithm \ref{section:BmaxSPRT-critical}.  
+Utilizing equation (\ref{eq:probability-critical}), it is possible to try out possible values $c'$ until the $c$ is found which best matches the desired $\alpha'$. One way to execute this procedure is given in algorithm \ref{section:BmaxSPRT-critical}.  
 
 It should be noted that for a desired $\alpha'$, the algorithm finds the value $c$ which corresponds to a type I error $\alpha$ for which the inequality $\alpha \leq \alpha'$ holds. It is unlikely that $\alpha = \alpha'$ exactly. This is due to the discrete nature of the binomial distribution.  
 
@@ -417,15 +417,15 @@ Denoting the critical region corresponding to a desired $\alpha'$ as $Q_0$, the 
 \text{Power}_{(BmaxSPRT)} = P(Q_0 | H_1) = \sum_{s \in Q_0} \mathbf{v}\mathbf{P}_1^{(N)},
 \end{equation}
 
-where $\mathbf{v}$ are the initial probabilities of the states and $\mathbf{P}_1$ is the transition matrix (\ref{eq:transition-matrix}), where $p = RR_1 / (RR_1 + z)$ for some fixed choice of $RR_1$.  
+where $\mathbf{v}$ are the initial probabilities of the states given in equation (\ref{eq:markov-initial}) and $\mathbf{P}_1$ is the transition matrix (\ref{eq:transition-matrix}), where $p = RR_1 / (RR_1 + z)$ for some fixed choice of $RR_1$.  
 
 ## Grouped observations \label{section:group-sequential}
 
-The sequential hypothesis testing methods discussed so far in this chapter (SPRT, maxSPRT) assume that the value of the test statistic is evaluated whenever a new observation (a medical diagnosis) arrives. This applies to situations where data are available in near real time and observations arrive individually. This type of analysis is called continuous sequential analysis. Continuous sequential analysis is applicaple in situtations where the adverse events of interest are reasonably rare and medical diagnoses are collected reasonably often (for example daily).  
+The sequential hypothesis testing methods discussed so far in this chapter (SPRT, maxSPRT, BmaxSPRT) assume that the value of the test statistic is evaluated whenever a new observation (a medical diagnosis) arrives. This applies to situations where data are available in near real time and observations arrive individually. This type of analysis is called continuous sequential analysis. Continuous sequential analysis is applicaple in situtations where the adverse events of interest are reasonably rare and medical diagnoses are collected reasonably often (for example daily).  
 
-Due to administrative reasons, sometimes medical diagnoses become available for analysis in groups. For example, the National Health and Welfare Institute (Finland) receives data from the HILMO register three times a year (2016). Unless the adverse events of interest are extremely rare, it can be expected that more than a single observation arrives simultaneously. The methods applicable in these situations are called group sequential methods [@Silva2015]. 
+Due to administrative reasons, sometimes medical diagnoses become available for analysis in groups. For example, the National Health and Welfare Institute (Finland) receives data from the HILMO register three times a year (2016). Unless the adverse events of interest are extremely rare, it can be expected that more than a single observation becomes available at the same time. The methods applicable in these situations are called group sequential methods [@Silva2015]. 
 
-According to @Silva2015 group sequential and continuous sequential analyses can be formally defined as follows.  
+According to @Silva2015 group sequential and continuous sequential analyses can be formally defined as follows. These definitions are given here only to aid discussion and in an effort to distinguish between group sequential and continuous sequential analyses. 
 
 *Let $X_t$ be a non-negative integer valued stochastic process describing the number of adverse events that occur during a $[0, t]$ time window.*
 
@@ -450,13 +450,13 @@ In the coming sections I will discuss why the grouped nature of the data should 
 
 To see the intuition for statement 1, assume a special case of group sequential analysis with only a single group of observations. The two choices are then to either perform a retrospective continuous sequential analysis or do a single hypothesis test (using the single group of data). Assume that the same test statistic is used in both cases. For the continuous sequential analysis, the critical value of the test statistic must adjust for multiple chances to reject the $H_0$. This means that it must be more difficult to reject the $H_0$ when $H_1$ is true. Continuous sequential analysis would therefore always have lower power than group sequential analysis if a group of data are already available. 
 
-The reason for statement 2 is that a continuous sequential method is always superior to a group sequential method if observations can be made separately. To see the intuition for this, assume a group sequential design that rejects $H_0$ when the total number of events (after a group of observations) are at least $y_c$. Now assume a continuous sequential design that looks at the observations separately and rejects $H_0$ as soon as there are $y_c$ events. The error rates of the designs are identical because the number of events are non-decreasing. However, the continuous method is superior because it can reject the $H_0$ sooner (with a smaller sample size). Therefore for every group sequential design there is a superior continuous sequential design.  
+The reason for statement 2 is that a continuous sequential method is always superior to a group sequential method if observations can be made separately. To see the intuition for this, assume a group sequential design that rejects $H_0$ when the total number of events (after a group of observations) is at least $y_c$. Now assume a continuous sequential design that checks the observations separately and rejects $H_0$ as soon as there are $y_c$ events. The error rates of the two designs are identical because the number of events is non-decreasing (both designs reject $H_0$ iff at some point there are $y_c$ events). However, the continuous method is superior because it can reject the $H_0$ sooner (with a smaller sample size). Therefore for every group sequential design there is a superior continuous sequential design.  
 
 A conclusion can be made that not adjusting for the availability of the data can result in either loss of power or an increase in the expected sample size. Analyses should always be performed as soon as possible, using all the available data.
 
 ### Group sequential methods
 
-The same statistical model and test statistic that would be utilized in a continuous sequential analysis can be applied for group sequential analysis. However, when analyses are done for groups of data, there are less opportunities to reject the $H_0$ and therefore the critical values of the sequential hypothesis test should be affected. Unfortunately, if the number of observations per group is unkown, the computation of the critical values becomes difficult. Two assumptions could be made to simplify this computation, but the validity of the assumptions is questionable.
+The same statistical model and test statistic that would be utilized in a continuous sequential analysis can be applied in group sequential analysis. However, when analyses are done for groups of data, there are less opportunities to reject the $H_0$ and therefore for a given critical value the type I error of a group sequential analysis is smaller. The critical values should threfore be chosen differently. Unfortunately, if the number of observations per group is unkown, the computation of the critical values becomes difficult. Two assumptions could be made to simplify this computation, but the validity of the assumptions is questionable.
 
 The problem of determining the critical values of a group sequential test would simplify if the number of
 observations per group were assumed to be fixed (fixed group sizes). @R-Sequential have implemented this solution for computing critical values of a group sequential BmaxSPRT test in their Sequential R package, available in the Comprehensive R Archive Network (CRAN). This assumption makes the problem very similar to the situation discussed in section \ref{section:computing-BmaxSPRT-critical}. The intution for the similarity is that continuous BmaxSPRT can be seen as a special case of a group sequential hypothesis test with group sizes fixed at 1.  
@@ -465,9 +465,9 @@ It is quite obvious that if adverse events are assumed to arrive as a random pro
 
 The problem would also simplify if the maximum number of groups was fixed. However, assuming that the group sizes are unkown, fixing the number of groups will not fix the number of observations at the end of surveillance. Rememeber that the goal of safety surveillance is to keep collecting and analyzing data until there is sufficient information regarding a possible association between the exposure and the event. Naturally, the amount of information depends on the amount of observations. Therefore it would clearly be better to fix the number of observations than the number of groups.
 
-A possible solution which needs neither simplifying assumption is to use and error spending approach, as introduced by @Jennison1999 in their book focusing on group sequential methods in clinical trials. Next, I will introduce the concept of error spending functions and maximum information trials, which could be useful approaches for future research regarding vaccine safety surveillance with grouped observations.    
+A possible solution which needs neither simplifying assumption is to use an error spending approach, as described by @Jennison1999 in their book focusing on group sequential methods in clinical trials. Next, I will introduce the concept of error spending functions and maximum information trials, which could be useful approaches for future research regarding vaccine safety surveillance with grouped observations.    
 
-### Error spending functions
+### Error spending 
 
 One solution to group sequential analysis for random group sizes is to use an error spending approach (also known as alpha spending) [@Jennison1999, ch. 7]. The idea of error spending is that for $K$ groups, the type I error $\alpha$ is partioned into probabilities $\pi_1, ..., \pi_K$ which sum to $\alpha$. For the test statistics $Z_k$, critical values $c_k$ are calculated so that
 
@@ -475,25 +475,32 @@ One solution to group sequential analysis for random group sizes is to use an er
 P(|Z_1| < c_1, ..., |Z_{k-1}| < c_{k-1}, |Z_k| \geq c_k) = \pi_k
 \end{equation}
 
-Intuitively this means that for each group $k$, only a proportion of the desired error probability $\alpha$ is spent. 
+Intuitively this means that for each group $k$, only a proportion of the desired error probability $\alpha$ is spent. A practical problem remaining is: how should each $\pi_k$ be chosen? To solve this problem, @Jennison1999 [pp. 148-150] introduce families of error spending functions and compare their properties. 
 
-A practical problem remaining is: how should each $\pi_k$ be chosen? To solve this problem, @Jennison1999 [pp. 148-150] introduce families of error spending functions and compare their properties. An error spending function $f(t)$ is a non-decreasing function which partitions the desired type I error rate and for which $f(0) = 0$ and $f(t) = \alpha$ for $t \geq 1$. @Jennison1999 [p. 148] suggest a family of error spending functions defined by
+\begin{definition}[Error spending function]
+\label{def:error-spending-func}
+An error spending function $f: \mathbb{R}_{\geq0} \rightarrow [0, \alpha]$ is a non-decreasing function which partitions the desired type I error rate $\alpha$ and for which 
+1. $f(0) = 0$ (beginning)
+2. $f(t) = \alpha$ for $t \geq 1$ (end). 
+\end{definition}
+
+@Jennison1999 [p. 148] suggest a family of error spending functions defined by
 
 \begin{equation} \label{eq:error-spending-func}
 f(t) = min\{\alpha \cdot t^p, \alpha \}
 \end{equation}
 
-where the choices of $p \in \{1,3\}$ yield similar results to more classical approaches suggested by Pocock and O'brian & Fleming, which belong to the Wang & Tsiatis family of error spending functions.  
+where the choices of $p \in \{1,3\}$ yield similar results to more classical approaches suggested by @Pocock1977 and @OBrien1979, which belong to the Wang & Tsiatis family of error spending functions.  
 
 ### Maximum information trials \label{section:infotrials}
 
-Utilizing the concept of errors spending functions, @Jennison1999 [pp. 146-148] discuss decision rules in the case of two-sided alternative hypotheses, where the stopping rule for accepting $H_0$ is defined by a target maximum information level, denoted by $I_{max}$. Information level for group $k$ is defined as
+Utilizing the concept of error spending functions, @Jennison1999 [pp. 146-148] discuss decision rules in the case of two-sided alternative hypotheses, where the stopping rule for accepting $H_0$ is defined by a target maximum information level, denoted by $I_{max}$. The information levellevel for group $k$ is defined as
 
 \begin{equation} \label{eq:information-level}
 I_k = \{var(\hat\theta^{(k)})^{-1}\}, k = 1, 2, ..
 \end{equation}
 
-where $\hat\theta$ is the estimator for the parameter of interest $\theta$. A maximum information trial uses an error spending function such as (\ref{eq:error-spending-func}), where the value of $f(t)$ indicates the cumulative type I error to be spent when a fraction $t$ of the maximum anticipated information has been obtained. The type I errors allocated to each analyses are
+where $\hat\theta$ is the estimator for the parameter of interest $\theta$. A maximum information trial uses an error spending function, where the value $f(t)$ indicates the cumulative type I error to be spent when a fraction $t$ of the maximum anticipated information $I_{max}$ has been obtained. The type I errors allocated to each analyses are
 
 \begin{equation}
 \begin{split}
@@ -508,7 +515,7 @@ A decision rule for a maximum information trial is described in Algorithm \ref{s
 Input: target information $I_{max}$, sequence of groups $k$, test statistic function $Z$. \\
 1. Define $K$ as the smallest value $k$ for which the information reaches the target information: $K = min\{k \mid I_k \geq I_{max} \}$ \\
 \\
-2. After group $k = 1, ... , K$ \\
+2. After group $k = 1, ... , K-1$ \\
 - if $|Z_k| \geq c_k$ stop, reject $H_0$ \\
 - otherwise continue to group k + 1 \\
 
@@ -517,6 +524,6 @@ Input: target information $I_{max}$, sequence of groups $k$, test statistic func
 - otherwise stop, accept $H_0$
 \end{tcolorbox}
 
-The target information $I_{max}$ is a very similar idea to the maximum sample size in maxSPRT. In their example utilizing the maximum information trial approach, @Jennison1999 [pp. 150-153] assume that the test statistic has a normal distribution and the alternative hypothesis is two-sided. In maxSPRT type surveillance, the alternative hypothesis is one-sided and the test statistic is not assumed to be normal.  
+The target information $I_{max}$ is a similar idea to the maximum sample size in maxSPRT in that it too defines a boundary related to the sample size after which the experiment ends and $H_0$ is accepted. In their example utilizing the maximum information trial approach, @Jennison1999 [pp. 150-153] assume that the test statistic has a normal distribution and the alternative hypothesis is two-sided. In maxSPRT type surveillance, the alternative hypothesis is one-sided and the test statistic is not assumed to be normal.  
 
 Maximum information trials provide a promising approach for grouped observation in vaccine safety surveillance, but further research is needed to adopt the method in the maxSPRT setting.  

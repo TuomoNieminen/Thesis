@@ -146,13 +146,11 @@ A counting process $\{Y(t), t \geq 0 \}$ is a Poisson process with rate $\lambda
  $$ y_t \sim Poisson(\lambda t) \Leftrightarrow P(Y(t) = y_t) = \frac{(\lambda t)^{y_t} \cdot e^{-\lambda t}}{y_t !}$$
 \end{definition}
 
-### The observation period
+### Observation period
 
-Generally, the observation period in SCCS is the intersection of the calendar time period and age interval during which individuals can be sampled as cases or controls. When considering a single individual, the observation period consists of the days during which an event for said individual could be sampled as a case or a control. 
+In SCCS, the observation period for individual $i$ is the time period during which an event could be sampled [@Whitaker2006]. The observation periods could for example be defined by specifying a single calendar time period and an age interval. This definition can lead to observation periods of different lenghts, as the start or end of the calendar time period might shorten the observation period of some individuals.
 
-By this general definition individuals could contribute different amount of person time to the study. In this work I will use year of birth instead of the calendar time period as a second criteria. The year of birth defines the eligible population and the observation period for the eligible population is the age in days during which an event could be sampled as a case or control.
-
-In this work the smallest measurable unit for time is a day, since data in electronic health care data bases such as AvoHILMO are collected daily. Therefore, for each individual, I will index the observation period by age in days denoted by $d$. A single day has a time unit of 1.
+In this work I will use birth years to specify eligibility. The observation period for eligible individuals is defined by an age interval during which events can be sampled. In this work the smallest measurable unit for time is a day, since data in electronic health care data bases such as AvoHILMO are collected daily. Therefore, for each individual, I will index the observation period by age in days denoted by $d$. A single day has a time unit of 1. If not explicitly mentioned, assume that individuals considered are eligible.
 
 ### Incidence rate function
 
