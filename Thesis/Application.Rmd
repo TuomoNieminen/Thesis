@@ -65,7 +65,7 @@ The method used in this study is the binomial variant of maxSPRT, BmaxSPRT. In o
 3. The desired type I error rate.
 4. The maximum number of observations.
 
-The chosen maximum number of observations affects the power of BmaxSPRT. Instead of directly specifying the number of observations, a desired power corresponding to a specified rate ratio could be chosen and the maximum number of events correspoding to that power could then be computed. In this study the maximum number of observations was directly chosen. 
+The chosen maximum number of observations affects the power of BmaxSPRT. Instead of directly specifying the number of observations, a desired power given a specified rate ratio could be chosen and the maximum number of events correspoding to that power could then be computed. In this study the maximum number of observations was directly chosen. 
 
 The choices $1-4$ were used to compute the critical value of BmaxSPRT. In what follows I will briefly describe the BmaxSPRT method and the parameters for this study. For details on the method please refer to earlier chapters.  
 
@@ -240,7 +240,7 @@ Adverse events were simulated for the 6 birth cohorts 10 000 times. For each of 
 
 ### Results of the simulation
 
-Table \ref{tab:sim-results} shows the power for each risk and control period pair in the simulation. The power is the proportion of simulation iterations where the null hypothesis was rejected. When the risk and control periods were chosen perfectly as was done with the reference group, the power in the simulation was $0.9$. As expected, the power is lower the more the choice for the risk period differ from the reference period. For example, if the chosen risk period is approximately 2.5 times the size of the actual risk period (0-30 compared to 0-13), the power decreases from 0.9 to 0.35.  
+Table \ref{tab:sim-results} shows the power for each risk and control period pair in the simulation. The power is the proportion of simulation iterations where the null hypothesis was rejected. When the risk and control periods were chosen perfectly as was done with the reference group, the power in the simulation was $0.9$. As expected, the power is lower the more the choice for the risk and control periods differ from the reference periods. For example, if the chosen risk period is approximately 2.5 times the size of the actual risk period ($0-30$ compared to $0-13$), the power decreases from 0.9 to 0.35.  
 
 If the chosen risk period is shorter than the actual risk period and the control period simultaneously overlaps with the actual risk period, the situation is even worse. If the actual risk period is 2.5 the size of the chosen risk period and the control period overlaps, the power decreases from 0.9 to 0.16.  
 

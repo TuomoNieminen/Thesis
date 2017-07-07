@@ -94,7 +94,7 @@ The rate ratio is the parameter of interest in both the CCO and SCCS. The SCCS a
 
 ## The self-controlled case-series design: SCCS
 
-In the self-controlled case series design (SCCS) developed by @Farrington1995, the goal is to compare the relative rates of adverse events during disjoint risk and control time periods, specified in relation to the time of vaccination. The observation period in SCCS is the calendar period and a specified age interval during which individuals can be sampled as cases. The effect of the vaccination is estimated via the rate ratio $RR = \lambda_1 / \lambda_0$, where in a simple case
+In the self-controlled case series design (SCCS) developed by @Farrington1995, the goal is to compare the relative rates of adverse events during disjoint risk and control time periods, specified in relation to the time of vaccination. The effect of the vaccination is estimated via the rate ratio $RR = \lambda_1 / \lambda_0$, where in a simple case
 
 - $\lambda_1$: the rate of the event during a period when the exposure to vaccination is assumed to have an effect (risk period)
 - $\lambda_0$: the rate of the event during a period when the vaccination is assumed to not have an effect (control period).
@@ -129,30 +129,31 @@ legend("topright",
 
 The general idea of SCCS is to describe the event incidence as a function of the (constant) individual baseline incidence, effects due to vaccine exposure and other possible time-dependent factors such as age. Statistical inference in SCCS is based on a conditional likelihood which removes the individual incidence as a nuisance parameter. Inference concerning relative incidences (rate ratios) can therefore be done "within individuals" so that the individual baseline incidences have no impact on the inference. 
 
-In what follows is a mathematical description of SCCS largely inspired by the description of the general SCCS given in the case series tutorial by @Whitaker2006 [pp. 9-10] with influences from the description of SCCS by @Bernardo2011 [pp. 10-12]. I will first give a general framework for the SCCS method by introducing the concepts of a Poisson process and incidence rate function and then describe the conditional likelihood for the parameters of that function.  
+### Observation period
 
+In SCCS, the observation period for individual $i$ is the time period during which an event could be sampled [@Whitaker2006]. The observation periods could for example be based on a calendar time period and an age interval. This definition can lead to observation periods of different lengths, as the start or end of the calendar time period might shorten the observation period of some individuals.
 
-### Poisson process  
+In this work I will use birth years to specify eligibility of events to the study. The observation period for the eligible individuals is based on an age interval during which events can be sampled. The smallest measurable unit for time is a day, since data in electronic health care data bases such as AvoHILMO are collected daily. Therefore, for each individual, I will index the observation period by age in days denoted by $d$. A single day has a time unit of 1. If not explicitly mentioned, the reader can assume that all individuals considered are eligible.
+
+### Statistical framework
+
+In what follows is a mathematical description of SCCS largely inspired by the description of the general SCCS given in the case series tutorial by @Whitaker2006 [pp. 9-10] with influences from the description of SCCS by @Bernardo2011 [pp. 10-12]. I will first give a general framework for the SCCS method by introducing the concepts of a Poisson process and incidence rate function and then describe the conditional likelihood for the parameters of that function. 
+
+#### Poisson process  
 
 An underlying assumption in the SCCS method is that adverse events occur as a Poisson process. A Poisson process describes the probabilities for the numbers of events during some time interval(s). An important assumption related to the Poisson process is that the random variables corresponding to these numbers of events are independent between all disjoint time intervals. This implies that an occurrence of an adverse event should not influence the probabilities of future adverse events. This assumption is likely to be violated in practise, but if the event is rare (relative to the length of the observation period), then this violation is unlikely to have practical consequences.    
 
 
 \begin{definition}[Poisson process]
 \label{poissonprocess}
-A counting process $\{Y(t), t \geq 0 \}$ is a Poisson process with rate $\lambda$ if [@Ross1996] \\[2pt]
+A counting process \citep{Ross1996} $\{Y(t), t \geq 0 \}$ is a Poisson process with rate $\lambda$ if \\[2pt]
 1. $Y(0) = 0$ \\ [1pt]
 2. $Y(t)$ has independent increments \\ [1pt]
 3. The probabilities for the number of events during an interval of length $t$ are given by the Poisson distribution with $E[Y(t)] = \lambda t$:
  $$ y_t \sim Poisson(\lambda t) \Leftrightarrow P(Y(t) = y_t) = \frac{(\lambda t)^{y_t} \cdot e^{-\lambda t}}{y_t !}$$
 \end{definition}
 
-### Observation period
-
-In SCCS, the observation period for individual $i$ is the time period during which an event could be sampled [@Whitaker2006]. The observation periods could for example be defined by specifying a single calendar time period and an age interval. This definition can lead to observation periods of different lenghts, as the start or end of the calendar time period might shorten the observation period of some individuals.
-
-In this work I will use birth years to specify eligibility. The observation period for eligible individuals is defined by an age interval during which events can be sampled. In this work the smallest measurable unit for time is a day, since data in electronic health care data bases such as AvoHILMO are collected daily. Therefore, for each individual, I will index the observation period by age in days denoted by $d$. A single day has a time unit of 1. If not explicitly mentioned, assume that individuals considered are eligible.
-
-### Incidence rate function
+#### Incidence rate function
 
 An assumption is made that during the observation period, adverse events for individuals $i = 1, 2, ..., N$ arrive as a non-homogenous piecewise-constant Poisson process. The expected number of events (the incidence rate) for each individual is constant within each day, but can vary between days. 
 
@@ -171,7 +172,7 @@ Due to the properties of the Poisson process the cumulative incidence over a num
 
 where $\theta_q$ is constant for all $d$ days in period $q$. For example in a simple case as in Figure \ref{fig:simpleSCCS}, where $q \in \{\text{risk period}, \text{control period}\}$, the incidence rate (\ref{incfunc}) for any one individual takes on two different values.
 
-### Likelihood
+#### Likelihood
 
 Assume now that events of $i = 1, 2, ..., N$ individuals are sampled, with $n_i \geq 1$ events for each $i$ for a total of $n$ events. Assume that events during the observation period arrive as a Poisson process with an incidence rate as defined in (\ref{incfunc}). Denote the number of events for individual $i$ during period $q$ as $y_{iq}$. The probabilities for the numbers of events during the disjoint intervals $q$ are given by the Poisson distribution: $y_{iq} \sim Poisson(\lambda_{iq})$. The individual contribution to the likelihood function, based on the obsevations, is therefore  
 
@@ -264,7 +265,7 @@ L_i(\boldsymbol\psi, \boldsymbol\gamma \mid n_i)
 Assuming that individuals are independent, the total conditional likelihood is
 
 \begin{equation}
-L(\boldsymbol\psi, \boldsymbol\gamma \mid \boldsymbol{n}) 
+L(\boldsymbol\psi, \boldsymbol\gamma \mid n) 
 \propto
 \prod_i\prod_{jk} \left( \frac{t_{ijk} \cdot e^{\gamma_j}\cdot e^{\psi_k}} {\sum_{j'k'} t_{{ij'k'}} \cdot e^{\gamma_{j'}} \cdot e^{\psi_{k'}}} \right)^{y_{ijk}},
 \end{equation}
@@ -275,7 +276,7 @@ which, again, is the multinomial likelihood where all the individual baseline in
 
 The most popular case-only design utilised in pharmacovigilance is the case-crossover design (CCO). CCO is a modification of a case-control design, originally developed by @Maclure1991 to study the effect of transient exposures to acute events. Its use in drug safety studies has increased during 2000-2010 [@Nordmann2012]. CCO has also been used for vaccine safety analysis [@Farrington2004 p. 2066].
 
-### Description of CCO
+### Description 
 
 Following @Maclure2012 [pp. 50-51], one way to describe the CCO design is as follows: Assume that rare events are observed for individuals $i = 1, .., N$. Each event occurs during some *event day* and a *control day* is defined as the day $d$ time units (e.g. days) before the event day. For example, the control day could be two weeks (14 days) before the event day. For each sampled individual $i$, exposure status is retrospectively examined. Exposures during a time interval of length $t$ immediately preceding the event day are considered as related to the event. Exposures occuring during a time interval of the same length ($t$) immediately preceding the control day are considered as not related to the event.
 
@@ -321,7 +322,7 @@ For example, the risk period could be a period of two weeks following vaccinatio
 The question of interest in both CCO and SCSS is the same, i.e., to infer whether the rate of events is affected by exposure. Although the CCO method is based on the idea of exposures as the random variable, the parameter of interest can be defined as any of the prospective relative risk parameters: the odds ratio, relative risk or the incidence rate ratio [@Nordmann2012 p.8].  
 
 
-### CCO in the literature
+### In the literature
 
 The literature concerning the CCO approach may be confusing as the reader may have to interpret from the context whether the author has chosen to treat the design from a prospective or retrospective point of view and sometimes both views are used simultaneously. For example, @Nordmann2012 [p. 2] describe the method using phrasing *"With this design, the probability of exposure in the risk period is compared to the probability of exposure in control period(s)."*. They however then go on to state that *"same probability of event occurrence during case and control periods"* is a major assumption of the method.  
 

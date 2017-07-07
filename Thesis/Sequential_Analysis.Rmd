@@ -59,7 +59,7 @@ The probabilities of type I and II errors are usually denoted by $\alpha$ and $\
 
 The complement of $\beta$ is called the power of the hypothesis test: the probability of choosing $H_1$ (rejecting $H_0$) when $H_1$ is true. If the hypotheses are as in (\ref{eq:hypotheses}) and the parameter of interest is $RR$, the power of a hypothesis test is usually a function of $RR$, meaning that higher values of $RR$ make it more likely for the test to reject the null hypothesis. This also means that the actual type II error rate is a decreasing function of $RR$. 
 
-In the context of vaccine safety surveillance the above means that one would be more likely to conclude that there is a difference in the rate of events between two groups, the bigger that difference is. This is ofcourse a positive observation and a desirable quality. But it is also important because it leads to the following: knowing the type II error rate or the power of a test before collecting observations is impossible without knowledge of the actual $RR$.  
+In the context of vaccine safety surveillance the above means that one would be more likely to conclude that there is a difference in the rate of events between two groups, the bigger that difference is. This is of course a positive observation and a desirable quality. But it is also important because it leads to the following: knowing the type II error rate or the power of a test before collecting observations is impossible without knowledge of the actual $RR$.  
 
 \begin{table}[h]
 \label{tab:hypothesis-terminology}
@@ -161,7 +161,7 @@ The above is clearly undesirable especially with serious adverse events, where i
 
 To see the intuition behind scenario (2), assume again that we are interested to find if $RR > 1$. Following Wald's suggestion one might for example choose $RR_0 = 1$ and $RR_1 = 2$, when $RR_a = 1.4$. In this case the model specified by $H_0$ is closer to the real value of $RR$ and it is thus expected that $P(\mathbf{y} \mid RR_0)  > P(\mathbf{y} \mid RR_1)$, making it more likely that $LR \leq B$ ($H_1$ rejected). Thus the type II error is increased. See Figure \ref{fig:SPRT-weakness} for an illustration.
 
-```{r, fig.width = 8, fig.height = 4, fig.cap = "\\label{fig:SPRT-weakness}A graphical illustration of a weakness of Wald's SPRT. The blue line describes the observed adverse events and the green and red lines describe the statistical model for the observations under the null and alternative hypothesis, respectively. Left: A choice of point alternative hypothesis close to the null hypothesis and far from the actual observations can delay the rejection of H0, because the (high number of) observations are unlikely under both hypotheses. Right: A choice of point alternative hypothesis that is 'too agressive' compared to the actual observations can increase the type II error rate, because the data are more likely under the null hypothesis."}
+```{r, fig.width = 8, fig.height = 4, fig.cap = "\\label{fig:SPRT-weakness}A graphical illustration of a weakness of Wald's SPRT. The blue line describes the actual relative incidence rate (RR_a) and the green and red lines describe the likelihood under the null and alternative hypothesis, respectively. Left: A choice of point alternative hypothesis (RR_1) close to the rate specified by the null hypothesis and far from RR_a can delay the rejection of H0, because a high relative rate is given low likelihood under both hypotheses. Right: A choice of point alternative hypothesis that is 'too agressive' compared to the actual relative rate can increase the type II error rate, because the null hypothesis gives higher likelihood to the actual relative rate."}
 op <- par(no.readonly = T)
 cols = c("green", "red", "blue")
 
@@ -175,7 +175,7 @@ layout(matrix(c(1,1,2,3), ncol=2, byrow=TRUE), heights=c(1, 4))
 # common legend
 par(mai=c(0,0,0,0))
 plot.new()
-legend("center", inset = 0, legend = c("L(RR_0 ; y)", "L(RR_1 ; y)", "y"), col = cols, lty = c(1,1,2), horiz = TRUE, xpd = T)
+legend("center", inset = 0, legend = c("L(RR_0)", "L(RR_1)", "RR_a"), col = cols, lty = c(1,1,2), horiz = TRUE, xpd = T)
 
 par(las = 1, mar = c(5, 1, 4, 2))
 # poor H1 can delay detection
@@ -185,7 +185,7 @@ curve(dnorm(x, RR1, 1), yaxt = "n", xaxt = "n", ylim = c(0, 0.6), xlim = c(-3, 1
 axis(1, act, col = cols[3], label = "y")
 abline(v = act, col = cols[3], lty = 2)
 
-title(sub = "Poor H1 can delay detection", main = expression(atop("Both models are 'bad'","L(RR_1 ; y)" %~~% "L(RR_0 ; y)")))
+title(sub = "Poor H1 can delay detection", main = expression(atop("Both models are 'bad'","L(RR_1)" %~~% "L(RR_0)")))
 
 # poor H1 can increase type II error rate
 RR0 <- 1; RR1 <- 7; act <- 3
@@ -194,13 +194,13 @@ curve(dnorm(x, RR1, 1), yaxt = "n", xaxt = "n", ylim = c(0, 0.6), xlim = c(-3, 1
 axis(1, act, col = cols[3], label = "y")
 abline(v = act, col = cols[3], lty = 2)
 
-title(sub = "Poor H1 can increase Type II error rate", main = expression(atop("The H0 model is 'better'","L(RR_1 ; y) < L(RR_0 ; y)")))
+title(sub = "Poor H1 can increase Type II error rate", main = expression(atop("The H0 model is 'better'","L(RR_1) < L(RR_0)")))
 
 par(op)
 ```
 
 
-## Maximized sequential probability ratio test: maxSPRT \label{section:maxSPRT}
+### Maximized sequential probability ratio test: maxSPRT \label{section:maxSPRT}
 
 A solution suggested by @Kulldorff2011 to remove the weakness of SPRT as described above is to modify the test in two ways: 
 
@@ -217,7 +217,7 @@ When the parameter of interest is the rate ratio $RR$, the maxSPRT test statisti
 LR_n = \underset{RR_1}{max} \frac{ L(RR_1; \mathbf y_n) }{ L(RR_0; \mathbf y_n) } = \underset{RR_1}{max} \frac{P( \mathbf y_n \mid RR_1)}{P( \mathbf y_n \mid RR_0)}.
 \end{equation}  
 
-The maxSPRT procedure is described in Algorithm \ref{section:maxSPRT}. The procedure uses a test statistic such as (\ref{eq:LR-maxSPRT}) and requires that the desired type I error rate and the maximum number of observations are chosen before the experiment is carried out. The first step is the computation of the critical value of the test statistic. This computation depends on the statistical model for the observations (i.e. the likelihood function). The following sections discuss the case where the likelihood is binomial.  
+The maxSPRT procedure is described in Algorithm \ref{section:maxSPRT}. The procedure uses a test statistic such as (\ref{eq:LR-maxSPRT}) and requires that the desired type I error rate and the maximum number of observations are chosen before the experiment is carried out. The first step is the computation of the critical value of the test statistic. This computation depends on the statistical model for the observations (i.e. the likelihood function). @Kulldorff2011 [pp. 65-67, p. 72] describe how to do this for the Binomial and Poisson likelihoods. In what follows I will present the binomial case in detail.
 
 \begin{tcolorbox}[enlarge top by=0.5cm, colback=white,title=Algorithm \ref{section:maxSPRT}: MaxSPRT]\label{alg:maxSPRT}
 Input: Desired type I error rate $\alpha'$, upper boundary for the sample size $N$, test statistic function $LR_n$ as in (\ref{eq:LR-maxSPRT})\\
@@ -231,7 +231,7 @@ Input: Desired type I error rate $\alpha'$, upper boundary for the sample size $
 \end{tcolorbox}
 
 
-### Binomial maxSPRT: BmaxSPRT
+## Binomial maxSPRT: BmaxSPRT
 
 Let us now adopt the maxSPRT method in the setting of the simple SCCS. Assume that for the sequence of observations $(y_n, n), n = 0, 1, ...N$, where $y_n$ denotes the number of "cases" out of $n$ events, the probability distribution for $y_n$ is given by the binomial distribution as described in section \ref{section:simpleSCCS}. The probability of "success" (i.e. adverse event clasified as a "case"), depends on the unknown rate ratio parameter $RR$ and the known ratio between the lengths of the control and risk periods, $z$ and the conditional likelihood (\ref{eq:SCCS-binomial}).  
 
@@ -256,18 +256,11 @@ LLR_n = log(LR_n)
 
 A simplified form of (\ref{eq:LLR-BmaxSPRT}) is given by @Kulldorff2011 [p. 71].  
 
-### Computing the critical values of BmaxSPRT  \label{section:computing-BmaxSPRT-critical}
+### Markov chain  \label{section:computing-BmaxSPRT-critical}
 
-The values of the test statistic (\ref{eq:LLR-BmaxSPRT}) are easy to compute. What then remains is the definition of the critical region $Q$ of the test: which values of the test statistic should lead to the decision of rejecting the null hypothesis. Since higher values of the test statistic are always more critical to the $H_0$, it is sufficient to determine a single critical value $c$, which defines the boundary of the critical region. Values of (\ref{eq:LLR-BmaxSPRT}) higher than $c$ then lead to rejection of $H_0$. The critical region of BmaxSPRT thus is 
+The values of the test statistic (\ref{eq:LLR-BmaxSPRT}) are easy to compute. What then remains is the defination of the critical region of the test: which values of the test statistic should lead to the decision of rejecting the null hypothesis. Since higher values of the test statistic are always more critical to $H_0$, it is sufficient to determine a single critical value $c$, which defines the boundary of the critical region. Values of (\ref{eq:LLR-BmaxSPRT}) higher than $c$ then lead to rejection of $H_0$. 
 
-$$Q = \{LLR_n \mid LLR_n \geq c, LLR_{n-1} < c\}, \quad \text{for all} \quad n = 1, 2, ..., N,$$
-
-where $N$ is the maximum number of observations (adverse events). In order to compute the critical value, one must first choose a desired Type I error rate $\alpha'$ and an upper boundary for the sample size $N$. The goal is to then define $c$ so that when $H_0$ is true, $Q$ is only expected to be reached $\alpha'$ proportion of the time.  
-
-The upper boundary of the sample size makes it possible to compute the critical value of the maxSPRT test to any desired precision. @Kulldorff2011 [pp. 65-67, p. 72] describe how to do this for the Binomial and Poisson likelihoods. In the discrete binomial case the critical value can be computed by using a Markov chain approach.  
-
-Next, I will introduce the concept of a Markov chain in the setting of the BmaxSPRT experiment. I will define the state space, the initial probabilities and the transition probabilities, and show that the BmaxSPRT experiment has the Markov property. I will then proceed to present an algorithm which can be used to compute the critical values of BmaxSPRT.
-
+In order to compute the critical value, one must first choose a desired Type I error rate $\alpha'$. The goal is to then define $c$ so that when $H_0$ is true, $Q$ is only expected to be reached $\alpha'$ proportion of the time. In the discrete binomial case the critical value can be found by using a Markov chain approach. Next, I will introduce the concept of a Markov chain in the setting of the BmaxSPRT experiment. I will define the state space, the initial probabilities and the transition probabilities of the experiment. 
 
 #### State space
 
@@ -280,7 +273,7 @@ S = (n, y_n) , \quad \text{where} \quad n = 0, 1, ..., N \quad \text{and} \quad 
 
 The experiment always starts at the state $(0,0)$. Clearly, there are a finite number of states. In fact, there are $M = \sum_{n = 0}^{N} (n + 1) = (N+1) (N+2) /2$ possible states.  
 
-#### Transitions  
+#### Transitions and critical region
 
 In the BmaxSPRT experiment, observations are classified as a "case" ("success", $Y = 1$) or a "control" ("failure", $Y = 0$), depending on the outcome of a Bernoulli random variable $Y$ (See section \ref{section:simpleSCCS}). Possible transitions in the state space $S$ are therefore as follows:  
 
@@ -291,13 +284,15 @@ In the BmaxSPRT experiment, observations are classified as a "case" ("success", 
 \end{split}
 \end{equation}
 
-If the experiment is stopped at some state $s \in S$, then that state is called absorbing: it is impossible to leave the state. Otherwise, a state is called transient. In BmaxSPRT, the set of absorbing states are those for which the value of the test statistic reaches the critical value $c$ and the experiment ends. I will denote the value of the test statistic (\ref{eq:LLR-BmaxSPRT}) for a state $s$ by $LLR(s)$. The set of absorbing states in the experiment are then
+If the experiment is stopped at some state $s \in S$, then that state is called absorbing: it is impossible to leave the state. Otherwise, a state is called transient. In BmaxSPRT, the states for which $n = N$, are absorbing. Also, the states for which the value of the test statistic reaches the critical value $c$, are absorbing. 
+
+Let $LLR(s)$ denote the value of the test statistic (\ref{eq:LLR-BmaxSPRT}) for state $s \in S$. The critical region of the test can then be defined as follows:
 
 \begin{equation}\label{eq:absorbing}
-Q = \{s \in S \mid LLR(s) \geq c \},
+Q = \{s \in S \mid LLR(s) \geq c\}.
 \end{equation}
 
-which is the critical region of the test.  
+It should be noted that $Q$ may contain states which are impossible to reach (because of previous absorbing states). However, this does not cause theoretical or practical problems.
 
 \begin{figure}[h]
 \caption{Visualization of a BmaxSPRT type Markov Chain. The chain starts from the node (0,0) and a trial with the result "success" or "failure" is performed at each node, with p being the probability for "success". In this example the state (3,3) with 3 successes out of 3 trials is an absorbing state.}
@@ -328,20 +323,20 @@ where $p$ is as in (\ref{eq:p}). Under the null hypothesis ($RR = 1$) $p = 1 / (
 P \{ (n,y_{n}) \mid (n,y_n) \} = 1,
 \end{equation}
 
-meaning that if such a state is reached, it is never left.  
+meaning that if such a state is reached, it is never left. These transition probabilities show that the BmaxSPRT experiment has the Markov property: the transition probabilities only depend on whether the previous state was absorbing or not.
 
-The matrix $\mathbf{P}$ in (\ref{eq:transition-matrix}) is a transition matrix which gathers the transition probabilities and defines the probability distribution over all the transitions from state to state in the state space $S$. Each row and column of $\mathbf{P}$ corresponds to one of the states $s \in S$ and $\mathbf{P}_{ij}$ gives the probability of the transition from $s_i$ to $s_j$. 
+The transition probabilities are gathered in the transition matrix $\mathbf{P}$, which defines the probability distribution over all the transitions from state to state in the state space $S$. Each row and column of $\mathbf{P}$ corresponds to one of the states $s \in S$ and $\mathbf{P}_{ij}$ gives the probability of the transition from $s_i$ to $s_j$. The size of $\mathbf{P}$ depends on $N$ and the values of $\mathbf{P}$ depend on the values of $p$ and $c$, of which $c$ defines the absorbing states.
 
 \begin{figure}
-\begin{equation}\label{eq:transition-matrix}
-\mathbf{P} = \bordermatrix{
+\label{eq:transition-matrix}
+\bordermatrix{
 &      (0,0) & (1,0) & (1,1) & (2,0) & (2,1) & (2,2) & (3,0) & (3,1) & .. & (N,0) & .. & (N,N) \cr
 (0,0) &  0   & 1-p   & p     & 0     & 0     & 0     & 0     & 0     & .. & 0     & .. & 0     \cr
 (1,0) &  0   & 0     & 0     & 1-p   & p     & 0     & 0     & 0     & .. & 0     & .. & 0     \cr
 (1,1) &  0   & 0     & 0     & 0     & 1-p   & p     & 0     & 0     & .. & 0     & .. & 0     \cr
 (2,0) &  0   & 0     & 0     & 0     & 0     & 0     & 1-p   & p     & .. & 0     & .. & 0     \cr
 (2,1) &  0   & 0     & 0     & 0     & 0     & 0     & 0     & 1-p   & .. & 0     & .. & 0     \cr
-(2,2) &  0   & 0     & 0     & 0     & 0     & 0     & 0     & 0     & .. & 0     & .. & 0     \cr
+(2,2) &  0   & 0     & 0     & 0     & 0     & 1     & 0     & 0     & .. & 0     & .. & 0     \cr
 (3,0) &  0   & 0     & 0     & 0     & 0     & 0     & 0     & 0     & .. & 0     & .. & 0     \cr
 (3,1) &  0   & 0     & 0     & 0     & 0     & 0     & 0     & 0     & .. & 0     & .. & 0     \cr
 .     &  .   & .     & .     & .     & .     & .     & .     & .     & .. & .     & .. & .     \cr
@@ -351,9 +346,8 @@ The matrix $\mathbf{P}$ in (\ref{eq:transition-matrix}) is a transition matrix w
 .     &  .   & .     & .     & .     & .     & .     & .     & .     & .. & .     & .. & .     \cr
 (N,N) &  0   & 0     & 0     & 0     & 0     & 0     & 0     & 0     & .. & 0     & .. & 1     \cr
 }
-\end{equation}
 \caption{
-A transition matrix describing the transition probabilities between the states in the state space S of the BmaxSPRT experiment. The rows and columns of the matrix correspond to the possible states and $\mathbf{P}_{ij}$ gives the probability of the transition $s_i \rightarrow s_j$. For example under the null hypothesis of the BmaxSPRT experiment the probability of the transition $(0,0) \rightarrow (1,0)$ ("failure") is given by $1-p = z / (1 + z)$ and the probability of the transition $(0,0) \rightarrow (1,1)$ ("success") is given by $p = 1 / (1 + z)$. The states where the maximum number of observations is reached are all absorbing states.
+An example of a transition matrix describing the transition probabilities between the states in the BmaxSPRT experiment. The rows and columns of the matrix correspond to the possible states and $\mathbf{P}_{ij}$ gives the probability of the transition $s_i \rightarrow s_j$. For example under the null hypothesis of the BmaxSPRT experiment the probability of the transition $(0,0) \rightarrow (1,0)$ ("failure") is given by $1-p = z / (1 + z)$ and the probability of the transition $(0,0) \rightarrow (1,1)$ ("success") is given by $p = 1 / (1 + z)$. In this example the state $(2,2)$ is an absorbing state and a transition can happen only onto itself. The states where the maximum number of observations is reached are all absorbing states.
 }
 \end{figure}
 
@@ -364,35 +358,21 @@ The probabilities of being in each of the states after $N$ transitions in the st
 \end{equation}
 
 
-#### Markov property  
+### Type I error
 
-The Markov property means that the probability of transition to the next state depends only on the current state. It is easy to see that the BmaxSPRT experiment has a Markov property. Since the transitions are defined by independent Bernoulli trials, the probability of moving to the next state depends only on whether the current state is absorbing or not. Gathering the information of (\ref{eq:transition-probabilities1}) and (\ref{eq:transition-probabilities2}), the probability of transition to the next state is given in equation (\ref{eq:markov-property}). 
-
-\begin{equation} \label{eq:markov-property}
-P(S_{i+1} = s_{i+1} \mid S_1, .., S_i) =
-\begin{cases}
-P(Y_{i + 1} = y_{i+1} \mid Y_1 , .., Y_i ) \overset{\perp\!\!\!\perp}= p, \quad \text{when } LLR(s_i) < c, \\
-0, \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \text{when } LLR(s_i) \geq c.
-\end{cases}
-\end{equation}
-
-
-### Critical region and type I error
-
-The critical value $c$ of the BmaxSPRT experiment defines the critical region $Q$ which in turn defines the type I error. Any critical value candidate $c'$ defines a critical region $Q'$, corresponding to some type I error $\alpha$. Therefore, for a desired type I error $\alpha'$, the goal is to find a $c$ such that $P(Q \mid H_0) \approx \alpha'$, meaning that the overall probability of rejecting the null hypothesis when it is true is (at least approximately) $\alpha'$.   
-
-To compute the value of $\alpha$ for a given $c$, the overall probability of reaching the critical region can be computed by summing over the probabilities of being in each of the states $s \in Q$ after $N$ transitions in the state space $S$. Using the result introduced in (\ref{eq:state-probabilities}), the type I error probability for any critical region $Q$ is given by 
+The critical value $c$ of the BmaxSPRT experiment defines the critical region $Q$ which in turn defines the type I error $\alpha$. To compute the value of $\alpha$ for a given $c$, the overall probability of reaching the critical region can be computed by summing over the probabilities of being in each of the states $s \in Q$ after $N$ transitions in the state space $S$. Using the result introduced in (\ref{eq:state-probabilities}), the type I error probability for any critical region $Q$ is given by 
 
 \begin{equation}
 \label{eq:probability-critical}
 \alpha_{(BmaxSPRT)} = P(Q \mid H_0) = \sum_{s \in Q} \mathbf{v}\mathbf{P}_0^{(N)},
 \end{equation}
 
-where $\mathbf{P}_0$ is the transition matrix (\ref{eq:transition-matrix}), where $p = 1 / (1 + z)$ is according to $H_0$.  
+where $\mathbf{P}_0$ is the transition matrix, where $p = 1 / (1 + z)$ is according to $H_0$.  
 
-### Algorithm for BmaxSPRT critical values \label{section:BmaxSPRT-critical}
 
-Utilizing equation (\ref{eq:probability-critical}), it is possible to try out possible values $c'$ until the $c$ is found which best matches the desired $\alpha'$. One way to execute this procedure is given in algorithm \ref{section:BmaxSPRT-critical}.  
+### Critical values \label{section:BmaxSPRT-critical}
+
+Any critical value candidate $c'$ defines a critical region $Q$, corresponding to some type I error $\alpha$. Therefore, for a desired type I error $\alpha'$, the goal is to find a $c$ such that $P(Q \mid H_0) \approx \alpha'$, meaning that the overall probability of rejecting the null hypothesis when it is true is (at least approximately) $\alpha'$. Utilizing equation (\ref{eq:probability-critical}), it is possible to try out possible values $c'$ until the $c$ is found which best matches the desired $\alpha'$. One way to execute this procedure is given in algorithm \ref{section:BmaxSPRT-critical}.  
 
 It should be noted that for a desired $\alpha'$, the algorithm finds the value $c$ which corresponds to a type I error $\alpha$ for which the inequality $\alpha \leq \alpha'$ holds. It is unlikely that $\alpha = \alpha'$ exactly. This is due to the discrete nature of the binomial distribution.  
 
@@ -405,7 +385,7 @@ Input: States $S$, initial probabilities $\mathbf{v}$, transition matrix $\mathb
 - otherwise remove $c'$ from $L$ and go to 2.
 \end{tcolorbox}
 
-### Power of BmaxSPRT
+### Power
 
 The power of the BmaxSPRT experiment depends on the true value of the rate ratio. When the true rate ratio is $RR_a$, the probability of an event classified as a "case" is given by $p_a = RR_a / (RR_a + z)$. The true transition matrix of the experiment $\mathbf{P}_a$ is then defined by these probabilities.  
 
@@ -417,7 +397,8 @@ Denoting the critical region corresponding to a desired $\alpha'$ as $Q_0$, the 
 \text{Power}_{(BmaxSPRT)} = P(Q_0 | H_1) = \sum_{s \in Q_0} \mathbf{v}\mathbf{P}_1^{(N)},
 \end{equation}
 
-where $\mathbf{v}$ are the initial probabilities of the states given in equation (\ref{eq:markov-initial}) and $\mathbf{P}_1$ is the transition matrix (\ref{eq:transition-matrix}), where $p = RR_1 / (RR_1 + z)$ for some fixed choice of $RR_1$.  
+where $\mathbf{v}$ are the initial probabilities of the states given in equation (\ref{eq:markov-initial}) and $\mathbf{P}_1$ is the transition matrix, where $p = RR_1 / (RR_1 + z)$ for some fixed choice of $RR_1$.
+
 
 ## Grouped observations \label{section:group-sequential}
 
@@ -475,16 +456,9 @@ One solution to group sequential analysis for random group sizes is to use an er
 P(|Z_1| < c_1, ..., |Z_{k-1}| < c_{k-1}, |Z_k| \geq c_k) = \pi_k
 \end{equation}
 
-Intuitively this means that for each group $k$, only a proportion of the desired error probability $\alpha$ is spent. A practical problem remaining is: how should each $\pi_k$ be chosen? To solve this problem, @Jennison1999 [pp. 148-150] introduce families of error spending functions and compare their properties. 
+Intuitively this means that for each group $k$, only a proportion of the desired error probability $\alpha$ is spent. A practical problem remaining is: how should each $\pi_k$ be chosen? To solve this problem, @Jennison1999 [pp. 148-150] introduce families of error spending functions and compare their properties.  
 
-\begin{definition}[Error spending function]
-\label{def:error-spending-func}
-An error spending function $f: \mathbb{R}_{\geq0} \rightarrow [0, \alpha]$ is a non-decreasing function which partitions the desired type I error rate $\alpha$ and for which 
-1. $f(0) = 0$ (beginning)
-2. $f(t) = \alpha$ for $t \geq 1$ (end). 
-\end{definition}
-
-@Jennison1999 [p. 148] suggest a family of error spending functions defined by
+An error spending function is a non-decreasing function which partitions the desired type I error rate $\alpha$ and for which $f(0) = 0$ and $f(t) = \alpha$ for $t \geq 1$. In the paradigm of maximum information trials (discussed next), the value $f(t)$ indicates the cumulative type I error to be spent when a fraction $t$ of the maximum anticipated information $I_{max}$ has been obtained. @Jennison1999 [p. 148] suggest a family of error spending functions defined by
 
 \begin{equation} \label{eq:error-spending-func}
 f(t) = min\{\alpha \cdot t^p, \alpha \}
@@ -494,13 +468,13 @@ where the choices of $p \in \{1,3\}$ yield similar results to more classical app
 
 ### Maximum information trials \label{section:infotrials}
 
-Utilizing the concept of error spending functions, @Jennison1999 [pp. 146-148] discuss decision rules in the case of two-sided alternative hypotheses, where the stopping rule for accepting $H_0$ is defined by a target maximum information level, denoted by $I_{max}$. The information levellevel for group $k$ is defined as
+Utilizing the concept of error spending, @Jennison1999 [pp. 146-148] discuss decision rules in the case of two-sided alternative hypotheses, where the stopping rule for accepting $H_0$ is defined by a target maximum information level, denoted by $I_{max}$. The information level for group $k$ is defined as
 
 \begin{equation} \label{eq:information-level}
 I_k = \{var(\hat\theta^{(k)})^{-1}\}, k = 1, 2, ..
 \end{equation}
 
-where $\hat\theta$ is the estimator for the parameter of interest $\theta$. A maximum information trial uses an error spending function, where the value $f(t)$ indicates the cumulative type I error to be spent when a fraction $t$ of the maximum anticipated information $I_{max}$ has been obtained. The type I errors allocated to each analyses are
+where $\hat\theta$ is the estimator for the parameter of interest $\theta$. A maximum information trial uses an error spending function $f(t)$ as described above. The type I errors allocated to each analyses are
 
 \begin{equation}
 \begin{split}
