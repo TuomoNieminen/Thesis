@@ -1,5 +1,5 @@
 
-# Study designs for vaccine safety 
+# Study designs for vaccine safety analyses
 
 In vaccine safety surveillance the researcher (or a defined automated system) observes, but does not intervene, with the events that occur. Therefore safety surveillance falls under observational studies. The researcher observes accumulating data related to vaccinations and medical diagnoses and attempts to answer the question: has the rate of adverse events for a vaccinated individual increased due to the exposure.
 
@@ -20,7 +20,7 @@ In their systematic review of vaccine safety surveillance applications, @Leite20
 
 All the above reasons except the 2nd one are affected by the study design. 
 
-In vaccine safety surveillance, the study design should make it unlikely to introduce biases while enabling the generation of a true signal as reliably as possible. In the following sections, I will first compare possible observational study designs for safety survaillance: Cohort designs, case-control designs and case-only designs. The rest of the chapter will then focus on the two most popular case-only study designs in pharmagovigilance (drug safety): the self-controlled case series (SCCS) and the case-crossover design (CCO).
+In vaccine safety surveillance, the study design should make it unlikely to introduce biases while enabling the generation of a true signal as reliably as possible. In the following sections, I will first compare possible observational study designs for safety surveillance: Cohort designs, case-control designs and case-only designs. The rest of the chapter will then focus on the two most popular case-only study designs in pharmagovigilance (drug safety): the self-controlled case series (SCCS) and the case-crossover design (CCO).
 
 
 ## Observational epidemiological study designs
@@ -67,20 +67,19 @@ A second example of a cohort design would be a comparison of cohorts born before
 
 ### Case-only designs  
 
-Case-only designs are designs which utilize data only from cases (individuals with the events of interest). In case-only designs, each individual with an event acts as his/her own control and hence the designs are also called self-controlled designs. The designs considered here are based on comparison of event or exposure rates between predefined risk and nonrisk periods.  
+Case-only designs are designs which utilize data only from cases (individuals with the events of interest). In case-only designs, each individual with an event acts as his/her own control and hence the designs are also called self-controlled designs. The self-controlling property can be achieved by splitting the observation period of individuals into periods of "risk" and "control" and then labeling events as either "case" or "control", depending on which period they occur in.
 
-In self-controlled designs, comparisons are made within the individuals such that all time-invariant confounders are eliminated [@Nordmann2012]. Simulation studies by both @McClure2008 and @Glanz2006 have found that the self-controlled designs retain relatively high power compared to the cohort and case-control designs despite utilizing less data. 
+Self-controlled designs have a very desirable property: comparisons are made within the individuals such that all time-invariant confounders are eliminated [@Nordmann2012]. Since self-controlled designs utilize data only from cases, the smaller sample size could decrease power compared to other designs. However, simulation studies by both @McClure2008 and @Glanz2006 have found that self-controlled designs retain relatively high power compared to the cohort and case-control designs despite utilizing less data.
 
-In their systematic review of case-only designs, @Nordmann2012 found that the two most popular case-only designs utilized in pharmacovigilance are the case-crossover design (CCO) and the self-controlled case series design (SCCS). They also remark that "With the development of health care information technology ... these designs seem particularily appropriate to analyze pharmacovigilance data", assuming that the exposure is transient rather than chronic, such as vaccination.  
+In their systematic review of case-only designs, @Nordmann2012 found that the two most popular case-only designs utilized in pharmacovigilance are the case-crossover design (CCO) and the self-controlled case series design (SCCS). They also remark that "With the development of health care information technology ... these designs seem particularily appropriate to analyze pharmacovigilance data", assuming that the exposure is transient rather than chronic, such as vaccination. 
 
-According to @Farrington2004, both CCO and SCCS can and have been used for vaccine safety analysis. According to @Maclure2012, they are better than cohort designs for investigating transient effects of vaccines. In the following sections, I will present the CCO and SCCS. The main focus will be on the SCCS design which is developed for (but not limited to) vaccine safety analysis. CCO and SCCS are both suitable for studying rare adverse events.  
 
 ### CCO and SCCS  
 
-The case-crossover design (CCO) and the self-controlled case series design (SCCS) are two of the most popular case-only designs. Both designs implicitly or explicitly define risk and control periods during which rates of events are of interest. A risk period is a time interval following exposure during which the incidence rate of the adverse event can be thought of being potentially related to the exposure. A control period consists of one or more time intervals during which the incidence rate is assumed to be according to the normal background (baseline) rate of the same individuals.
+The case-crossover design (CCO) and the self-controlled case series design (SCCS) are two of the most popular case-only designs. Both designs implicitly or explicitly define risk and control periods during which rates of adverse events are of interest. A risk period is a time interval following exposure during which the incidence rate of the adverse event can be thought of being potentially related to the exposure. A control period consists of one or more time intervals during which the incidence rate is assumed to be according to the normal background (baseline) rate of the same individuals.
 
-- **The case-crossover design** (CCO): A case-only study design derived from a case-control design logic. Time is viewed from the point of view of the event. The random variables analysed are retrospectively ascertained exposures.
-- **The self-controlled case series design** (SCCS) A case-only study design derived from a cohort design logic. Time is viewed from the point of view of the exposure. The ages at vaccination are regarded as fixed, and the random variable of interest is age at event, conditionally on its occurrence within a pre-determined observation period. [@Farrington2004]  
+- **The case-crossover design** (CCO) is a case-only study design derived from a case-control design logic. Time is viewed from the point of view of the event. The random variables analysed are retrospectively ascertained exposures.
+- **The self-controlled case series design** (SCCS) is a case-only study design derived from a cohort design logic. Time is viewed from the point of view of the exposure. The ages at vaccination are regarded as fixed, and the random variable of interest is age at event, conditionally on its occurrence within a pre-determined observation period. [@Farrington2004 pp. 2066-2067].  
 
 In CCO and SCCS, events occuring during a risk period can be labeled as "cases" and events during the control period as "controls." Both designs aim at comparing the incidence rates of adverse events between the different periods, "within individuals". Individuals implicitly act as both cases and controls in the study because the person-time of the individuals is used to define both the cases and the controls.  
 
@@ -90,9 +89,11 @@ From a statistical inference point of view, incidence rates can be compared with
 RR = \frac{\lambda_1}{\lambda_0}.
 \end{equation}
 
-The rate ratio is the parameter of interest in both the CCO and SCCS. The SCCS approaches the problem by directly considering the rates of events during different periods of risk (e.g. a risk and a control period). CCO approaches the problem "backwards" by considering the rates of exposure instead. What now follows is a detailed description of the SCCS method followed by a description of CCO.  
+The rate ratio is the parameter of interest in both the CCO and SCCS. The SCCS approaches the problem by directly considering the rates of events during different periods of risk (e.g. a risk and a control period). CCO approaches the problem "backwards" by considering the rates of exposure instead. 
 
-## The self-controlled case-series design: SCCS
+CCO and SCCS are both suitable for studying rare adverse events. According to @Farrington2004, both CCO and SCCS can and have been used for vaccine safety analysis. According to @Maclure2012, they are better than cohort designs for investigating transient effects of vaccines. What now follows is a detailed description of the SCCS method followed by a description of CCO.  
+
+## The self-controlled case series design: SCCS
 
 In the self-controlled case series design (SCCS) developed by @Farrington1995, the goal is to compare the relative rates of adverse events during disjoint risk and control time periods, specified in relation to the time of vaccination. The effect of the vaccination is estimated via the rate ratio $RR = \lambda_1 / \lambda_0$, where in a simple case
 
@@ -106,7 +107,7 @@ The risk period(s) are defined based on previous knowledge regarding the relatio
 ```{r echo = FALSE, fig.width = 10, fig.height = 4, fig.align = "center", out.width= "350px", fig.cap = "\\label{fig:simpleSCCS}A simple example of a SCCS design where the period immediately following exposure is defined as the risk period with length $t_1$ and a time period following the risk period is defined as the control period with length $t_0$. In this example, the event occurs during the risk period"}
 
 library(pBrackets)
-par(mar = c(3, 4, 4, 4), oma = c(2,0,0,2))
+par(mar = c(3, 4, 4, 4), cex = 1.2, oma = c(2,0,0,2))
 x <- 0:90
 plot(x,x, type = "n", yaxt = "n", ylab = "", xaxt = "n", main = "A simple Self Controlled Case Series design", 
      bty = "n", xlim = c(0, 120))
@@ -133,7 +134,7 @@ The general idea of SCCS is to describe the event incidence as a function of the
 
 In SCCS, the observation period for individual $i$ is the time period during which an event could be sampled [@Whitaker2006]. The observation periods could for example be based on a calendar time period and an age interval. This definition can lead to observation periods of different lengths, as the start or end of the calendar time period might shorten the observation period of some individuals.
 
-In this work I will use birth years to specify eligibility of events to the study. The observation period for the eligible individuals is based on an age interval during which events can be sampled. The smallest measurable unit for time is a day, since data in electronic health care data bases such as AvoHILMO are collected daily. Therefore, for each individual, I will index the observation period by age in days denoted by $d$. A single day has a time unit of 1. If not explicitly mentioned, the reader can assume that all individuals considered are eligible.
+In this work I will use birth years of individuals to specify eligibility to the study. The observation period for the eligible individuals is based on an age interval during which events can be sampled. The smallest measurable unit for time is a day, since data in electronic health care data bases such as AvoHILMO are collected daily. Therefore, for each individual, I will index the observation period by age in days denoted by $d$. A single day has a time unit of 1. If not explicitly mentioned, the reader can assume that all individuals considered are eligible.
 
 ### Statistical framework
 
@@ -143,6 +144,7 @@ In what follows is a mathematical description of SCCS largely inspired by the de
 
 An underlying assumption in the SCCS method is that adverse events occur as a Poisson process. A Poisson process describes the probabilities for the numbers of events during some time interval(s). An important assumption related to the Poisson process is that the random variables corresponding to these numbers of events are independent between all disjoint time intervals. This implies that an occurrence of an adverse event should not influence the probabilities of future adverse events. This assumption is likely to be violated in practise, but if the event is rare (relative to the length of the observation period), then this violation is unlikely to have practical consequences.    
 
+\vspace{0.5cm}
 
 \begin{definition}[Poisson process]
 \label{poissonprocess}
@@ -248,7 +250,7 @@ L(RR \mid n) = P(y_1 \mid RR, n) \propto \left( \frac{RR}{RR + z} \right)^{y_1} 
 
 I will now present a more general version of SCCS, including an age effect parameter and multiple risk periods with varying risks. Varying risks can be motivated by for example the desire to include the effects of different doses of a vaccine. The inclusion of an age effect is motivated by the fact that many biological conditions are age-dependent.  
 
-Assume again that adverse during the observation period arrive according to a piecewise-constant Poisson process with an incidence rate function similar to (\ref{incfunc}). The observation period for each individual is split into disjoint intervals by age groups indexed by $j$ and disjoint risk periods indexed by $k$. The number of days that individual $i$ spends in risk/control interval $k$ while belonging to age group $j$ is denoted by $t_{ijk}$. The incidence rate function for $i$ can then be written as 
+Assume again that adverse events during the observation period arrive according to a piecewise-constant Poisson process with an incidence rate function similar to (\ref{incfunc}). The observation period for each individual is split into disjoint intervals by age groups indexed by $j$ and disjoint risk periods indexed by $k$. The number of days that individual $i$ spends in risk/control interval $k$ while belonging to age group $j$ is denoted by $t_{ijk}$. The incidence rate function for $i$ can then be written as 
 
 \begin{equation}
 \lambda_{ijk} = t_{ijk} \cdot exp(\phi_i + \gamma_j + \psi_k),
@@ -286,7 +288,7 @@ The periods where the exposure status is of interest are sometimes called risk a
 ```{r, echo = FALSE, fig.width = 10, fig.height = 4, fig.align = "center", out.width= "350px", fig.cap = "\\label{fig:simpleCCO}A graphical illustration of the CCO design. Exposures occuring immediately before the event day are considered as related to the event and exposures occuring immediately before the control day are considered as not related to the event."}
 
 library(pBrackets)
-par(mar = c(3, 4, 4, 4), oma = c(2,0,0,2))
+par(mar = c(3, 4, 4, 4), cex = 1.2, oma = c(2,0,0,2))
 x <- 0:90
 plot(x,x, type = "n", yaxt = "n", ylab = "", xaxt = "n", main = "A simple Case-crossover design", 
      bty = "n", xlim = c(0, 120))
@@ -322,7 +324,7 @@ For example, the risk period could be a period of two weeks following vaccinatio
 The question of interest in both CCO and SCSS is the same, i.e., to infer whether the rate of events is affected by exposure. Although the CCO method is based on the idea of exposures as the random variable, the parameter of interest can be defined as any of the prospective relative risk parameters: the odds ratio, relative risk or the incidence rate ratio [@Nordmann2012 p.8].  
 
 
-### In the literature
+### CCO in the literature
 
 The literature concerning the CCO approach may be confusing as the reader may have to interpret from the context whether the author has chosen to treat the design from a prospective or retrospective point of view and sometimes both views are used simultaneously. For example, @Nordmann2012 [p. 2] describe the method using phrasing *"With this design, the probability of exposure in the risk period is compared to the probability of exposure in control period(s)."*. They however then go on to state that *"same probability of event occurrence during case and control periods"* is a major assumption of the method.  
 
@@ -334,7 +336,7 @@ To estimate the relative risk in the CCO setting, @Maclure1991 suggests using th
 
 Cohort designs are problematic for vaccine safety studies due to many possible sources of bias. Case-only designs are attractive because they implicitly control for time-invariant confounders. 
 
-Of the two most popular case only designs, SCCS compares somewhat favourably to CCO. @Farrington2004 [p. 2066] has pointed out that in the case of paediatric vaccines there is a conceptual problem with the CCO design, where vaccination times are treated as random variables. It is more natural to view event times as the random variables of interest, since vaccinations often occur according to a strict schedule. 
+Of the two most popular case only designs, SCCS compares somewhat favourably to CCO for vaccine safety analyses. @Farrington2004 [p. 2066] has pointed out that in the case of paediatric vaccines there is a conceptual problem with the CCO design, where vaccination times are treated as random variables. It is more natural to view event times as the random variables of interest, since vaccinations often occur according to a strict schedule. 
 
 SCCS assumes that the vaccination time is fixed and the time of the adverse event is a random variable of interest. SCCS allows for direct inference concerning the population parameter of interest, which is the relative rate of adverse event incidences between specified risk and control time periods. The simple SCCS introduced in \ref{section:simpleSCCS} offers a statistical model where the rate ratio $RR$ is the only unknown parameter and fixed individual covariates have no effect on the inference. The likelihood function is binomial.
 

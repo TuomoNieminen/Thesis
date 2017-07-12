@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.10.21)  7 JUL 2017 15:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.10.21)  12 JUL 2017 12:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1209,46 +1209,40 @@ LaTeX Font Info:    Try loading font information for TS1+lmr on input line 139.
 
 (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)pdfTeX warning (ext4): destination with the same identifier (name{page.}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.207 
-       [2]pdfTeX warning (ext4): destination with the same identifier (name{pag
-e.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.218 \newpage
-               [3] (./THESIS.toc
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 2.
+)
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 203.
+
 (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 2.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 203.
+
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 2.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 203
+.
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 2.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 203
+.
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 2.
+(Font)              <10> on input line 203.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 2.
+(Font)              <7> on input line 203.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 2.
-LaTeX Font Info:    Try loading font information for U+msa on input line 2.
+(Font)              <5> on input line 203.
+LaTeX Font Info:    Try loading font information for U+msa on input line 203.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 2.
+LaTeX Font Info:    Try loading font information for U+msb on input line 203.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
@@ -1257,7 +1251,17 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.45 ...ped observations}{29}{subsubsection.3.4.1}
+l.212 
+       [2]pdfTeX warning (ext4): destination with the same identifier (name{pag
+e.}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.213 \newpage
+               [3] (./THESIS.tocpdfTeX warning (ext4): destination with the sam
+e identifier (name{page.}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.44 ...Grouped observations }{29}{subsection.3.4}
                                                    [4])
 \tf@toc=\write7
 \openout7 = `THESIS.toc'.
@@ -1266,99 +1270,96 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.222 \newpage
+l.217 \newpage
                [5] [1] [2] [3] [4] [5] [6] [7] [8] <figures/unnamed-chunk-11-1.
-pdf, id=443, 579.16376pt x 223.83624pt>
+pdf, id=443, 551.05875pt x 209.78375pt>
 File: figures/unnamed-chunk-11-1.pdf Graphic file (type pdf)
 <use figures/unnamed-chunk-11-1.pdf>
-Package pdftex.def Info: figures/unnamed-chunk-11-1.pdf used on input line 788.
+Package pdftex.def Info: figures/unnamed-chunk-11-1.pdf used on input line 792.
 
-(pdftex.def)             Requested size: 351.30981pt x 135.77484pt.
+(pdftex.def)             Requested size: 351.32262pt x 133.74576pt.
 [9 <./figures/unnamed-chunk-11-1.pdf>] [10] [11] [12] [13] <figures/unnamed-chu
-nk-12-1.pdf, id=529, 579.16376pt x 223.83624pt>
+nk-12-1.pdf, id=527, 551.05875pt x 209.78375pt>
 File: figures/unnamed-chunk-12-1.pdf Graphic file (type pdf)
 <use figures/unnamed-chunk-12-1.pdf>
-Package pdftex.def Info: figures/unnamed-chunk-12-1.pdf used on input line 1110
+Package pdftex.def Info: figures/unnamed-chunk-12-1.pdf used on input line 1116
 .
-(pdftex.def)             Requested size: 351.30981pt x 135.77484pt.
+(pdftex.def)             Requested size: 351.32262pt x 133.74576pt.
 [14 <./figures/unnamed-chunk-12-1.pdf>] [15] [16] [17]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[18] [19] [20] <figures/unnamed-chunk-13-1.pdf, id=622, 747.79375pt x 327.2225p
-t>
+[18] [19] [20] <figures/unnamed-chunk-13-1.pdf, id=621, 684.5575pt x 297.11pt>
 File: figures/unnamed-chunk-13-1.pdf Graphic file (type pdf)
 <use figures/unnamed-chunk-13-1.pdf>
-Package pdftex.def Info: figures/unnamed-chunk-13-1.pdf used on input line 1494
+Package pdftex.def Info: figures/unnamed-chunk-13-1.pdf used on input line 1495
 .
-(pdftex.def)             Requested size: 469.75471pt x 205.55708pt.
-[21 <./figures/unnamed-chunk-13-1.pdf>] <figures/unnamed-chunk-14-1.pdf, id=642
+(pdftex.def)             Requested size: 469.76514pt x 203.88634pt.
+[21 <./figures/unnamed-chunk-13-1.pdf>] <figures/unnamed-chunk-14-1.pdf, id=643
 , 544.0325pt x 273.02pt>
 File: figures/unnamed-chunk-14-1.pdf Graphic file (type pdf)
 <use figures/unnamed-chunk-14-1.pdf>
-Package pdftex.def Info: figures/unnamed-chunk-14-1.pdf used on input line 1567
+Package pdftex.def Info: figures/unnamed-chunk-14-1.pdf used on input line 1570
 .
 (pdftex.def)             Requested size: 469.77643pt x 235.75496pt.
-[22] [23 <./figures/unnamed-chunk-14-1.pdf>] [24] [25] <figures/markov.png, id=
-704, 740.7675pt x 420.57124pt>
+[22 <./figures/unnamed-chunk-14-1.pdf>] [23] [24] [25] <figures/markov.png, id=
+709, 740.7675pt x 420.57124pt>
 File: figures/markov.png Graphic file (type png)
 <use figures/markov.png>
-Package pdftex.def Info: figures/markov.png used on input line 1771.
+Package pdftex.def Info: figures/markov.png used on input line 1785.
 (pdftex.def)             Requested size: 469.76045pt x 266.70682pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[26] [27 <./figures/markov.png>] [28] [29] [30] [31] [32]
-Underfull \hbox (badness 10000) in paragraph at lines 2156--2162
+[26 <./figures/markov.png>] [27] [28] [29] [30] [31]
+Underfull \hbox (badness 10000) in paragraph at lines 2152--2158
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2156--2162
+Underfull \hbox (badness 10000) in paragraph at lines 2152--2158
 
  []
 
-[33] [34] [35] [36] [37] [38] [39] <figures/unnamed-chunk-20-1.pdf, id=871, 449
+[32] [33] [34] [35] [36] [37] [38] <figures/unnamed-chunk-20-1.pdf, id=858, 449
 .68pt x 583.17876pt>
 File: figures/unnamed-chunk-20-1.pdf Graphic file (type pdf)
 <use figures/unnamed-chunk-20-1.pdf>
-Package pdftex.def Info: figures/unnamed-chunk-20-1.pdf used on input line 2580
+Package pdftex.def Info: figures/unnamed-chunk-20-1.pdf used on input line 2566
 .
 (pdftex.def)             Requested size: 449.69948pt x 583.20403pt.
-<figures/unnamed-chunk-21-1.pdf, id=874, 449.68pt x 397.485pt>
+[39] [40 <./figures/unnamed-chunk-20-1.pdf>] <figures/unnamed-chunk-21-1.pdf, i
+d=880, 449.68pt x 397.485pt>
 File: figures/unnamed-chunk-21-1.pdf Graphic file (type pdf)
 <use figures/unnamed-chunk-21-1.pdf>
-Package pdftex.def Info: figures/unnamed-chunk-21-1.pdf used on input line 2623
+Package pdftex.def Info: figures/unnamed-chunk-21-1.pdf used on input line 2609
 .
 (pdftex.def)             Requested size: 449.69261pt x 397.49614pt.
-[40] [41 <./figures/unnamed-chunk-20-1.pdf>] [42 <./figures/unnamed-chunk-21-1.
-pdf>] <figures/unnamed-chunk-22-1.pdf, id=907, 452.69125pt x 306.14375pt>
+[41 <./figures/unnamed-chunk-21-1.pdf>] <figures/unnamed-chunk-22-1.pdf, id=895
+, 452.69125pt x 306.14375pt>
 File: figures/unnamed-chunk-22-1.pdf Graphic file (type pdf)
 <use figures/unnamed-chunk-22-1.pdf>
-Package pdftex.def Info: figures/unnamed-chunk-22-1.pdf used on input line 2666
+Package pdftex.def Info: figures/unnamed-chunk-22-1.pdf used on input line 2652
 .
 (pdftex.def)             Requested size: 452.69014pt x 306.14299pt.
-[43 <./figures/unnamed-chunk-22-1.pdf>] [44] [45] [46] [47] (./THESIS.bbl [48])
-[49]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2879.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2879.
+[42 <./figures/unnamed-chunk-22-1.pdf>] [43] [44] [45] [46] (./THESIS.bbl [47])
+[48]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2869.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2869.
 (./THESIS.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2879.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2879.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2869.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2869.
 
 Package rerunfilecheck Info: File `THESIS.out' has not changed.
-(rerunfilecheck)             Checksum: 8B394632034DE653DD9CBA1D50B18AD0;12170.
+(rerunfilecheck)             Checksum: 06186A4C43BAEBE61B38370D585C6C49;12116.
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2879.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2869.
  ) 
 Here is how much of TeX's memory you used:
- 22805 strings out of 494953
- 391951 string characters out of 6180976
- 486864 words of memory out of 5000000
- 25302 multiletter control sequences out of 15000+600000
- 69733 words of font info for 136 fonts, out of 8000000 for 9000
+ 22796 strings out of 494953
+ 391850 string characters out of 6180976
+ 487852 words of memory out of 5000000
+ 25300 multiletter control sequences out of 15000+600000
+ 69520 words of font info for 134 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  54i,15n,73p,944b,463s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dv
@@ -1374,12 +1375,11 @@ are/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/
 lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr5.pfb></usr/share/texmf
 /fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.
 pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/
-type1/public/lm/lmsy5.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on THESIS.pdf (54 pages, 514136 bytes).
+type1/public/lm/lmsy5.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb>
+Output written on THESIS.pdf (53 pages, 510437 bytes).
 PDF statistics:
- 1082 PDF objects out of 1200 (max. 8388607)
- 976 compressed objects within 10 object streams
- 227 named destinations out of 1000 (max. 500000)
+ 1068 PDF objects out of 1200 (max. 8388607)
+ 964 compressed objects within 10 object streams
+ 224 named destinations out of 1000 (max. 500000)
  8741 words of extra memory for PDF output out of 10000 (max. 10000000)
 
