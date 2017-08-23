@@ -37,12 +37,12 @@ The designs have different strengths and weaknesses, some of which are listed in
 # designs
 designs <- c("**Cohort design**", "**Case-control design**", "**Case-only design**")
 
-strength_cohort <- "* Can provide an estimate of the baseline incidence \n * Utilizes all available data resulting in high power "
+strength_cohort <- "* Can provide an estimate of the baseline incidence \n * Utilizes all available data resulting in better statistical efficiency "
 strength_case <-  "* If matched by age and time , controls for time-varying confounders such as age and seasonality \n* Needs little data specially with rare events "
 strength_caseonly <- "* Self-controlled: eliminates selection biases and confounding related to control subjects and time-invariant characteristics. \n* Does not need a baseline incidence estimate \n* Needs only data on cases"
 
 weakness_cohort <- "* If the exposure rate is high, the unexposed group from the same time period will be small \n * Confounders can affect the distribution of exposure, possibly resulting in bias"
-weakness_case <- "* The unexposed group can be small \n * Finding suitable matches might be difficult \n * Confounders can affect the distribution of exposure, possibly resulting in bias"
+weakness_case <- "* The unexposed group can be small \n * Identifying suitable matches might be difficult \n * Confounders can affect the distribution of exposure, possibly resulting in bias"
 weakness_caseonly <- "* The choice of the risk and control periods plays a crucial role  \n* Time-dependent confounders such as age and seasonality must be explicitly included in the model"
 
 strengths <- c(strength_cohort, strength_case, strength_caseonly)
@@ -59,19 +59,19 @@ pander::pander(mytable, keep.line.breaks = TRUE, style = 'grid', justify = 'left
 
 ### Cohort and case-control designs
 
-The cohort design utilizes all available data and is therefore often a preferred choice if data from the whole population are available. However, the nature of the exposure-event pairs considered here poses problems to cohort designs. One problem is that the exposure to vaccination is optional, possibly resulting in a selection bias. A second problem relates to using medical diagnoses as proxies for the underlying biological condition of interest. I will provide two examples to clarify. 
+The cohort design utilizes all available data and is therefore often a preferred choice if data from the whole population are available. However, the nature of the exposure-event pairs considered here poses problems to cohort designs. One problem is that exposure to vaccination is optional, possibly resulting in a selection bias. A second problem relates to using medical diagnoses as proxies for the underlying biological condition of interest. I will provide two examples to clarify. 
 
 One way to utilize a cohort or a case-control design would be to compare the rates of events between the vaccinated and unvaccinated populations of selected birth cohorts. This would provide a comparison which utilizes all available data from a single time period. The problem with this approach is that vaccination is both optional and usually very popular. Therefore, the group of unvaccinated individuals is often small and possibly biased due to selection. The latter may mean that the observed differences in the rates of events are due to the same reasons that cause individuals to become or not become vaccinated.  
 
-A second example of a cohort design would be a comparison of cohorts born before and after the introduction of a new vaccine to a vaccination program. The pre-vaccination era could be used to estimate the baseline incidence of adverse events and the incidence during the post era could then be compared to the baseline. This approach utilizes a great amount of data and provides a seemingly unbiased comparison, assuming that exposure to vaccination is the only significant difference between the cohorts. The problem with this approach is that diagnosis coding practises can change over time due to changes in recommendations or practises. The observed differences in event rates in electronic health care data bases can therefore be simply due to these changes.  
+A second example of a cohort design would be a comparison of cohorts born before and after the introduction of a new vaccine to a vaccination program. The pre-vaccination era could be used to estimate the baseline incidence of adverse events and the incidence during the post era could then be compared to the baseline. This approach utilizes a great amount of data and provides a seemingly unbiased comparison, assuming that exposure to vaccination is the only significant difference between the cohorts. The problem with this approach is that diagnosis coding practises can change over time due to changes in recommendations or practises. The observed differences in event rates based on electronic health care databases can therefore be simply due to these changes.  
 
 ### Case-only designs  
 
-Case-only designs are designs which utilize data only from cases (individuals with the events of interest). In case-only designs, each individual with an event acts as his/her own control and hence the designs are also called self-controlled designs. The self-controlling property can be achieved by splitting the observation period of individuals into periods of "risk" and "control" and then labeling events as either "case" or "control", depending on which period they occur in.
+Case-only designs utilize data only from cases (individuals with the events of interest). In case-only designs, each individual with an event acts as his/her own control and hence these designs are also called self-controlled designs. The self-controlling property can be achieved by splitting the observation period of individuals into periods of "risk" and "control" and then labeling events as either "case" or "control", depending on during which period they occur in.
 
-Self-controlled designs have a very desirable property: comparisons are made within the individuals such that all time-invariant confounders are eliminated [@Nordmann2012]. Since self-controlled designs utilize data only from cases, the smaller sample size could decrease power compared to other designs. However, simulation studies by both @McClure2008 and @Glanz2006 have found that self-controlled designs retain relatively high power compared to the cohort and case-control designs despite utilizing less data.
+Self-controlled designs have a very desirable property: comparisons are made within the individuals such that all time-invariant confounders are eliminated [@Nordmann2012]. Since self-controlled designs utilize data only from cases, the smaller sample size could decrease statistical power compared to other designs. However, simulation studies by both @McClure2008 and @Glanz2006 have found that self-controlled designs retain relatively high power compared to the cohort and case-control designs despite utilizing less data.
 
-In their systematic review of case-only designs, @Nordmann2012 found that the two most popular case-only designs utilized in pharmacovigilance are the case-crossover design (CCO) and the self-controlled case series design (SCCS). They also remark that "With the development of health care information technology ... these designs seem particularily appropriate to analyze pharmacovigilance data", assuming that the exposure is transient rather than chronic, such as vaccination. 
+In their systematic review of case-only designs, @Nordmann2012 found that the two most popular case-only designs utilized in pharmacovigilance are the case-crossover design (CCO) and the self-controlled case series design (SCCS). They also remark [p. 2] that "With the development of health information technology ... these designs seem particularly appropriate to analyze pharmacovigilance data". 
 
 
 ### CCO and SCCS  
@@ -81,7 +81,7 @@ The case-crossover design (CCO) and the self-controlled case series design (SCCS
 - **The case-crossover design** (CCO) is a case-only study design derived from a case-control design logic. Time is viewed from the point of view of the event. The random variables analysed are retrospectively ascertained exposures.
 - **The self-controlled case series design** (SCCS) is a case-only study design derived from a cohort design logic. Time is viewed from the point of view of the exposure. The ages at vaccination are regarded as fixed, and the random variable of interest is age at event, conditionally on its occurrence within a pre-determined observation period. [@Farrington2004 pp. 2066-2067].  
 
-In CCO and SCCS, events occuring during a risk period can be labeled as "cases" and events during the control period as "controls." Both designs aim at comparing the incidence rates of adverse events between the different periods, "within individuals". Individuals implicitly act as both cases and controls in the study because the person-time of the individuals is used to define both the cases and the controls.  
+In CCO and SCCS, events occuring during a risk period can be labeled as "cases" and events during the control period as "controls." Both designs aim at comparing the incidence rates of adverse events between the different periods, "within individuals". The study subjects contribute at-risk time for both cases and controls because person-time from any one subject accrues from both his/her case and control periods.  
 
 From a statistical inference point of view, incidence rates can be compared with their ratio, called the *rate ratio*, denoted by $RR$. The rate ratio between two constant incidence rates $\lambda_1$ and $\lambda_0$ is
 
@@ -98,9 +98,11 @@ CCO and SCCS are both suitable for studying rare adverse events. According to @F
 In the self-controlled case series design (SCCS) developed by @Farrington1995, the goal is to compare the relative rates of adverse events during disjoint risk and control time periods, specified in relation to the time of vaccination. The effect of the vaccination is estimated via the rate ratio $RR = \lambda_1 / \lambda_0$, where in a simple case
 
 - $\lambda_1$: the rate of the event during a period when the exposure to vaccination is assumed to have an effect (risk period)
-- $\lambda_0$: the rate of the event during a period when the vaccination is assumed to not have an effect (control period).
+- $\lambda_0$: the rate of the event during a period when the vaccination is assumed not to have an effect (control period).
 
-If there is a significant change in the incidence during the risk period, the rate ratio will differ from 1, with values greater than 1 indicating a positive association between the exposure and the event. Values less than 1 indicate a negative association and are usually not of interest in safety surveillance.
+If there is a significant change in the incidence during the risk period, the rate ratio will differ from 1, with values greater than 1 indicating a positive association between the exposure and the event. Values less than 1 indicate a negative association and are usually of no interest in safety surveillance.
+
+The general idea of SCCS is to describe the event incidence as a function of the (constant) individual baseline incidence, effects due to vaccine exposure and other possible time-dependent factors such as age. Statistical inference in SCCS is based on a conditional likelihood which removes the individual incidence as a nuisance parameter. Inference concerning relative incidences (rate ratios) can therefore be done "within individuals" so that the individual baseline incidences have no impact on the inference. 
 
 The risk period(s) are defined based on previous knowledge regarding the relationship between the vaccine and the adverse event. In a simple case a single risk period could be a period of two weeks immediately following vaccination. A control period can also be explicitly defined, or alternatively all other time during the observation period can be considered as the control period. See Figure \ref{fig:simpleSCCS} for an illustration of the former.  
 
@@ -128,21 +130,22 @@ legend("topright",
        border = NA, merge = T)
 ```
 
-The general idea of SCCS is to describe the event incidence as a function of the (constant) individual baseline incidence, effects due to vaccine exposure and other possible time-dependent factors such as age. Statistical inference in SCCS is based on a conditional likelihood which removes the individual incidence as a nuisance parameter. Inference concerning relative incidences (rate ratios) can therefore be done "within individuals" so that the individual baseline incidences have no impact on the inference. 
 
 ### Observation period
 
 In SCCS, the observation period for individual $i$ is the time period during which an event could be sampled [@Whitaker2006]. The observation periods could for example be based on a calendar time period and an age interval. This definition can lead to observation periods of different lengths, as the start or end of the calendar time period might shorten the observation period of some individuals.
 
-In this work I will use birth years of individuals to specify eligibility to the study. The observation period for the eligible individuals is based on an age interval during which events can be sampled. The smallest measurable unit for time is a day, since data in electronic health care data bases such as AvoHILMO are collected daily. Therefore, for each individual, I will index the observation period by age in days denoted by $d$. A single day has a time unit of 1. If not explicitly mentioned, the reader can assume that all individuals considered are eligible.
+In this work I will use birth years of individuals to specify eligibility to the study. The observation period for the eligible individuals is based on an age interval during which events can be sampled. If not explicitly mentioned, the reader can assume that all individuals considered are eligible. 
+
+The smallest measurable unit for time is a day, since data in electronic health care data bases such as AvoHILMO are collected daily. Therefore, for each individual, I will index the observation period by age in days denoted by $d$. A single day has a time unit of 1.  
 
 ### Statistical framework
 
-In what follows is a mathematical description of SCCS largely inspired by the description of the general SCCS given in the case series tutorial by @Whitaker2006 [pp. 9-10] with influences from the description of SCCS by @Bernardo2011 [pp. 10-12]. I will first give a general framework for the SCCS method by introducing the concepts of a Poisson process and incidence rate function and then describe the conditional likelihood for the parameters of that function. 
+The following sections provide a mathematical description of SCCS, largely inspired by the description of the general SCCS given in the case series tutorial by @Whitaker2006 [pp. 9-10] with influences from the description of SCCS by @Bernardo2011 [pp. 10-12]. I will first give a general framework for the SCCS method by introducing the concepts of a Poisson process and incidence rate function and then describe the conditional likelihood for the parameters of that function. 
 
 #### Poisson process  
 
-An underlying assumption in the SCCS method is that adverse events occur as a Poisson process. A Poisson process describes the probabilities for the numbers of events during some time interval(s). An important assumption related to the Poisson process is that the random variables corresponding to these numbers of events are independent between all disjoint time intervals. This implies that an occurrence of an adverse event should not influence the probabilities of future adverse events. This assumption is likely to be violated in practise, but if the event is rare (relative to the length of the observation period), then this violation is unlikely to have practical consequences.    
+An underlying assumption in the SCCS method is that adverse events occur as a Poisson process. A Poisson process describes the probabilities for the numbers of events during a set of time intervals. An important assumption related to the Poisson process is that the random variables corresponding to these numbers of events are independent between all disjoint time intervals. This implies that an occurrence of an adverse event should not influence the probabilities of future adverse events. This assumption is likely to be violated in practise, but if the event is rare (relative to the length of the observation period), then this violation is unlikely to have practical consequences.    
 
 \vspace{0.5cm}
 
@@ -152,7 +155,7 @@ A counting process \citep{Ross1996} $\{Y(t), t \geq 0 \}$ is a Poisson process w
 1. $Y(0) = 0$ \\ [1pt]
 2. $Y(t)$ has independent increments \\ [1pt]
 3. The probabilities for the number of events during an interval of length $t$ are given by the Poisson distribution with $E[Y(t)] = \lambda t$:
- $$ y_t \sim Poisson(\lambda t) \Leftrightarrow P(Y(t) = y_t) = \frac{(\lambda t)^{y_t} \cdot e^{-\lambda t}}{y_t !}$$
+ $$ Y(t) \sim Poisson(\lambda t) \Leftrightarrow P(Y(t) = y_t) = \frac{(\lambda t)^{y_t} \cdot e^{-\lambda t}}{y_t !}$$
 \end{definition}
 
 #### Incidence rate function
@@ -172,15 +175,15 @@ Due to the properties of the Poisson process the cumulative incidence over a num
 \lambda_{iq} = t_q \cdot exp(\phi_i + \theta_q),
 \end{equation}
 
-where $\theta_q$ is constant for all $d$ days in period $q$. For example in a simple case as in Figure \ref{fig:simpleSCCS}, where $q \in \{\text{risk period}, \text{control period}\}$, the incidence rate (\ref{incfunc}) for any one individual takes on two different values.
+where $\theta_q$ is constant for all $d$ days in period $q$. For example, in a simple case as in Figure \ref{fig:simpleSCCS} where $q \in \{\text{risk period}, \text{control period}\}$, the incidence rate for any one individual takes on two different values.
 
 #### Likelihood
 
-Assume now that events of $i = 1, 2, ..., N$ individuals are sampled, with $n_i \geq 1$ events for each $i$ for a total of $n$ events. Assume that events during the observation period arrive as a Poisson process with an incidence rate as defined in (\ref{incfunc}). Denote the number of events for individual $i$ during period $q$ as $y_{iq}$. The probabilities for the numbers of events during the disjoint intervals $q$ are given by the Poisson distribution: $y_{iq} \sim Poisson(\lambda_{iq})$. The individual contribution to the likelihood function, based on the obsevations, is therefore  
+Assume now that events of $i = 1, 2, ..., N$ individuals are identified, with $\mathbf{n} = (n_1, ..., n_N), n_i \geq 1$ events for a total of $n$ events. Assume that events during the observation period arrive as a Poisson process with an incidence rate as defined in (\ref{incfunc}). Denote the number of events for individual $i$ during period $q$ as $y_{iq}$. The probabilities for the numbers of events during the disjoint intervals $q$ are given by the Poisson distribution: $Y_{iq} \sim Poisson(\lambda_{iq})$. The individual contribution to the likelihood function, based on the obsevations, is therefore  
 
 \begin{equation}
 L_i(\boldsymbol\theta) 
-= P(\boldsymbol{y}_i \mid \phi_i,  \boldsymbol\theta) 
+= P(\mathbf{y}_i \mid \phi_i,  \boldsymbol\theta) 
 = \prod_q P(y_{iq} \mid \phi_i, \theta_q) 
 \propto \exp\{- \sum_q \lambda_{iq}\} \prod_q \left( \lambda_{iq} \right)^{y_{iq}},
 \end{equation}
@@ -207,7 +210,7 @@ L_i(\boldsymbol\theta \mid n_i)
 = \prod_q \left( \frac{t_q \cdot e^{\theta_q}}{\sum_{q'} t_{q'}  \cdot e^{\theta_{q'}}} \right)^{y_{iq}},
 \end{equation}
 
-which is a multinomial likelihood where the individual baseline incidences have been canceled out. This means that using the conditional likelihood, the inference concerning the parameter $\boldsymbol\theta$ cannot be influenced by the individual parameters $\phi_i$. In that sense the SCCS design is self-controlled. However, it should be noted that all factors which depend on the time period $q$, such as age, remain. The effect of age can be separately included in the model in the general version of SCCS.
+which is a multinomial likelihood where the individual baseline incidences have been canceled out. This means that using the conditional likelihood, the inference concerning the parameter $\boldsymbol\theta$ cannot be influenced by the individual parameters $\phi_i$. In that sense the SCCS design is self-controlled. However, it should be noted that all factors which depend on the period $q$, such as age, remain. The effect of age can be separately included in the model in the general version of SCCS where the observation period is split into periods by age group. 
 
 Next I will present the simple and the general SCCS which are both based on the assumptions of a piecewise-constant Poisson process and a conditional likelihood. The simple SCCS is particularily useful for the safety surveillance method BmaxSPRT, to be introduced later. The general SCCS is relevant for future research in developing safety surveillance methods.  
 
@@ -222,7 +225,7 @@ The risk and control periods are disjoint and of lengths $t_1$ and $t_0$ respect
 \lambda_{ik} = t_k \cdot exp(\phi_i + \psi_k), \quad k = 0, 1.
 \end{equation}
 
-Assume that during the control period $\psi_0 = 0$ and the incidence is simply determined by the baseline incidence of the individual and by (\ref{eq:simpleSCCS-incfunc}) is given by $t_0 \cdot e^{\phi_i}$. The incidence during the risk period is given by $t_1 \cdot e^{\phi_i} e^{\psi_1}$. The parameter of interest is $\psi_1$ which quantifies the multiplicative effect that exposure has on the incidence, as now $RR = \lambda_{i1} / \lambda_{i0} =  e^{\psi_1}$ is the rate ratio of the incidence rates during the risk and control periods.  
+Assume that during the control period $\psi_0 = 0$ so that the incidence rate is simply $t_0 \cdot e^{\phi_i}$. The incidence during the risk period is given by $t_1 \cdot e^{\phi_i} e^{\psi_1}$. The parameter of interest is $\psi_1$ which quantifies the multiplicative effect that exposure has on the incidence, as now $RR = \lambda_{i1} / \lambda_{i0} =  e^{\psi_1}$ is the rate ratio of the incidence rates during the risk and control periods.  
 
 Now assume that events of $i = 1, 2, ..., N$ individuals are identified. Denote the number of events for individual $i$ during the risk period as $y_{i1}$ and during the control period as $y_{i0}$. Each individual has $n_i = y_{i1} + y_{i0}$ events during the periods of interest and the total number of events during the periods is $n = \sum_i n_i$. According to equation (\ref{condlik2}), the individual contribution to the conditional likelihood for the parameter $\psi_1$ is
 
@@ -231,10 +234,10 @@ L_i(\psi_1 \mid n_i)
 \propto
 \prod_{k = 0,1} \left( \frac{t_k \cdot e^{\psi_k}}{\sum_{k'} t_{k'}  \cdot e^{\psi_{k'}}} \right)^{y_{ik}}
 = \left( \frac{ e^{\psi_1} }{ e^{\psi_1} + t_0/t_1 } \right) ^{y_{i1}} 
- \left( \frac{ t_0 / t_1 }{ e^{\psi_1} + t_0/t_1 } \right)^{n_i - y_{i1}}.
+ \left( \frac{ t_0 / t_1 }{ e^{\psi_1} + t_0/t_1 } \right)^{n_i - y_{i1}},
 \end{equation}
 
-which is the binomial likelihood, where the only unknown parameter is the common rate ratio $RR = e^{\psi_1}$. If one labels the events that occured during the risk period as "cases", and the events that occured during the control period as "controls", the probability of an event labeled as a case depends only on $RR$ and the ratio of the lengths of the two periods $z = t_0 / t_1$.  The probabilities of a "case" ("success") and "control" ("failure") are given by 
+which is a binomial likelihood in which the only unknown parameter is the common rate ratio $RR = e^{\psi_1}$. If one labels the events that occured during the risk period as "cases", and the events that occured during the control period as "controls", the probability of an event labeled as a case depends only on $RR$ and the ratio of the lengths of the two periods $z = t_0 / t_1$.  The probabilities of a "case" ("success") and "control" ("failure") are given by 
 
 \begin{equation}\label{eq:p}
 P("case") = p = \frac{RR}{RR + z}, \quad P("control") = 1-p = \frac{z}{RR + z}.
@@ -243,7 +246,7 @@ P("case") = p = \frac{RR}{RR + z}, \quad P("control") = 1-p = \frac{z}{RR + z}.
 Assuming that individuals are independent, the total conditional likelihood can be seen as independent binomial trials with a homogenous probability of success, $p = RR / (RR + z)$. Given that observations included $y_1 = \sum_i y_{i1}$ "cases", the total conditional likelihood for the parameter $RR$ is  
 
 \begin{equation}\label{eq:SCCS-binomial}
-L(RR \mid n) = P(y_1 \mid RR, n) \propto \left( \frac{RR}{RR + z} \right)^{y_1} \left( \frac{z}{RR + z}\right)^{n - y_1}.
+L(RR \mid \mathbf{n}) = P(y_1 \mid RR, n) \propto \left( \frac{RR}{RR + z} \right)^{y_1} \left( \frac{z}{RR + z}\right)^{n - y_1}.
 \end{equation}
 
 ### General SCCS
@@ -267,7 +270,7 @@ L_i(\boldsymbol\psi, \boldsymbol\gamma \mid n_i)
 Assuming that individuals are independent, the total conditional likelihood is
 
 \begin{equation}
-L(\boldsymbol\psi, \boldsymbol\gamma \mid n) 
+L(\boldsymbol\psi, \boldsymbol\gamma \mid \mathbf{n}) 
 \propto
 \prod_i\prod_{jk} \left( \frac{t_{ijk} \cdot e^{\gamma_j}\cdot e^{\psi_k}} {\sum_{j'k'} t_{{ij'k'}} \cdot e^{\gamma_{j'}} \cdot e^{\psi_{k'}}} \right)^{y_{ijk}},
 \end{equation}
@@ -276,7 +279,7 @@ which, again, is the multinomial likelihood where all the individual baseline in
 
 ## The case-crossover design: CCO
 
-The most popular case-only design utilised in pharmacovigilance is the case-crossover design (CCO). CCO is a modification of a case-control design, originally developed by @Maclure1991 to study the effect of transient exposures to acute events. Its use in drug safety studies has increased during 2000-2010 [@Nordmann2012]. CCO has also been used for vaccine safety analysis [@Farrington2004 p. 2066].
+The most popular case-only design utilized in pharmacovigilance is the case-crossover design (CCO). CCO is a modification of a case-control design, originally developed by @Maclure1991 to study the effect of transient exposures to acute events. Its use in drug safety studies has increased during 2000-2010 [@Nordmann2012]. CCO has also been used for vaccine safety analysis [@Farrington2004 p. 2066].
 
 ### Description 
 
@@ -326,9 +329,9 @@ The question of interest in both CCO and SCSS is the same, i.e., to infer whethe
 
 ### CCO in the literature
 
-The literature concerning the CCO approach may be confusing as the reader may have to interpret from the context whether the author has chosen to treat the design from a prospective or retrospective point of view and sometimes both views are used simultaneously. For example, @Nordmann2012 [p. 2] describe the method using phrasing *"With this design, the probability of exposure in the risk period is compared to the probability of exposure in control period(s)."*. They however then go on to state that *"same probability of event occurrence during case and control periods"* is a major assumption of the method.  
+The literature concerning the CCO approach may be confusing as the reader may have to interpret from the context whether the author has chosen to treat the design from a prospective or retrospective point of view and sometimes both views are used simultaneously. For example, @Nordmann2012 [p. 2] describe the method using phrasing *"With this design, the probability of exposure in the risk period is compared to the probability of exposure in control period(s)"*. They however then go on to state that *"same probability of event occurrence during case and control periods"* is a major assumption of the method.  
 
-When discussing CCO, @Farrington2004 instead writes that *"the underlying probability of vaccination should be the same in all intervals"*, which is in line wih treating exposure as the random variable of interest. @Farrington2004 [p. 2066] then adds that this assumption *"is unlikely to hold for paediatric vaccines administered according to stricter schedules"*.  
+When discussing CCO, @Farrington2004 instead writes that *"the underlying probability of vaccination should be the same in all intervals"*, which is in line with treating exposure as the random variable of interest. @Farrington2004 [p. 2066] then adds that this assumption *"is unlikely to hold for paediatric vaccines administered according to stricter schedules"*.  
 
 To estimate the relative risk in the CCO setting, @Maclure1991 suggests using the Mantel-Haenzel estimator to approximate the rate ratio parameter. Further discussion of maximum likelihood estimation in the CCO setting is provided by @Marshall1993. 
 

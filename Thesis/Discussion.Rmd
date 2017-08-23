@@ -6,7 +6,9 @@ This thesis has presented vaccine safety surveillance as an observational study 
 
 Electronic health care data bases (registers) can be utilized as sources of data for safety surveillance. Registers such as AvoHILMO in Finland provide daily data and thus enable near real-time surveillance. Adverse events can be operationalized by one or several medical diagnoses, identified by appropriate ICD codes.
 
-An important consideration in vaccine safety studies is that sources of bias such as self-selection and changes in diagnosis coding practises present challenges to which some observational study designs such as the cohort design, are vulnerable. Case-only designs such as SCCS and CCO eliminate all time invariant confounders and can therefore be considered more suitable for drug safety analysis.  
+An important consideration in vaccine safety studies is that sources of bias such as self-selection and changes in diagnosis coding practises present challenges to which some observational study designs such as the cohort design, are vulnerable. Self-controlled case-only designs such as SCCS and CCO eliminate all time invariant confounders and can therefore be considered more suitable for drug safety analysis. 
+
+This thesis has presented the BmaxSPRT method in detail. I have shown how BmaxSPRT relates to a simple SCCS design and is a self-controlled method. I have also described other key theoretical aspects of the method and demonstrated it in practise.
 
 ## Contribution to existing literature  
 
@@ -18,15 +20,13 @@ I have studied the relationship of three childhood vaccinations to febrile seizu
 
 ## Discussion of application results
 
-As a proof-of-concept, I applied the BmaxSPRT method retrospectively to Finnish register data to show how the method performs with real data. The outcome of interest was febrile seizures. Three vaccines, MMR, PCV and Rota, each with a different type of known or suspected relationship to febrile seizures, were the exposures of interest.
-
-The effects of each of the vaccines were studied during a risk period of $0-13$ days following vaccination. The results of the experiment were as expected for MMR and Rota, as a safety signal was generated for the former and not generated for the latter. A safety signal was also generated for PCV. 
+As a proof-of-concept, I applied the BmaxSPRT method retrospectively to Finnish register data to show how the method performs with real data. Three vaccines, MMR, PCV and Rota, each with a different type of known or suspected relationship to febrile seizures, were the exposures of interest. The effects of each of the vaccines were studied during a risk period of $0-13$ days following vaccination. The results of the experiment were as expected for MMR and Rota, as a safety signal was generated for the former and not generated for the latter. A safety signal was also generated for PCV.  
 
 The result of the experiment for PCV raises further questions. Utilizing all the available data, the point estimate for the rate ratio between the chosen risk and control periods stayed consistently, but not considerably, above 1, indicating some increased risk during the risk period. Given that the chosen risk period was significantly longer than the risk period suspected by CDC for PCV (24 hours following exposure), there are at least two plausible interpretations for this outcome: (i) The results of the study are valid. The actual risk period for PCV is longer than the period suspected by CDC, and the risk of febrile seizures increases only slightly. (ii) The risk period that was used in the study is too long compared to the actual risk period. The risk of febrile seizures increases substantially, but during a short time period.
 
-A confirmation analysis studying the relationship between febrile seizures and PCV vaccinations should be performed.
-
 ## Further reasearch
+
+The results related to the relationship between PCV and febrile seizures are inconclusive. A confirmation analysis studying this relationship in more detail should be performed.
 
 The thesis provides starting points for further reseach in developing the BmaxSPRT method. The general version of SCCS can provide a framework for a more general version of a self-controlled maxSPRT, a multinomial maxSPRT if you will. Maximum information trials provide a promising approach for dealing with grouped observations. 
 

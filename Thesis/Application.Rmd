@@ -1,15 +1,19 @@
 
 # Childhood vaccinations and febrile seizures: application of BmaxSPRT
 
-Fevers can cause a child to experience spasms or jerky movements called seizures. Seizures caused by a fever are called febrile seizures. Febrile seizures usually last for less than one or two minutes and they do not cause any permanent harm or have any lasting effects. In this application I use the BmaxSPRT vaccine safety surveillance method to study the relationship between febrile seizures and three different childhood vaccinations: Measles-Mumps-Rubella vaccination (MMR), Pneumococcal vaccination (PCV) and the Rota virus vaccination (Rota). MMR, PCV and Rota are all included in the vaccination programme in Finland and are free for all children. The three vaccines are interesting because: 
+BmaxSPRT vaccine safety surveillance can be used to refine previously identified safety signals related to vaccine-adverse event pairs. This proof-of-concept application studies the relationships between the incidence of febrile seizures and three childhood vaccines, Measles-Mumps-Rubella (MMR), Pneumococcal (PCV) and the Rota virus vaccination (Rota). BmaxSPRT is retrospectively applied to data from the Finnish HILMO register.  
+
+Fevers can cause a child to experience spasms or jerky movements called seizures. Seizures caused by a fever are called febrile seizures. Febrile seizures usually last for less than one or two minutes and they do not cause any permanent harm or have any lasting effects. MMR, PCV and Rota are all included in the vaccination programme in Finland and are free for all children. The three vaccines are interesting because: 
 
 - For MMR there exists a known relationship to increased risk of febrile seizures
 - For PCV there exists a suspected relationship to increased risk of febrile seizures
 - For Rota there exist a suspected relationship to decreased risk of febrile seizures
 
-It is established that there is an increased risk of acute fever seizures during the $5 - 12$ days following the first dose vaccination with MMR in children aged from 6 months to 2 years. This relationship has been previously shown by both international studies and using Finnish register data. A study by the Centers for Disease Control and Prevention (CDC) has also indicated that PCV vaccination together with a flu vaccination could be associated with an increased risk of febrile seizures during the 24 hours following exposure [@CDC2017]. A PCV vaccination alone might also cause a small increased risk of seizures. There is no evidence of Rota vaccination having similar effects and @Sheridan2016 have found that a Rota vaccination can prevent febrile seizures. 
+It is established that there is an increased risk of acute febrile seizures during the $5 - 12$ days following the first dose vaccination with MMR in children aged from 6 months to 2 years. This relationship has been previously shown by both international studies and using Finnish register data.  
 
-In this proof-of-concept application, BmaxSPRT vaccine safety surveillance is retrospectively applied to data from the Finnish HILMO register. The main interests are to apply the BmaxSPRT method on real data, study if and when the method generates a signal for the MMR and febrile seizure pair, and also to see what the results are for the two other vaccines.   
+A study by the Centers for Disease Control and Prevention (CDC) has also indicated that PCV vaccination together with a flu vaccination could be associated with an increased risk of febrile seizures during the 24 hours following exposure [@CDC2017]. A PCV vaccination alone might also cause a small increased risk of seizures. There is no evidence of Rota vaccination having similar effects and @Sheridan2016 have found that a Rota vaccination can prevent febrile seizures. 
+
+The main interests of this application are to apply the BmaxSPRT method on real data, study if and when the method generates a signal for the MMR and febrile seizure pair, and also to see what the results are for the two other vaccines.  
 
 ## Data 
 
@@ -58,7 +62,7 @@ The method used in this study is the binomial variant of maxSPRT, BmaxSPRT. In o
 
 The chosen maximum number of observations affects the power of BmaxSPRT. Instead of directly specifying the number of observations, a desired power given a specified rate ratio could be chosen and the maximum number of events correspoding to that power could then be computed. In this study the maximum number of observations was directly chosen. 
 
-The choices $1-4$ were used to compute the critical value of BmaxSPRT. In what follows I will briefly describe the BmaxSPRT method and the parameters for this study. For details on the method please refer to earlier chapters.  
+The choices $1-4$ were used to compute the critical value of BmaxSPRT. In what follows I will briefly describe the BmaxSPRT method and the parameters for this study. For details on the method please refer to the earlier chapters.  
 
 
 ### Observation period  
@@ -66,7 +70,7 @@ The choices $1-4$ were used to compute the critical value of BmaxSPRT. In what f
 For each individual born during the chosen years, the observation period in BmaxSPRT is an age interval during which an event can be sampled. To define the age intervals of interest, the realised age distribution of the first dose was analyzed for each of the three vaccines (vaccination groups). The observation period for each vaccination group was then defined so that the chosen age interval covers most first dose vaccinations (>95%). The observation periods as ages in days for each of the vaccination groups are displayed in Table \ref{tab:vaccine-groups}.  
 
 ```{r}
-group <- c("MPR", "Rota", "PCV")
+group <- c("MMR", "Rota", "PCV")
 sched <- c("12 months", "2, 3 and 5 months", "3, 5, and 12 months")
 ages <- c("250-650 days", "30-140 days", "60-200 days")
 df <- data.frame("Exposure" = group, "Schedule" = sched, "Observation ages" = ages)
@@ -96,9 +100,10 @@ The size of the vaccinated population was estimated using available birth data a
 ages <- c("250-650 days", "30-140 days", "60-200 days")
 bc <- c("2010-2013", "2010-2014","2010-2014")
 pop <- c("238 568", "295 800", "295 800")
+group <- c("MMR", "Rota", "PCV")
 cove <- c("95%", "93%", "94%")
 nri <- c(14.6, 8.1, 7.9)
-df <- data.frame("Age" = ages, "Cohorts" = bc, "Population" = pop, "Vaccination coverage" = cove, "Baseline incidence" = nri, Expected.Events = data.frame(data$conditions)$N)
+df <- data.frame("Age" = ages, "Cohorts" = bc, "Population" = pop, "Coverage" = cove, "Baseline incidence" = nri, Expected.Events = data.frame(data$conditions)$N, row.names = group)
 knitr::kable(df, caption = "\\label{tab:incidence}The included birth cohorts, size of the study population and estimated  vaccination coverage for each of the observed age groups, along with the baseline event incidence estimates given by 1000 person years. The incidence estimates were used to calculate the expected number of events during surveillance, during which vaccinated individuals contribute 42 person days to the study.")
 ```
 
@@ -160,7 +165,7 @@ signalPlot2(x = data$dates, Y = data$results$PCV, main = "PCV")
 
 ### More results and conclusions
 
-In a real application of BmaxSPRT, the surveillance immediately ends once evidence of the association between the vaccine and the adverse event has been found (a signal is generated) or if the maximum number of observations is reached. In this proof-of-concept application however, it is possible to satisfy one's curiosity and see what would happen if surveillance was instead continued for the two vaccines for which signal was generated and early stopping occured (MMR, PCV).  
+In a real application of BmaxSPRT, the surveillance immediately ends once evidence of the association between the vaccine and the adverse event has been found (a signal is generated) or if the maximum number of observations is reached. In this proof-of-concept application, however, it is possible to satisfy one's curiosity and see what would happen if surveillance was instead continued for the two vaccines for which signal was generated and early stopping occured (MMR, PCV).  
 
 The values of the test statistic and the rate ratio estimates for each day of the continued surveillance are illustrated in Figure \ref{fig:surveillance-results2}. Further surveillance shows that when using all the available data, the estimate of the rate ratio for the PCV group goes down and the value of the test statistic stays below the critical value. The evidence of an association to febrile seizures for the PCV group therefore seems inconclusive. For MMR the evidence of an association becomes stronger with more observations.  
 
