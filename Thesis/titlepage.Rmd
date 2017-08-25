@@ -13,9 +13,9 @@
 \vspace{3 cm}
 
 \normalsize 
-Pro Gradu Thesis \\
+Master's Thesis \\
 University of Helsinki \\
-Faculty of Social sciences, statistics \\
+Faculty of Social Sciences, Statistics \\
 August 2017 \\
 
 \vspace{3 cm}

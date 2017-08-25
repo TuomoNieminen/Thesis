@@ -159,7 +159,7 @@ In the example described above the two likelihoods would remain close to each ot
 
 To see the intuition behind scenario (2), assume again that we are interested to find if $RR > 1$. Following Wald's suggestion one might for example choose $RR_0 = 1$ and $RR_1 = 2$, when $RR_a = 1.4$. In this case the model specified by $H_0$ is closer to the real value of $RR$ and it is thus expected that $P(\mathbf{y} \mid RR_0)  > P(\mathbf{y} \mid RR_1)$, making it more likely that $LR \leq B$ ($H_1$ rejected). Thus the type II error is increased. See the right panel of Figure \ref{fig:SPRT-weakness} for an illustration.
 
-```{r, fig.width = 8, fig.height = 4, fig.cap = "\\label{fig:SPRT-weakness}A graphical illustration of a weakness of Wald's SPRT. The blue line describes the actual relative incidence rate (RR_a) and the green and red lines describe the likelihood under the null and alternative hypotheses, respectively. Left: A choice of point alternative hypothesis (RR_1) close to the rate specified by the null hypothesis (RR_0) and far from RR_a can delay the rejection of H0, because a high relative rate is given low likelihood under both hypotheses. Right: A choice of point alternative hypothesis that is 'too agressive' compared to the actual relative rate can increase the type II error rate, because the null hypothesis gives higher likelihood to the actual relative rate."}
+```{r, fig.width = 8, fig.height = 4, fig.cap = "\\label{fig:SPRT-weakness}A graphical illustration of a weakness of Wald's SPRT. The blue line describes the expected observations given the actual relative incidence rate (RR_a) and the green and red lines describe the probability models for the observations under the null and alternative hypotheses, respectively. Left: A choice of point alternative hypothesis (RR_1) close to the rate specified by the null hypothesis (RR_0) and far from RR_a can delay the rejection of H0, because the true expected observations are given low likelihood under both hypotheses. Right: A choice of point alternative hypothesis that is 'too agressive' compared to the actual relative rate can increase the type II error rate, because the null hypothesis gives higher likelihood to the true expected observations."}
 op <- par(no.readonly = T)
 cols = c("green", "red", "blue")
 
@@ -173,26 +173,26 @@ layout(matrix(c(1,1,2,3), ncol=2, byrow=TRUE), heights=c(1, 4))
 # common legend
 par(mai=c(0,0,0,0))
 plot.new()
-legend("center", inset = 0, legend = c("L(RR_0)", "L(RR_1)"), col = cols[1:2], lty = 1, horiz = TRUE, xpd = T)
+legend("center", inset = 0, legend = c("P(Y | RR_0)", "P(Y | RR_1)"), col = cols[1:2], lty = 1, horiz = TRUE, xpd = T)
 
 par(las = 1, mar = c(5, 1, 4, 2))
 # poor H1 can delay detection
 RR0 <- 1; RR1 <- 3; act <- 7
 curve(dnorm(x, RR0, 1), yaxt = "n", xaxt = "n", ylim = c(0, 0.6), xlim = c(-3, 10), col = "green", lty = 1, xlab = "", ylab = "")
 curve(dnorm(x, RR1, 1), yaxt = "n", xaxt = "n", ylim = c(0, 0.6), xlim = c(-3, 10), col = "red", lty = 1, xlab = "", ylab = "", add = T)
-axis(1, c(RR0,act), col = c("black", cols[3]), label = c("1", "RR_a"))
-abline(v = c(RR0, act), col = c("black", cols[3]), lty = 2)
+axis(1, act, col = cols[3], label = "E[Y | RR_a]")
+abline(v = act, col =  cols[3], lty = 2)
 
-title(sub = "Poor H1 can delay signal generation", main = expression(atop("Both models are 'bad'","L(RR_1)" %~~% "L(RR_0)")))
+title(sub = "Poor H1 can delay signal generation", main = expression(atop("Both models are 'bad'","P(Y | RR_1)" %~~% "P(Y | RR_0)")))
 
 # poor H1 can increase type II error rate
 RR0 <- 1; RR1 <- 7; act <- 3
 curve(dnorm(x, RR0, 1), yaxt = "n", xaxt = "n", ylim = c(0, 0.6), xlim = c(-3, 10), col = "green", lty = 1, xlab = "", ylab = "")
 curve(dnorm(x, RR1, 1), yaxt = "n", xaxt = "n", ylim = c(0, 0.6), xlim = c(-3, 10), col = "red", lty = 1, xlab = "", ylab = "", add = T)
-axis(1, c(RR0,act), col = c("black", cols[3]), label = c("1", "RR_a"))
-abline(v = c(RR0, act), col = c("black", cols[3]), lty = 2)
+axis(1, act, col = cols[3], label = "E[Y | RR_a]")
+abline(v = act, col =  cols[3], lty = 2)
 
-title(sub = "Poor H1 can increase Type II error rate", main = expression(atop("The H0 model is 'better'","L(RR_1) < L(RR_0)")))
+title(sub = "Poor H1 can increase Type II error rate", main = expression(atop("The H0 model is 'better'","P(Y | RR_1) < P(Y | RR_0)")))
 
 par(op)
 ```

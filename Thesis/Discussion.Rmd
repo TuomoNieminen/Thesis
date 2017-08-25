@@ -24,7 +24,7 @@ As a proof-of-concept, I applied the BmaxSPRT method retrospectively to Finnish 
 
 The result of the experiment for PCV raises further questions. Utilizing all the available data, the point estimate for the rate ratio between the chosen risk and control periods stayed consistently, but not considerably, above 1, indicating some increased risk during the risk period. Given that the chosen risk period was significantly longer than the risk period suspected by CDC for PCV (24 hours following exposure), there are at least two plausible interpretations for this outcome: (i) The results of the study are valid. The actual risk period for PCV is longer than the period suspected by CDC, and the risk of febrile seizures increases only slightly. (ii) The risk period that was used in the study is too long compared to the actual risk period. The risk of febrile seizures increases substantially, but during a short time period.
 
-## Further reasearch
+## Further research
 
 The results related to the relationship between PCV and febrile seizures are inconclusive. A confirmation analysis studying this relationship in more detail should be performed.
 
