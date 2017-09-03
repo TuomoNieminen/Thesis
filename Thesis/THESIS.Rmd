@@ -76,6 +76,8 @@ MathJax.Hub.Config({
 
 
 \pagenumbering{gobble} 
+
+<!--
 ```{r child = "titlepage.Rmd"}
 ```
 
@@ -85,6 +87,7 @@ MathJax.Hub.Config({
 ```
 
 \newpage
+-->
 
 \tableofcontents
 
